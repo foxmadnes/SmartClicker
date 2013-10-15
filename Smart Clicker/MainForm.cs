@@ -15,6 +15,7 @@ namespace Smart_Clicker
 
         public MainForm(ClickStatus status)
         {
+            InitializeComponent();
             this.clickStatus = status;
         }
 
@@ -45,7 +46,7 @@ namespace Smart_Clicker
 
         private void leftClick_Click(object sender, EventArgs e)
         {
-
+            this.clickStatus.setStatus(statusEnum.leftClick);
         }
     }
 }

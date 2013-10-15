@@ -23,6 +23,7 @@ namespace Smart_Clicker
             {
                 this.status = newStatus;
             }
+            System.Diagnostics.Debug.WriteLine(this.status.ToString());
         }
 
         public statusEnum getStatus()

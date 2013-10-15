@@ -43,7 +43,7 @@
             // 
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(24, 12);
+            this.leftClick.Location = new System.Drawing.Point(6, 16);
             this.leftClick.Name = "leftClick";
             this.leftClick.Size = new System.Drawing.Size(146, 127);
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -56,7 +56,7 @@
             // 
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(24, 162);
+            this.rightClick.Location = new System.Drawing.Point(6, 166);
             this.rightClick.Name = "rightClick";
             this.rightClick.Size = new System.Drawing.Size(146, 127);
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -68,7 +68,7 @@
             // 
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(24, 314);
+            this.doubleClick.Location = new System.Drawing.Point(6, 318);
             this.doubleClick.Name = "doubleClick";
             this.doubleClick.Size = new System.Drawing.Size(146, 127);
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -80,7 +80,7 @@
             // 
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(24, 465);
+            this.clickAndDrag.Location = new System.Drawing.Point(6, 469);
             this.clickAndDrag.Name = "clickAndDrag";
             this.clickAndDrag.Size = new System.Drawing.Size(146, 127);
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(198, 604);
+            this.ClientSize = new System.Drawing.Size(156, 604);
             this.Controls.Add(this.clickAndDrag);
             this.Controls.Add(this.doubleClick);
             this.Controls.Add(this.rightClick);

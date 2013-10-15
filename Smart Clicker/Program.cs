@@ -18,8 +18,7 @@ namespace Smart_Clicker
             Application.SetCompatibleTextRenderingDefault(false);
             ClickStatus status = new ClickStatus();
             ClickDetector clickDetector = new ClickDetector(status);
-            Thread t = new Thread(clickDetector.detector);
-            t.Start();
+            clickDetector.detector();
             Application.Run(new MainForm(status));
         }
     }
