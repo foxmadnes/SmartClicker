@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CursorCapture.cs" />
     <Compile Include="ClickStatus.cs" />
     <Compile Include="ClickDetector.cs" />
     <Compile Include="MainForm.cs">

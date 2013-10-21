@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Gma.UserActivityMonitor;
 
 namespace Smart_Clicker
@@ -20,12 +21,14 @@ namespace Smart_Clicker
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
 
         private ClickStatus status;
+        private CursorCapture capture;
         private List<pointInTime> MouseTracker = new List<pointInTime>();
         private Stopwatch sw = new Stopwatch();
 
-        public ClickDetector(ClickStatus status)
+        public ClickDetector(ClickStatus status, CursorCapture capture)
         {
             this.status = status;
+            this.capture = capture;
         }
 
         public void detector()
@@ -50,23 +53,37 @@ namespace Smart_Clicker
                 long speed = (long) Math.Sqrt(((MouseTracker[0].p.X - MouseTracker[24].p.X) ^ 2 + (MouseTracker[0].p.Y - MouseTracker[24].p.Y) ^ 2));
                 if (speed < 1)
                 {
-                    this.click(MouseTracker[24].p);
+                    //this.click(MouseTracker[24].p);
+                    System.Diagnostics.Debug.WriteLine(capture.IsClickAndDrag());
                     System.Diagnostics.Debug.WriteLine("Performed click!");
                 }
                 MouseTracker = new List<pointInTime>();
 
             }
-            
-            //System.Diagnostics.Debug.WriteLine(e.Location);
         }
 
         private void click(Point p)
         {
+            //if (this.status.getContextMode())
+            //{
+                Cursor now = Cursor.Current;
+                System.Diagnostics.Debug.WriteLine(now);
+                System.Diagnostics.Debug.WriteLine(Cursors.SizeWE);
+                if (now == Cursors.SizeAll || 
+                    now == Cursors.SizeNESW || 
+                    now == Cursors.SizeNS || 
+                    now == Cursors.SizeNWSE || 
+                    now == Cursors.SizeWE)
+                {
+                    System.Diagnostics.Debug.WriteLine("Was resize!");
+                    this.status.setStatus(statusEnum.leftDown);
+                }
+            //}
             switch (this.status.getStatus())
             {
                 case (statusEnum.leftClick):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    //mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
+                    //mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
                     break;
                 case (statusEnum.rightClick):
 
