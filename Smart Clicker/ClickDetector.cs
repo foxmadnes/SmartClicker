@@ -32,6 +32,7 @@ namespace Smart_Clicker
         {
             this.status = status;
             this.capture = capture;
+            this.lastClick = new cursorInTime(0, 0, 0, null);
             InitTimer();
         }
 
@@ -43,6 +44,7 @@ namespace Smart_Clicker
             timer1.Start();
         }
 
+        // TODO: Break this up into smaller subfunctions
         private void timer1_Tick(object sender, EventArgs e)
         {
             cursorInTime cursor = CursorCapture.CaptureCursor();
@@ -71,8 +73,31 @@ namespace Smart_Clicker
                 }
                 else
                 {
+                    
+                    if (closeCursors(MouseTracker[currentCursorIndex], lastClick))
+                    {
+                        MouseTracker.Clear();
+                        return;
+                    } 
+
                     int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
-                    click(MouseTracker[currentCursorIndex].p, clickAndDragCursors > 4);
+                    if (clickAndDragCursors > 4)
+                    {
+                        if (capture.IsClickAndDrag(MouseTracker[currentCursorIndex].cursor))
+                        {
+                            click(MouseTracker[currentCursorIndex].p, true);
+                        }
+                        else
+                        {
+                            // This didn't work - Programs freak out when you click where the mouse isn't
+                            // TODO: See if moving the mouse and then clicking works
+                            //click(MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor)).p, true);
+                        }
+                    }
+                    else
+                    {
+                        click(MouseTracker[currentCursorIndex].p, false);
+                    }
                     lastClick = MouseTracker[currentCursorIndex];
                     MouseTracker.Clear();
                 }
@@ -90,11 +115,14 @@ namespace Smart_Clicker
 
         private void click(Point p, Boolean clickAndDrag)
         {
-            if (clickAndDrag)
+            if (this.status.getContext())
             {
-                if (this.status.getStatus() != statusEnum.leftUp)
+                if (clickAndDrag)
                 {
-                    this.status.setStatus(statusEnum.leftDown);
+                    if (this.status.getStatus() != statusEnum.leftUp)
+                    {
+                        this.status.setStatus(statusEnum.leftDown);
+                    }
                 }
             }
 
@@ -105,14 +133,26 @@ namespace Smart_Clicker
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
                     System.Diagnostics.Debug.WriteLine("Clickety click");
                     break;
+
                 case (statusEnum.rightClick):
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_RIGHTUP, p.X, p.Y, 0, 0);
+                    this.status.setStatus(statusEnum.leftClick);
+                    break;
 
                 case (statusEnum.doubleClick):
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    this.status.setStatus(statusEnum.leftClick);
+                    break;
 
                 case (statusEnum.leftDown):
                     mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
                     this.status.setStatus(statusEnum.leftUp);
                     break;
+
                 case (statusEnum.leftUp):
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
                     this.status.setStatus(statusEnum.leftClick);

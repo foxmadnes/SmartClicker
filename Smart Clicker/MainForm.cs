@@ -27,26 +27,43 @@ namespace Smart_Clicker
         private void leftClick_MouseHover(object sender, EventArgs e)
         {
             this.clickStatus.setStatus(statusEnum.leftClick);
+            this.clickStatus.setContext(false);
         }
 
         private void rightClick_MouseHover(object sender, EventArgs e)
         {
             this.clickStatus.setStatus(statusEnum.rightClick);
+            this.clickStatus.setContext(false);
         }
 
         private void doubleClick_MouseHover(object sender, EventArgs e)
         {
             this.clickStatus.setStatus(statusEnum.doubleClick);
+            this.clickStatus.setContext(false);
         }
 
         private void clickAndDrag_MouseHover(object sender, EventArgs e)
         {
             this.clickStatus.setStatus(statusEnum.leftDown);
+            this.clickStatus.setContext(false);
         }
 
         private void leftClick_Click(object sender, EventArgs e)
         {
             this.clickStatus.setStatus(statusEnum.leftClick);
+            this.clickStatus.setContext(false);
+        }
+
+        private void sleepClick_MouseHover(object sender, EventArgs e)
+        {
+            this.clickStatus.setStatus(statusEnum.sleepClick);
+            this.clickStatus.setContext(false);
+        }
+
+        private void contextClick_MouseHover(object sender, EventArgs e)
+        {
+            this.clickStatus.setStatus(statusEnum.leftClick);
+            this.clickStatus.setContext(true);
         }
     }
 }

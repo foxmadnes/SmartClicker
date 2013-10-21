@@ -5,11 +5,12 @@ using System.Text;
 
 namespace Smart_Clicker
 {
-    public enum statusEnum { leftClick, rightClick, doubleClick, leftDown, leftUp };
+    public enum statusEnum { leftClick, rightClick, doubleClick, leftDown, leftUp, sleepClick};
 
     public class ClickStatus
     {
         private statusEnum status = statusEnum.leftClick;
+        private bool context = false;
         static private object Lock = new object();
 
         public ClickStatus()
@@ -29,6 +30,16 @@ namespace Smart_Clicker
         public statusEnum getStatus()
         {
             return this.status;
+        }
+
+        public void setContext(bool set)
+        {
+            this.context = set;
+        }
+
+        public bool getContext()
+        {
+            return this.context;
         }
     }
 }
