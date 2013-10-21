@@ -89,21 +89,8 @@ namespace Smart_Clicker
             return new Bitmap(dstBitmap);
         }
 
-        
-        public static Bitmap GetBitmapFromCursor(int cursor)
+        public bool IsClickAndDrag(Bitmap currentMouse)
         {
-            IntPtr cursorPointer = LoadCursor(IntPtr.Zero, (IntPtr) cursor);
-            SetCursor(cursorPointer);
-            Bitmap bitmap = CaptureCursor();
-
-            return CaptureCursor();
-        }
-        
-
-        public bool IsClickAndDrag()
-        {
-            Bitmap currentMouse = CaptureCursor();
-
             //create instance or System.Drawing.ImageConverter to convert image to a byte array
             ImageConverter converter = new ImageConverter();
             //create byte arrays, for currentCursor
@@ -141,7 +128,7 @@ namespace Smart_Clicker
         /*************************************************************************
         * method for retrieving the current bitmap of the global cursor
         **************************************************************************/
-        public static Bitmap CaptureCursor()
+        public static cursorInTime CaptureCursor()
         {
             Bitmap bmp;
             IntPtr hicon;
@@ -155,12 +142,12 @@ namespace Smart_Clicker
                     hicon = CopyIcon(ci.hCursor);
                     if (GetIconInfo(hicon, out icInfo))
                     {
-                      //  x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
-                      //  y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
+                        int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
+                        int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
                         Icon ic = Icon.FromHandle(hicon);
                         bmp = ic.ToBitmap();
  
-                        return bmp;
+                        return new cursorInTime(x, y, 0, bmp);
                     }
                 }
             }

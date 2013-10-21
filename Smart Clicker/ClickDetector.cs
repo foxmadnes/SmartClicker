@@ -22,76 +22,101 @@ namespace Smart_Clicker
 
         private ClickStatus status;
         private CursorCapture capture;
-        private List<pointInTime> MouseTracker = new List<pointInTime>();
+        private List<cursorInTime> MouseTracker = new List<cursorInTime>();
+        private cursorInTime lastClick;
         private Stopwatch sw = new Stopwatch();
+
+        private Timer timer1;
 
         public ClickDetector(ClickStatus status, CursorCapture capture)
         {
             this.status = status;
             this.capture = capture;
+            InitTimer();
         }
 
-        public void detector()
+        public void InitTimer()
         {
-            System.Diagnostics.Debug.WriteLine("weeee");
-            HookManager.MouseMoveExt += new EventHandler<MouseEventExtArgs>(HookManager_MouseMoveExt);
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 100; // in miliseconds
+            timer1.Start();
         }
 
-        private void HookManager_MouseMoveExt(object sender, MouseEventExtArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            if (MouseTracker.Count < 50)
-            {
-                MouseTracker.Add(new pointInTime(e.X, e.Y, sw.ElapsedMilliseconds));
-                if (!sw.IsRunning)
-                    sw.Start();
-            }
-            else
-            {
+            cursorInTime cursor = CursorCapture.CaptureCursor();
+            cursor.tMS = timer1.Interval;
+            MouseTracker.Add(cursor);
 
-                sw.Stop();
-                long elapsed = sw.ElapsedMilliseconds;
-                long speed = (long) Math.Sqrt(((MouseTracker[0].p.X - MouseTracker[24].p.X) ^ 2 + (MouseTracker[0].p.Y - MouseTracker[24].p.Y) ^ 2));
-                if (speed < 1)
+            if (MouseTracker.Count >= 10)
+            {
+                int currentCursorIndex = MouseTracker.Count -1;
+                int breakIndex = -1;
+                for (int i = MouseTracker.Count - 1; i > 0; i--)
                 {
-                    //this.click(MouseTracker[24].p);
-                    System.Diagnostics.Debug.WriteLine(capture.IsClickAndDrag());
-                    System.Diagnostics.Debug.WriteLine("Performed click!");
+                    if (closeCursors(MouseTracker[i], MouseTracker[currentCursorIndex]))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        breakIndex = i;
+                        break;
+                    }
                 }
-                MouseTracker = new List<pointInTime>();
-
+                if (breakIndex != -1)
+                {
+                    MouseTracker.RemoveRange(0, breakIndex);
+                }
+                else
+                {
+                    int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
+                    click(MouseTracker[currentCursorIndex].p, clickAndDragCursors > 4);
+                    lastClick = MouseTracker[currentCursorIndex];
+                    MouseTracker.Clear();
+                }
             }
         }
 
-        private void click(Point p)
+        private Boolean closeCursors(cursorInTime c1, cursorInTime c2)
         {
-            //if (this.status.getContextMode())
-            //{
-                Cursor now = Cursor.Current;
-                System.Diagnostics.Debug.WriteLine(now);
-                System.Diagnostics.Debug.WriteLine(Cursors.SizeWE);
-                if (now == Cursors.SizeAll || 
-                    now == Cursors.SizeNESW || 
-                    now == Cursors.SizeNS || 
-                    now == Cursors.SizeNWSE || 
-                    now == Cursors.SizeWE)
+            if (Math.Abs(c1.p.X - c2.p.X) < 10 && Math.Abs(c1.p.Y - c2.p.Y) < 10)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void click(Point p, Boolean clickAndDrag)
+        {
+            if (clickAndDrag)
+            {
+                if (this.status.getStatus() != statusEnum.leftUp)
                 {
-                    System.Diagnostics.Debug.WriteLine("Was resize!");
                     this.status.setStatus(statusEnum.leftDown);
                 }
-            //}
+            }
+
             switch (this.status.getStatus())
             {
                 case (statusEnum.leftClick):
-                    //mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    //mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    System.Diagnostics.Debug.WriteLine("Clickety click");
                     break;
                 case (statusEnum.rightClick):
 
                 case (statusEnum.doubleClick):
 
                 case (statusEnum.leftDown):
-
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
+                    this.status.setStatus(statusEnum.leftUp);
+                    break;
                 case (statusEnum.leftUp):
+                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
+                    this.status.setStatus(statusEnum.leftClick);
+                    break;
 
                 default:
                     break;
@@ -99,15 +124,17 @@ namespace Smart_Clicker
         }
     }
 
-    public class pointInTime
+    public class cursorInTime
     {
         public Point p;
         public long tMS;
+        public Bitmap cursor;
 
-        public pointInTime(int x, int y, long et)
+        public cursorInTime(int x, int y, long et, Bitmap cursor)
         {
             p = new Point(x, y);
             tMS = et;
+            this.cursor = cursor;
         }
     }
 }
