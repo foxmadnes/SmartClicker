@@ -11,7 +11,7 @@ namespace Smart_Clicker
     {
         private statusEnum status = statusEnum.leftClick;
         private bool context = false;
-        private bool isLocked = false;
+        private bool locked = false;
         static private object Lock = new object();
 
         public ClickStatus()
@@ -41,6 +41,16 @@ namespace Smart_Clicker
         public bool getContext()
         {
             return this.context;
+        }
+
+        public bool isLocked()
+        {
+            return this.locked;
+        }
+
+        public void setLocked(bool locked)
+        {
+            this.locked = locked;
         }
     }
 }
