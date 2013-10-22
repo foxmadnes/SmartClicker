@@ -23,14 +23,16 @@ namespace Smart_Clicker
         private CursorCapture capture;
         private List<cursorInTime> MouseTracker = new List<cursorInTime>();
         private cursorInTime lastClick;
+        private Rectangle formRectangle;
         private Stopwatch sw = new Stopwatch();
 
         private Timer timer1;
 
-        public ClickDetector(ClickStatus status, CursorCapture capture)
+        public ClickDetector(ClickStatus status, CursorCapture capture, Rectangle formRectangle)
         {
             this.status = status;
             this.capture = capture;
+            this.formRectangle = formRectangle;
             this.lastClick = new cursorInTime(0, 0, 0, null);
             InitTimer();
         }
@@ -114,6 +116,11 @@ namespace Smart_Clicker
 
         private void click(Point p, Boolean clickAndDrag)
         {
+            if (formRectangle.Contains(p))
+            {
+                return;
+            }
+
             if (this.status.getContext())
             {
                 if (clickAndDrag)

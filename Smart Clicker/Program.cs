@@ -17,8 +17,9 @@ namespace Smart_Clicker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClickStatus status = new ClickStatus();
-            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture());
-            Application.Run(new MainForm(status));
+            MainForm mainForm = new MainForm(status);
+            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm.ClientRectangle);
+            Application.Run(mainForm);
         }
     }
 }
