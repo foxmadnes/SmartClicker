@@ -45,6 +45,7 @@
             // 
             // leftClick
             // 
+            this.leftClick.BackColor = System.Drawing.SystemColors.Window;
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
             this.leftClick.Location = new System.Drawing.Point(21, 183);
@@ -58,6 +59,7 @@
             // 
             // rightClick
             // 
+            this.rightClick.BackColor = System.Drawing.SystemColors.Window;
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
             this.rightClick.Location = new System.Drawing.Point(21, 271);
@@ -70,6 +72,7 @@
             // 
             // doubleClick
             // 
+            this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
             this.doubleClick.Location = new System.Drawing.Point(21, 367);
@@ -82,6 +85,7 @@
             // 
             // clickAndDrag
             // 
+            this.clickAndDrag.BackColor = System.Drawing.SystemColors.Window;
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
             this.clickAndDrag.Location = new System.Drawing.Point(21, 471);
@@ -94,6 +98,7 @@
             // 
             // contextClick
             // 
+            this.contextClick.BackColor = System.Drawing.SystemColors.Window;
             this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
             this.contextClick.Location = new System.Drawing.Point(21, 95);
@@ -106,6 +111,7 @@
             // 
             // sleepClick
             // 
+            this.sleepClick.BackColor = System.Drawing.SystemColors.Window;
             this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
             this.sleepClick.Location = new System.Drawing.Point(21, 7);
@@ -114,6 +120,7 @@
             this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.sleepClick.TabIndex = 9;
             this.sleepClick.TabStop = false;
+            this.sleepClick.Click += new System.EventHandler(this.sleepClick_Click);
             this.sleepClick.MouseHover += new System.EventHandler(this.sleepClick_MouseHover);
             // 
             // MainForm
