@@ -89,5 +89,15 @@ namespace Smart_Clicker
 
             toSet.BackColor = Color.Red;
         }
+
+        public void setClickDefault()
+        {
+            if (this.clickStatus.getContext())
+            {
+                setPictureBoxColors(contextClick);
+                return;
+            }   
+            setPictureBoxColors(leftClick);
+        }
     }
 }

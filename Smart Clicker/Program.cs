@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Smart_Clicker
 {
@@ -14,11 +15,12 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
+            System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClickStatus status = new ClickStatus();
             MainForm mainForm = new MainForm(status);
-            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm.ClientRectangle);
+            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
             Application.Run(mainForm);
         }
     }

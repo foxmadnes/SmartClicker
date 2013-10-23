@@ -47,15 +47,8 @@ namespace Smart_Clicker
         [DllImport("user32.dll", EntryPoint = "GetIconInfo")]
         public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
-        [DllImport("user32.dll", EntryPoint = "LoadCursor")]
-        static extern IntPtr LoadCursor(IntPtr hInstance, IntPtr lpzName);
-
-        [DllImport("user32.dll", EntryPoint = "SetCursor")]
-        static extern IntPtr SetCursor(IntPtr hCursor);
-
-        [DllImport("gdi32.dll", SetLastError = true)]
-        private static extern bool DeleteObject(IntPtr hObject);
-
+        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        static extern IntPtr DeleteObject(IntPtr hDc);
 
         public static Bitmap[] clickAndDragBitmaps;
         public Dictionary<Byte[], Boolean> clickAndDragDictionary;
@@ -146,9 +139,13 @@ namespace Smart_Clicker
                         int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
                         Icon ic = Icon.FromHandle(hicon);
                         bmp = ic.ToBitmap();
- 
+                        DeleteObject(hicon);
+                        if (icInfo.hbmColor != IntPtr.Zero) DeleteObject(icInfo.hbmColor);
+                        if (icInfo.hbmMask != IntPtr.Zero) DeleteObject(icInfo.hbmMask);
                         return new cursorInTime(x, y, 0, bmp);
                     }
+                    if (icInfo.hbmColor != IntPtr.Zero) DeleteObject(icInfo.hbmColor);
+                    if (icInfo.hbmMask != IntPtr.Zero) DeleteObject(icInfo.hbmMask);
                 }
             }
             return null;

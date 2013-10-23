@@ -14,6 +14,9 @@ namespace Smart_Clicker
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void SetCursorPos(int x, int y);
+
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
@@ -23,16 +26,16 @@ namespace Smart_Clicker
         private CursorCapture capture;
         private List<cursorInTime> MouseTracker = new List<cursorInTime>();
         private cursorInTime lastClick;
-        private Rectangle formRectangle;
+        private MainForm form;
         private Stopwatch sw = new Stopwatch();
 
         private Timer timer1;
 
-        public ClickDetector(ClickStatus status, CursorCapture capture, Rectangle formRectangle)
+        public ClickDetector(ClickStatus status, CursorCapture capture, MainForm form)
         {
             this.status = status;
             this.capture = capture;
-            this.formRectangle = formRectangle;
+            this.form = form;
             this.lastClick = new cursorInTime(0, 0, 0, null);
             InitTimer();
         }
@@ -82,7 +85,7 @@ namespace Smart_Clicker
                     } 
 
                     int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
-                    if (clickAndDragCursors > 4)
+                    if (clickAndDragCursors > 1)
                     {
                         if (capture.IsClickAndDrag(MouseTracker[currentCursorIndex].cursor))
                         {
@@ -91,8 +94,10 @@ namespace Smart_Clicker
                         else
                         {
                             // This didn't work - Programs freak out when you click where the mouse isn't
-                            // TODO: See if moving the mouse and then clicking works
-                            //click(MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor)).p, true);
+                            // TODO: See if there is any way to get the mouse not to freak out when moved
+                            //cursorInTime lastDrag = MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor));
+                            //SetCursorPos(lastDrag.p.X, lastDrag.p.Y);
+                            //click(lastDrag.p, true);
                         }
                     }
                     else
@@ -116,7 +121,7 @@ namespace Smart_Clicker
 
         private void click(Point p, Boolean clickAndDrag)
         {
-            if (formRectangle.Contains(p))
+            if (form.ClientRectangle.Contains(p) && (Form.ActiveForm == this.form))
             {
                 return;
             }
@@ -147,6 +152,7 @@ namespace Smart_Clicker
                     {
                         break;
                     }
+                    this.form.setClickDefault();
                     this.status.setStatus(statusEnum.leftClick);
                     break;
 
@@ -159,6 +165,7 @@ namespace Smart_Clicker
                     {
                         break;
                     }
+                    this.form.setClickDefault();
                     this.status.setStatus(statusEnum.leftClick);
                     break;
 
@@ -176,6 +183,7 @@ namespace Smart_Clicker
                             this.status.setStatus(statusEnum.leftDown);
                         }
                     }
+                    this.form.setClickDefault();
                     this.status.setStatus(statusEnum.leftClick);
                     break;
 
