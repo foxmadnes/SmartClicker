@@ -52,6 +52,12 @@ namespace Smart_Clicker
         private void timer1_Tick(object sender, EventArgs e)
         {
             cursorInTime cursor = CursorCapture.CaptureCursor();
+            if (cursor.p.X == 0 && cursor.p.Y == 0)
+            {
+                this.form.Activate();
+                System.Diagnostics.Debug.WriteLine("recall!");
+                return;
+            }
             cursor.tMS = timer1.Interval;
             MouseTracker.Add(cursor);
 
