@@ -25,8 +25,6 @@ namespace Smart_Clicker
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
-            System.Diagnostics.Debug.WriteLine(Screen.PrimaryScreen.Bounds.X - this.Bounds.X + " y: " + Screen.PrimaryScreen.Bounds.Y / 2);
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
