@@ -11,27 +11,15 @@ namespace Smart_Clicker
 {
     public partial class CustomUI : Form
     {
-        private int dwellTime;
-        private int boxSize;
+        private int dwellTime = 10; // 10 by default
+        private int boxSize = 10; // 10 by default
 
         public CustomUI()
         {
             InitializeComponent();
         }
 
-        private void timerSelectBox_ValueChanged(object sender, EventArgs e)
-        {
-            // Change the time to dwell before clicking, in seconds- What's the maximum and minimum values for this?
-            dwellTime = (int) timerSelectBox.Value;
-
-        }
-
-        private void boundingBox_ValueChanged(object sender, EventArgs e)
-        {
-            // Change the size of the clickable area- What's the maximum and minimum size for this?
-            boxSize = (int) boundingBox.Value;
-        }
-
+        
         private void displaySleepMode_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -72,6 +60,83 @@ namespace Smart_Clicker
         {
             return boxSize;
         }
+
+        private void timePlus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int val = int.Parse(timerText.Text) + 1;
+                timerText.Text = val.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
+            }
+        }
+
+        private void timeMinus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int val = int.Parse(timerText.Text) - 1;
+                timerText.Text = val.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
+            }
+        }
+
+        private void boxSizePlus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int val = int.Parse(boundingBoxText.Text) + 1;
+                boundingBoxText.Text = val.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
+            }
+        }
+
+        private void boundingBoxMinus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int val = int.Parse(boundingBoxText.Text) - 1;
+                boundingBoxText.Text = val.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
+            }
+
+        }
+
+
+
+        private void confirmCustom_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dwellTime = int.Parse(timerText.Text);
+                boxSize = int.Parse(boundingBoxText.Text);
+                this.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
+            }
+        }
+
+        private void cancelCustom_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        
         
     }
 }

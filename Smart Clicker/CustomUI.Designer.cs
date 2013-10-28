@@ -31,9 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomUI));
             this.label1 = new System.Windows.Forms.Label();
             this.timerLabel = new System.Windows.Forms.Label();
-            this.timerSelectBox = new System.Windows.Forms.NumericUpDown();
             this.boundingBoxLabel = new System.Windows.Forms.Label();
-            this.boundingBox = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.displayContextMode = new System.Windows.Forms.CheckBox();
@@ -42,20 +40,26 @@
             this.displayRightMode = new System.Windows.Forms.CheckBox();
             this.displayDoubleMode = new System.Windows.Forms.CheckBox();
             this.displayClickDragMode = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.contextClick = new System.Windows.Forms.PictureBox();
-            this.leftClick = new System.Windows.Forms.PictureBox();
-            this.rightClick = new System.Windows.Forms.PictureBox();
-            this.doubleClick = new System.Windows.Forms.PictureBox();
+            this.timePlus = new System.Windows.Forms.Button();
+            this.timeMinus = new System.Windows.Forms.Button();
             this.clickAndDrag = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.timerSelectBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boundingBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
+            this.doubleClick = new System.Windows.Forms.PictureBox();
+            this.rightClick = new System.Windows.Forms.PictureBox();
+            this.leftClick = new System.Windows.Forms.PictureBox();
+            this.contextClick = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.boundingBoxMinus = new System.Windows.Forms.Button();
+            this.boxSizePlus = new System.Windows.Forms.Button();
+            this.boundingBoxText = new System.Windows.Forms.TextBox();
+            this.timerText = new System.Windows.Forms.TextBox();
+            this.confirmCustom = new System.Windows.Forms.Button();
+            this.cancelCustom = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -78,19 +82,6 @@
             this.timerLabel.TabIndex = 1;
             this.timerLabel.Text = "Time For Click:";
             // 
-            // timerSelectBox
-            // 
-            this.timerSelectBox.Location = new System.Drawing.Point(386, 46);
-            this.timerSelectBox.Name = "timerSelectBox";
-            this.timerSelectBox.Size = new System.Drawing.Size(119, 22);
-            this.timerSelectBox.TabIndex = 2;
-            this.timerSelectBox.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.timerSelectBox.ValueChanged += new System.EventHandler(this.timerSelectBox_ValueChanged);
-            // 
             // boundingBoxLabel
             // 
             this.boundingBoxLabel.AutoSize = true;
@@ -100,19 +91,6 @@
             this.boundingBoxLabel.Size = new System.Drawing.Size(175, 20);
             this.boundingBoxLabel.TabIndex = 3;
             this.boundingBoxLabel.Text = "Size of Bounding Box:";
-            // 
-            // boundingBox
-            // 
-            this.boundingBox.Location = new System.Drawing.Point(385, 90);
-            this.boundingBox.Name = "boundingBox";
-            this.boundingBox.Size = new System.Drawing.Size(120, 22);
-            this.boundingBox.TabIndex = 4;
-            this.boundingBox.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.boundingBox.ValueChanged += new System.EventHandler(this.boundingBox_ValueChanged);
             // 
             // label2
             // 
@@ -199,65 +177,26 @@
             this.displayClickDragMode.UseVisualStyleBackColor = true;
             this.displayClickDragMode.CheckedChanged += new System.EventHandler(this.displayClickDragMode_CheckedChanged);
             // 
-            // pictureBox1
+            // timePlus
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(19, 174);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(98, 82);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 23;
-            this.pictureBox1.TabStop = false;
+            this.timePlus.BackgroundImage = global::Smart_Clicker.Properties.Resources.plusblack;
+            this.timePlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.timePlus.Location = new System.Drawing.Point(432, 32);
+            this.timePlus.Name = "timePlus";
+            this.timePlus.Size = new System.Drawing.Size(75, 34);
+            this.timePlus.TabIndex = 32;
+            this.timePlus.UseVisualStyleBackColor = true;
+            this.timePlus.Click += new System.EventHandler(this.timePlus_Click);
             // 
-            // contextClick
+            // timeMinus
             // 
-            this.contextClick.BackColor = System.Drawing.SystemColors.Window;
-            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(202, 174);
-            this.contextClick.Name = "contextClick";
-            this.contextClick.Size = new System.Drawing.Size(98, 82);
-            this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.contextClick.TabIndex = 24;
-            this.contextClick.TabStop = false;
-            // 
-            // leftClick
-            // 
-            this.leftClick.BackColor = System.Drawing.SystemColors.Window;
-            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(386, 174);
-            this.leftClick.Name = "leftClick";
-            this.leftClick.Size = new System.Drawing.Size(98, 82);
-            this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.leftClick.TabIndex = 25;
-            this.leftClick.TabStop = false;
-            // 
-            // rightClick
-            // 
-            this.rightClick.BackColor = System.Drawing.SystemColors.Window;
-            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(26, 311);
-            this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(98, 90);
-            this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.rightClick.TabIndex = 26;
-            this.rightClick.TabStop = false;
-            // 
-            // doubleClick
-            // 
-            this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
-            this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(202, 311);
-            this.doubleClick.Name = "doubleClick";
-            this.doubleClick.Size = new System.Drawing.Size(98, 98);
-            this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.doubleClick.TabIndex = 27;
-            this.doubleClick.TabStop = false;
+            this.timeMinus.Image = global::Smart_Clicker.Properties.Resources.minus_black;
+            this.timeMinus.Location = new System.Drawing.Point(202, 32);
+            this.timeMinus.Name = "timeMinus";
+            this.timeMinus.Size = new System.Drawing.Size(83, 34);
+            this.timeMinus.TabIndex = 31;
+            this.timeMinus.UseVisualStyleBackColor = true;
+            this.timeMinus.Click += new System.EventHandler(this.timeMinus_Click);
             // 
             // clickAndDrag
             // 
@@ -271,11 +210,142 @@
             this.clickAndDrag.TabIndex = 28;
             this.clickAndDrag.TabStop = false;
             // 
+            // doubleClick
+            // 
+            this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
+            this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
+            this.doubleClick.Location = new System.Drawing.Point(202, 311);
+            this.doubleClick.Name = "doubleClick";
+            this.doubleClick.Size = new System.Drawing.Size(98, 98);
+            this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.doubleClick.TabIndex = 27;
+            this.doubleClick.TabStop = false;
+            // 
+            // rightClick
+            // 
+            this.rightClick.BackColor = System.Drawing.SystemColors.Window;
+            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
+            this.rightClick.Location = new System.Drawing.Point(26, 311);
+            this.rightClick.Name = "rightClick";
+            this.rightClick.Size = new System.Drawing.Size(98, 90);
+            this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.rightClick.TabIndex = 26;
+            this.rightClick.TabStop = false;
+            // 
+            // leftClick
+            // 
+            this.leftClick.BackColor = System.Drawing.SystemColors.Window;
+            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
+            this.leftClick.Location = new System.Drawing.Point(386, 174);
+            this.leftClick.Name = "leftClick";
+            this.leftClick.Size = new System.Drawing.Size(98, 82);
+            this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.leftClick.TabIndex = 25;
+            this.leftClick.TabStop = false;
+            // 
+            // contextClick
+            // 
+            this.contextClick.BackColor = System.Drawing.SystemColors.Window;
+            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
+            this.contextClick.Location = new System.Drawing.Point(202, 174);
+            this.contextClick.Name = "contextClick";
+            this.contextClick.Size = new System.Drawing.Size(98, 82);
+            this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.contextClick.TabIndex = 24;
+            this.contextClick.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(19, 174);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(98, 82);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
+            // 
+            // boundingBoxMinus
+            // 
+            this.boundingBoxMinus.Image = global::Smart_Clicker.Properties.Resources.minus_black;
+            this.boundingBoxMinus.Location = new System.Drawing.Point(202, 84);
+            this.boundingBoxMinus.Name = "boundingBoxMinus";
+            this.boundingBoxMinus.Size = new System.Drawing.Size(83, 34);
+            this.boundingBoxMinus.TabIndex = 36;
+            this.boundingBoxMinus.UseVisualStyleBackColor = true;
+            this.boundingBoxMinus.Click += new System.EventHandler(this.boundingBoxMinus_Click);
+            // 
+            // boxSizePlus
+            // 
+            this.boxSizePlus.BackgroundImage = global::Smart_Clicker.Properties.Resources.plusblack;
+            this.boxSizePlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.boxSizePlus.Location = new System.Drawing.Point(432, 84);
+            this.boxSizePlus.Name = "boxSizePlus";
+            this.boxSizePlus.Size = new System.Drawing.Size(75, 34);
+            this.boxSizePlus.TabIndex = 37;
+            this.boxSizePlus.UseVisualStyleBackColor = true;
+            this.boxSizePlus.Click += new System.EventHandler(this.boxSizePlus_Click);
+            // 
+            // boundingBoxText
+            // 
+            this.boundingBoxText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.boundingBoxText.Location = new System.Drawing.Point(310, 87);
+            this.boundingBoxText.Multiline = true;
+            this.boundingBoxText.Name = "boundingBoxText";
+            this.boundingBoxText.Size = new System.Drawing.Size(102, 34);
+            this.boundingBoxText.TabIndex = 30;
+            this.boundingBoxText.Text = "10";
+            this.boundingBoxText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // timerText
+            // 
+            this.timerText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerText.Location = new System.Drawing.Point(310, 32);
+            this.timerText.Multiline = true;
+            this.timerText.Name = "timerText";
+            this.timerText.Size = new System.Drawing.Size(102, 34);
+            this.timerText.TabIndex = 35;
+            this.timerText.Text = "10";
+            this.timerText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // confirmCustom
+            // 
+            this.confirmCustom.Location = new System.Drawing.Point(202, 473);
+            this.confirmCustom.Name = "confirmCustom";
+            this.confirmCustom.Size = new System.Drawing.Size(98, 42);
+            this.confirmCustom.TabIndex = 38;
+            this.confirmCustom.Text = "OK";
+            this.confirmCustom.UseVisualStyleBackColor = true;
+            this.confirmCustom.Click += new System.EventHandler(this.confirmCustom_Click);
+            // 
+            // cancelCustom
+            // 
+            this.cancelCustom.Location = new System.Drawing.Point(385, 477);
+            this.cancelCustom.Name = "cancelCustom";
+            this.cancelCustom.Size = new System.Drawing.Size(98, 38);
+            this.cancelCustom.TabIndex = 39;
+            this.cancelCustom.Text = "Cancel";
+            this.cancelCustom.UseVisualStyleBackColor = true;
+            this.cancelCustom.Click += new System.EventHandler(this.cancelCustom_Click);
+            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 472);
+            this.ClientSize = new System.Drawing.Size(538, 556);
+            this.Controls.Add(this.cancelCustom);
+            this.Controls.Add(this.confirmCustom);
+            this.Controls.Add(this.boxSizePlus);
+            this.Controls.Add(this.boundingBoxMinus);
+            this.Controls.Add(this.timerText);
+            this.Controls.Add(this.timePlus);
+            this.Controls.Add(this.timeMinus);
+            this.Controls.Add(this.boundingBoxText);
             this.Controls.Add(this.clickAndDrag);
             this.Controls.Add(this.doubleClick);
             this.Controls.Add(this.rightClick);
@@ -290,21 +360,17 @@
             this.Controls.Add(this.displayContextMode);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.boundingBox);
             this.Controls.Add(this.boundingBoxLabel);
-            this.Controls.Add(this.timerSelectBox);
             this.Controls.Add(this.timerLabel);
             this.Controls.Add(this.label1);
             this.Name = "CustomUI";
             this.Text = "CustomUI";
-            ((System.ComponentModel.ISupportInitialize)(this.timerSelectBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boundingBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,9 +380,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label timerLabel;
-        private System.Windows.Forms.NumericUpDown timerSelectBox;
         private System.Windows.Forms.Label boundingBoxLabel;
-        private System.Windows.Forms.NumericUpDown boundingBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox displayContextMode;
@@ -331,5 +395,13 @@
         private System.Windows.Forms.PictureBox rightClick;
         private System.Windows.Forms.PictureBox doubleClick;
         private System.Windows.Forms.PictureBox clickAndDrag;
+        private System.Windows.Forms.Button timeMinus;
+        private System.Windows.Forms.Button timePlus;
+        private System.Windows.Forms.Button boundingBoxMinus;
+        private System.Windows.Forms.Button boxSizePlus;
+        private System.Windows.Forms.TextBox boundingBoxText;
+        private System.Windows.Forms.TextBox timerText;
+        private System.Windows.Forms.Button confirmCustom;
+        private System.Windows.Forms.Button cancelCustom;
     }
 }
