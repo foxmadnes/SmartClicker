@@ -18,12 +18,12 @@ namespace Smart_Clicker
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //ClickStatus status = new ClickStatus();
-            //MainForm mainForm = new MainForm(status);
-            //ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
-            //Application.Run(mainForm);
-            CustomUI cust1 = new CustomUI();
-            Application.Run(cust1);
+            ClickStatus status = new ClickStatus();
+            MainForm mainForm = new MainForm(status);
+            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
+            Application.Run(mainForm);
+            //CustomUI cust1 = new CustomUI();
+            //Application.Run(cust1);
         }
     }
 }
