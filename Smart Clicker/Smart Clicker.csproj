@@ -71,6 +71,12 @@
     <Compile Include="CursorCapture.cs" />
     <Compile Include="ClickStatus.cs" />
     <Compile Include="ClickDetector.cs" />
+    <Compile Include="CustomUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomUI.designer.cs">
+      <DependentUpon>CustomUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomUI.resx">
+      <DependentUpon>CustomUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +99,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -123,6 +133,27 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plussign.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minussign.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plussign.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plusblack.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus black.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus black1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plusblack1.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

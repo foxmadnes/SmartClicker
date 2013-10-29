@@ -22,6 +22,8 @@ namespace Smart_Clicker
             MainForm mainForm = new MainForm(status);
             ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
             Application.Run(mainForm);
+            //CustomUI cust1 = new CustomUI();
+            //Application.Run(cust1);
         }
     }
 }
