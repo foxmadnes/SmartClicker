@@ -31,7 +31,7 @@ namespace Smart_Clicker
 
         private Timer timer1;
 
-        private int CURSOR_DISTANCE = 10;
+        private int CURSOR_DISTANCE = 25;
 
         public ClickDetector(ClickStatus status, CursorCapture capture, MainForm form)
         {
