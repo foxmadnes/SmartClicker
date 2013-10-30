@@ -17,9 +17,14 @@ namespace Smart_Clicker
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_WINDOWPOSCHANGING)
+            if (formLoaded && m.Msg == WM_WINDOWPOSCHANGING)
             {
                 WindowPos windowPos = (WindowPos)m.GetLParam(typeof(WindowPos));
+
+                // Make changes to windowPos
+                windowPos.width = 90;
+                formLoaded = false;
+
                 // Then marshal the changes back to the message
                 Marshal.StructureToPtr(windowPos, m.LParam, true);
             }
@@ -66,6 +71,7 @@ namespace Smart_Clicker
 
         private ClickStatus clickStatus;
         private PictureBox[] buttons;
+        private bool formLoaded = false;
 
         public MainForm(ClickStatus status)
         {
@@ -75,8 +81,6 @@ namespace Smart_Clicker
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = String.Empty;
-            this.Width = this.MinimumSize.Width;
-            this.Width = 50;
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
@@ -86,6 +90,18 @@ namespace Smart_Clicker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        protected override void OnLoad(EventArgs args)
+        {
+            Application.Idle += new EventHandler(OnLoaded);
+        }
+
+        public void OnLoaded(object sender, EventArgs args)
+        {
+            Application.Idle -= new EventHandler(OnLoaded);
+            formLoaded = true;
+            this.Width = 300;
         }
 
         private void leftClick_MouseHover(object sender, EventArgs e)

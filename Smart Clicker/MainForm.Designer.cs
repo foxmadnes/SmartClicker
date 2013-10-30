@@ -134,7 +134,7 @@
             this.Controls.Add(this.doubleClick);
             this.Controls.Add(this.rightClick);
             this.Controls.Add(this.leftClick);
-            this.MinimumSize = new System.Drawing.Size(50, 150);
+            this.MinimumSize = new System.Drawing.Size(90, 90);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Smart Clicker";
