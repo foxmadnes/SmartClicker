@@ -17,13 +17,13 @@ namespace Smart_Clicker
 
         protected override void WndProc(ref Message m)
         {
-            if (formLoaded && m.Msg == WM_WINDOWPOSCHANGING)
+            if (resizeForm && m.Msg == WM_WINDOWPOSCHANGING)
             {
                 WindowPos windowPos = (WindowPos)m.GetLParam(typeof(WindowPos));
 
                 // Make changes to windowPos
                 windowPos.width = 90;
-                formLoaded = false;
+                resizeForm = false;
 
                 // Then marshal the changes back to the message
                 Marshal.StructureToPtr(windowPos, m.LParam, true);
@@ -71,7 +71,7 @@ namespace Smart_Clicker
 
         private ClickStatus clickStatus;
         private PictureBox[] buttons;
-        private bool formLoaded = false;
+        private bool resizeForm = false;
 
         public MainForm(ClickStatus status)
         {
@@ -100,7 +100,7 @@ namespace Smart_Clicker
         public void OnLoaded(object sender, EventArgs args)
         {
             Application.Idle -= new EventHandler(OnLoaded);
-            formLoaded = true;
+            resizeForm = true;
             this.Width = 300;
         }
 

@@ -56,6 +56,11 @@ namespace Smart_Clicker
             // Take snapshot of current cursor
             cursorInTime cursor = CursorCapture.CaptureCursor();
 
+            if (cursor == null)
+            {
+                return;
+            }
+
             // If mouse is in the top left corner, bring form to front
             if (cursor.p.X == 0 && cursor.p.Y == 0)
             {
@@ -227,7 +232,6 @@ namespace Smart_Clicker
                     this.form.setClickDefault();
                     this.status.setStatus(statusEnum.leftClick);
                     break;
-
                 default:
                     break;
             }
