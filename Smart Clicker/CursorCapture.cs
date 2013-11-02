@@ -101,6 +101,7 @@ namespace Smart_Clicker
                     using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
                     {
                         // Is this a monochrome cursor?
+                        // This portion taken from http://stackoverflow.com/questions/918990/c-sharp-capturing-the-mouse-cursor-image
                         if (maskBitmap.Height == maskBitmap.Width * 2)
                         {
                             Bitmap resultBitmap = new Bitmap(maskBitmap.Width, maskBitmap.Width);
