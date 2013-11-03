@@ -55,8 +55,6 @@
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.leftClick.TabIndex = 4;
             this.leftClick.TabStop = false;
-            this.leftClick.Click += new System.EventHandler(this.leftClick_Click);
-            this.leftClick.MouseHover += new System.EventHandler(this.leftClick_MouseHover);
             // 
             // rightClick
             // 
@@ -70,7 +68,6 @@
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.rightClick.TabIndex = 5;
             this.rightClick.TabStop = false;
-            this.rightClick.MouseHover += new System.EventHandler(this.rightClick_MouseHover);
             // 
             // doubleClick
             // 
@@ -84,7 +81,6 @@
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.doubleClick.TabIndex = 6;
             this.doubleClick.TabStop = false;
-            this.doubleClick.MouseHover += new System.EventHandler(this.doubleClick_MouseHover);
             // 
             // clickAndDrag
             // 
@@ -98,7 +94,6 @@
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.clickAndDrag.TabIndex = 7;
             this.clickAndDrag.TabStop = false;
-            this.clickAndDrag.MouseHover += new System.EventHandler(this.clickAndDrag_MouseHover);
             // 
             // contextClick
             // 
@@ -112,7 +107,6 @@
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.contextClick.TabIndex = 8;
             this.contextClick.TabStop = false;
-            this.contextClick.MouseHover += new System.EventHandler(this.contextClick_MouseHover);
             // 
             // sleepClick
             // 
@@ -126,8 +120,6 @@
             this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.sleepClick.TabIndex = 9;
             this.sleepClick.TabStop = false;
-            this.sleepClick.Click += new System.EventHandler(this.sleepClick_Click);
-            this.sleepClick.MouseHover += new System.EventHandler(this.sleepClick_MouseHover);
             // 
             // MainForm
             // 

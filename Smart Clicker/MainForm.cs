@@ -71,21 +71,42 @@ namespace Smart_Clicker
 
         private ClickStatus clickStatus;
         private PictureBox[] buttons;
+        private Dictionary<PictureBox, statusEnum> ModeMapping;
+        private PictureBox currentMousePictureBox;
+        private bool inBox = false;
         private bool resizeForm = false;
 
         public MainForm(ClickStatus status)
         {
             InitializeComponent();
             this.clickStatus = status;
-            this.buttons = new PictureBox[] { leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
+
+            this.buttons = new PictureBox[] {leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
+            foreach (PictureBox mode in buttons)
+            {
+                mode.MouseHover += new EventHandler(pictureBox_MouseHover);
+            }
+
+            ModeMapping = new Dictionary<PictureBox, statusEnum>() 
+            {
+                {leftClick, statusEnum.leftClick},
+                {rightClick, statusEnum.rightClick},
+                {doubleClick, statusEnum.doubleClick},
+                {contextClick, statusEnum.leftClick},
+                {clickAndDrag, statusEnum.leftDown},
+                {sleepClick, statusEnum.sleepClick}
+            };
+
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = String.Empty;
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
-            setPictureBoxColors(contextClick);
+            setPictureBoxHighlighted(contextClick);
             this.TopMost = true;
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -97,71 +118,76 @@ namespace Smart_Clicker
             Application.Idle += new EventHandler(OnLoaded);
         }
 
-        public void OnLoaded(object sender, EventArgs args)
+        public void OnLoaded(object sender, EventArgs e)
         {
             Application.Idle -= new EventHandler(OnLoaded);
             resizeForm = true;
             this.Width = 300;
         }
 
-        private void leftClick_MouseHover(object sender, EventArgs e)
+        private void pictureBox_MouseHover(object sender, EventArgs e)
         {
-            setPictureBoxColors(leftClick);
-            this.clickStatus.setStatus(statusEnum.leftClick);
-            this.clickStatus.setContext(false);
+            PictureBox current = (PictureBox)sender;
+            setPictureBoxHighlighted(current);
+            this.inBox = true;
+            this.currentMousePictureBox = current;
+
+            startTimer(current);
+            current.MouseLeave += new EventHandler(onPictureBoxLeave);
         }
 
-        private void rightClick_MouseHover(object sender, EventArgs e)
+        private void startTimer(PictureBox mode)
         {
-            setPictureBoxColors(rightClick);
-            this.clickStatus.setStatus(statusEnum.rightClick);
+            Timer mouseOver = new Timer();
+            mouseOver.Tick += (sender, e) => modeSelected(sender, mode);
+            mouseOver.Interval = 1000; // in miliseconds
+            mouseOver.Start();
         }
 
-        private void doubleClick_MouseHover(object sender, EventArgs e)
+        private void modeSelected(object sender, PictureBox mode)
         {
-            setPictureBoxColors(doubleClick);
-            this.clickStatus.setStatus(statusEnum.doubleClick);
+            Timer mouseOver = (Timer)sender;
+            mouseOver.Stop();
+            mouseOver.Dispose();
+            if (this.inBox && (this.currentMousePictureBox == mode))
+            {
+                if (mode == contextClick)
+                {
+                    this.clickStatus.setContext(true);
+                }
+                else
+                {
+                    this.clickStatus.setContext(false);
+                }
+                this.clickStatus.setStatus(ModeMapping[mode]);
+            }
+            setPictureBoxSelect(mode);
+            this.inBox = false;
+            this.currentMousePictureBox = null;
         }
 
-        private void clickAndDrag_MouseHover(object sender, EventArgs e)
+        private void onPictureBoxLeave(object sender, EventArgs e)
         {
-            setPictureBoxColors(clickAndDrag);
-            this.clickStatus.setStatus(statusEnum.leftDown);
+            PictureBox current = (PictureBox)sender;
+            if (this.currentMousePictureBox == current)
+            {
+                this.inBox = false;
+                this.currentMousePictureBox = null;
+            }
+            current.MouseLeave -= new EventHandler(onPictureBoxLeave);
         }
 
-        private void leftClick_Click(object sender, EventArgs e)
-        {
-            setPictureBoxColors(leftClick);
-            this.clickStatus.setStatus(statusEnum.leftClick);
-            this.clickStatus.setContext(false);
-        }
-
-        private void sleepClick_MouseHover(object sender, EventArgs e)
-        {
-            setPictureBoxColors(sleepClick);
-            this.clickStatus.setStatus(statusEnum.sleepClick);
-            this.clickStatus.setContext(false);
-        }
-
-        private void contextClick_MouseHover(object sender, EventArgs e)
-        {
-            setPictureBoxColors(contextClick);
-            this.clickStatus.setStatus(statusEnum.leftClick);
-            this.clickStatus.setContext(true);
-        }
-
-        private void sleepClick_Click(object sender, EventArgs e)
-        {
-            setPictureBoxColors(sleepClick);
-        }
-
-        private void setPictureBoxColors(PictureBox toSet)
+        private void setPictureBoxHighlighted(PictureBox toSet)
         {
             foreach (PictureBox p in buttons)
             {
                 p.BackColor = Color.White;
             }
+            toSet.BackColor = Color.Yellow;
+        }
 
+        private void setPictureBoxSelect(PictureBox toSet)
+        {
             toSet.BackColor = Color.Red;
         }
 
@@ -169,10 +195,10 @@ namespace Smart_Clicker
         {
             if (this.clickStatus.getContext())
             {
-                setPictureBoxColors(contextClick);
+                setPictureBoxHighlighted(contextClick);
                 return;
             }   
-            setPictureBoxColors(leftClick);
+            setPictureBoxHighlighted(leftClick);
         }
     }
 }
