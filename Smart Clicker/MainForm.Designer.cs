@@ -46,11 +46,12 @@
             // leftClick
             // 
             this.leftClick.BackColor = System.Drawing.SystemColors.Window;
-            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.leftClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(1, 137);
+            this.leftClick.Location = new System.Drawing.Point(0, 328);
             this.leftClick.Name = "leftClick";
-            this.leftClick.Size = new System.Drawing.Size(69, 62);
+            this.leftClick.Size = new System.Drawing.Size(140, 62);
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.leftClick.TabIndex = 4;
             this.leftClick.TabStop = false;
@@ -60,11 +61,12 @@
             // rightClick
             // 
             this.rightClick.BackColor = System.Drawing.SystemColors.Window;
-            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.rightClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(1, 205);
+            this.rightClick.Location = new System.Drawing.Point(0, 258);
             this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(69, 70);
+            this.rightClick.Size = new System.Drawing.Size(140, 70);
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.rightClick.TabIndex = 5;
             this.rightClick.TabStop = false;
@@ -73,11 +75,12 @@
             // doubleClick
             // 
             this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
-            this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.doubleClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(1, 281);
+            this.doubleClick.Location = new System.Drawing.Point(0, 191);
             this.doubleClick.Name = "doubleClick";
-            this.doubleClick.Size = new System.Drawing.Size(69, 67);
+            this.doubleClick.Size = new System.Drawing.Size(140, 67);
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.doubleClick.TabIndex = 6;
             this.doubleClick.TabStop = false;
@@ -86,11 +89,12 @@
             // clickAndDrag
             // 
             this.clickAndDrag.BackColor = System.Drawing.SystemColors.Window;
-            this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.clickAndDrag.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(1, 354);
+            this.clickAndDrag.Location = new System.Drawing.Point(0, 125);
             this.clickAndDrag.Name = "clickAndDrag";
-            this.clickAndDrag.Size = new System.Drawing.Size(69, 66);
+            this.clickAndDrag.Size = new System.Drawing.Size(140, 66);
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.clickAndDrag.TabIndex = 7;
             this.clickAndDrag.TabStop = false;
@@ -99,11 +103,12 @@
             // contextClick
             // 
             this.contextClick.BackColor = System.Drawing.SystemColors.Window;
-            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.contextClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(1, 69);
+            this.contextClick.Location = new System.Drawing.Point(0, 63);
             this.contextClick.Name = "contextClick";
-            this.contextClick.Size = new System.Drawing.Size(69, 62);
+            this.contextClick.Size = new System.Drawing.Size(140, 62);
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.contextClick.TabIndex = 8;
             this.contextClick.TabStop = false;
@@ -112,11 +117,12 @@
             // sleepClick
             // 
             this.sleepClick.BackColor = System.Drawing.SystemColors.Window;
-            this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sleepClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
-            this.sleepClick.Location = new System.Drawing.Point(1, 1);
+            this.sleepClick.Location = new System.Drawing.Point(0, 1);
             this.sleepClick.Name = "sleepClick";
-            this.sleepClick.Size = new System.Drawing.Size(69, 62);
+            this.sleepClick.Size = new System.Drawing.Size(140, 62);
             this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.sleepClick.TabIndex = 9;
             this.sleepClick.TabStop = false;
@@ -125,9 +131,12 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(140, 421);
+            this.AccessibleDescription = "Virtual Mouse Clicker Application";
+            this.AccessibleName = "Smart Clicker";
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(140, 390);
             this.Controls.Add(this.sleepClick);
             this.Controls.Add(this.contextClick);
             this.Controls.Add(this.clickAndDrag);
