@@ -80,6 +80,11 @@ namespace Smart_Clicker
                     // There was a dwell, so we should click
                     checkDragThenClick(currentCursorIndex);
                 }
+                else
+                {
+                    // The last click position is not valid anymore, clear it
+                    this.lastClick = new cursorInTime(0, 0, 0, null);
+                }
             }
         }
 
@@ -125,9 +130,18 @@ namespace Smart_Clicker
             // Check if the lastClick as close to the current one
             if (closeCursors(MouseTracker[currentCursorIndex], lastClick))
             {
-                // If it was, clear this set of captures cursors
-                MouseTracker.Clear();
-                return;
+                // If it was, check to see if any of the other cursors have moved far enough from the first click
+                if (MouseTracker.Any(p => !closeCursors(p, lastClick)))
+                {
+                    // We've moved from the last click and come back, continue clicking
+                }
+                // Otherwise, clear this set of captures cursors - using the current last click as the last click now
+                else 
+                {
+                    this.lastClick = MouseTracker[currentCursorIndex];
+                    MouseTracker.Clear();
+                    return;
+                }
             } 
 
             int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
