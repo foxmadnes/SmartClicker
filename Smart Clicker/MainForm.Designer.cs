@@ -135,6 +135,7 @@
             this.Controls.Add(this.doubleClick);
             this.Controls.Add(this.rightClick);
             this.Controls.Add(this.leftClick);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(90, 90);
             this.Name = "MainForm";
             this.ShowIcon = false;

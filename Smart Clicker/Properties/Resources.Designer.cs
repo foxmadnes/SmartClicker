@@ -73,5 +73,12 @@ namespace Smart_Clicker.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Icon TaskBarIcon {
+            get {
+                object obj = ResourceManager.GetObject("TaskBarIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

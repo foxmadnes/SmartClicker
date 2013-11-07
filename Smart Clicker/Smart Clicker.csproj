@@ -55,6 +55,12 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\TaskBarIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -165,6 +171,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\plusblack1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskBarIcon.ico" />
+    <None Include="Resources\TaskBarIcon.bmp" />
+    <Content Include="TaskBarIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
