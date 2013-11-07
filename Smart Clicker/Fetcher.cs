@@ -17,6 +17,7 @@ namespace Smart_Clicker
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            this.ShowInTaskbar = false;
             mainForm.Move += new EventHandler(move_On_Main_Form);
             this.StartPosition = FormStartPosition.Manual;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
