@@ -104,9 +104,6 @@ namespace Smart_Clicker
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
             setPictureBoxHighlighted(contextClick);
-            this.TopMost = true;
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -199,6 +196,14 @@ namespace Smart_Clicker
                 return;
             }   
             setPictureBoxHighlighted(leftClick);
+        }
+
+        // This function is never getting called by the APIs.
+        // TODO: Investigate
+        private void MainForm_MouseLeave(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Back demon!");
+            this.SendToBack();
         }
     }
 }

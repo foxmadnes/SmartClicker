@@ -61,13 +61,6 @@ namespace Smart_Clicker
                 return;
             }
 
-            // If mouse is in the top left corner, bring form to front
-            if (cursor.p.X == 0 && cursor.p.Y == 0)
-            {
-                this.form.Activate();
-                System.Diagnostics.Debug.WriteLine("recall!");
-                return;
-            }
             cursor.tMS = timer1.Interval;
             MouseTracker.Add(cursor);
 

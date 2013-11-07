@@ -21,6 +21,10 @@ namespace Smart_Clicker
             ClickStatus status = new ClickStatus();
             MainForm mainForm = new MainForm(status);
             ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
+
+            Fetcher fetcher = new Fetcher(mainForm);
+
+            fetcher.Show();
             Application.Run(mainForm);
             //CustomUI cust1 = new CustomUI();
             //Application.Run(cust1);

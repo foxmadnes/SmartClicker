@@ -71,11 +71,18 @@
     <Compile Include="CursorCapture.cs" />
     <Compile Include="ClickStatus.cs" />
     <Compile Include="ClickDetector.cs" />
+    <Compile Include="CustomizationClasses.cs" />
     <Compile Include="CustomUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CustomUI.designer.cs">
       <DependentUpon>CustomUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fetcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fetcher.Designer.cs">
+      <DependentUpon>Fetcher.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -88,6 +95,9 @@
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="CustomUI.resx">
       <DependentUpon>CustomUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fetcher.resx">
+      <DependentUpon>Fetcher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

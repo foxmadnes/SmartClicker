@@ -140,6 +140,7 @@
             this.ShowIcon = false;
             this.Text = "Smart Clicker";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
