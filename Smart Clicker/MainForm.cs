@@ -103,7 +103,7 @@ namespace Smart_Clicker
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
-            setPictureBoxHighlighted(contextClick);
+            setPictureBoxSelect(contextClick);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -176,15 +176,26 @@ namespace Smart_Clicker
 
         private void setPictureBoxHighlighted(PictureBox toSet)
         {
+            if (toSet.BackColor == Color.Red)
+            {
+                return;
+            }
             foreach (PictureBox p in buttons)
             {
-                p.BackColor = Color.White;
+                if (p.BackColor != Color.Red)
+                {
+                    p.BackColor = Color.White;
+                }
             }
             toSet.BackColor = Color.Yellow;
         }
 
         private void setPictureBoxSelect(PictureBox toSet)
         {
+            foreach (PictureBox p in buttons)
+            {
+                p.BackColor = Color.White;
+            }
             toSet.BackColor = Color.Red;
         }
 
