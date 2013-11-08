@@ -60,6 +60,13 @@ namespace Smart_Clicker.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FetcherIcon {
+            get {
+                object obj = ResourceManager.GetObject("FetcherIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap minus_black {
             get {
                 object obj = ResourceManager.GetObject("minus black", resourceCulture);
