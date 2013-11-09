@@ -196,17 +196,13 @@ namespace Smart_Clicker
                     mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
                     System.Diagnostics.Debug.WriteLine("Clickety click");
+                    this.form.setClickDefault();
                     break;
 
                 case (statusEnum.rightClick):
                     mouse_event(MOUSEEVENTF_RIGHTDOWN, p.X, p.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_RIGHTUP, p.X, p.Y, 0, 0);
-                    if (this.status.isLocked())
-                    {
-                        break;
-                    }
                     this.form.setClickDefault();
-                    this.status.setStatus(statusEnum.leftClick);
                     break;
 
                 case (statusEnum.doubleClick):
@@ -214,12 +210,7 @@ namespace Smart_Clicker
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    if (this.status.isLocked())
-                    {
-                        break;
-                    }
                     this.form.setClickDefault();
-                    this.status.setStatus(statusEnum.leftClick);
                     break;
 
                 case (statusEnum.leftDown):
@@ -229,15 +220,7 @@ namespace Smart_Clicker
 
                 case (statusEnum.leftUp):
                     mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    if (this.status.isLocked())
-                    {
-                        if (!this.status.getContext())
-                        {
-                            this.status.setStatus(statusEnum.leftDown);
-                        }
-                    }
                     this.form.setClickDefault();
-                    this.status.setStatus(statusEnum.leftClick);
                     break;
                 default:
                     break;

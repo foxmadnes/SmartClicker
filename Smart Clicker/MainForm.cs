@@ -201,12 +201,9 @@ namespace Smart_Clicker
 
         public void setClickDefault()
         {
-            if (this.clickStatus.getContext())
-            {
-                setPictureBoxHighlighted(contextClick);
-                return;
-            }   
-            setPictureBoxHighlighted(leftClick);
+            this.clickStatus.setContext(true);
+            this.clickStatus.setStatus(statusEnum.leftClick);
+            setPictureBoxSelect(contextClick);
         }
 
         // This function is never getting called by the APIs.
