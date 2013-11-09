@@ -15,6 +15,8 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
+            Win32Stuff.RegisterApplicationRestart("", 0);
+
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

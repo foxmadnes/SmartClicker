@@ -213,8 +213,6 @@ namespace Smart_Clicker
         // TODO: Investigate
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Back demon!");
-            this.SendToBack();
         }
     }
 }

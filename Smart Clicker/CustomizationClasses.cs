@@ -35,6 +35,7 @@ namespace Smart_Clicker
         public List<PictureBox> orderedIcons;
         int startWidth;
         int startHeight;
+        bool restartOnCrash;
     }
 
     class ContextCustomization

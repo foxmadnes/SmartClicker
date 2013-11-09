@@ -121,6 +121,9 @@ namespace Smart_Clicker
         [DllImport("gdi32.dll", EntryPoint = "DeleteDC")]
         public static extern bool DeleteDC(IntPtr hDc);
 
+        [DllImport("kernel32.dll")]
+        public static extern int RegisterApplicationRestart([MarshalAs(UnmanagedType.BStr)] string commandLineArgs, int flags);
+
         #endregion
     }
 }
