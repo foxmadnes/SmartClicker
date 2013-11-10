@@ -13,13 +13,24 @@ namespace Smart_Clicker
         public LayoutCustomization layoutValues;
         public ContextCustomization contextValues;
 
+
         public CustomizationParameters()
         {
             // To be replaced by load from file!
             this.clickValues = new ClickCustomization();
             this.layoutValues = new LayoutCustomization();
             this.contextValues = new ContextCustomization();
+
         }
+        //// Umm.. where is this supposed to go? Ask Andres about design decisions.
+        //public CustomizationParameters readCustomParams()
+        //{
+        //    System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(CustomizationParameters));
+        //    System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\SmartClickerCustomization.xml");
+        //    return (CustomizationParameters)reader.Deserialize(file);
+        //    // break up into clickValues, layoutValues, contextValues
+        //}
+
     }
 
     class ClickCustomization
@@ -44,4 +55,6 @@ namespace Smart_Clicker
         public List<Bitmap> doubleClickBitmaps;
         public List<Bitmap> rightClickBitmaps;
     }
+
+
 }

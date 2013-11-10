@@ -54,6 +54,10 @@
             this.timerText = new System.Windows.Forms.TextBox();
             this.confirmCustom = new System.Windows.Forms.Button();
             this.cancelCustom = new System.Windows.Forms.Button();
+            this.startupBoot = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.crashReboot = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
@@ -96,7 +100,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 139);
+            this.label2.Location = new System.Drawing.Point(15, 242);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 20);
             this.label2.TabIndex = 5;
@@ -105,7 +109,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(131, 142);
+            this.label3.Location = new System.Drawing.Point(131, 245);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(229, 17);
             this.label3.TabIndex = 6;
@@ -114,7 +118,7 @@
             // displayContextMode
             // 
             this.displayContextMode.AutoSize = true;
-            this.displayContextMode.Location = new System.Drawing.Point(202, 272);
+            this.displayContextMode.Location = new System.Drawing.Point(202, 375);
             this.displayContextMode.Name = "displayContextMode";
             this.displayContextMode.Size = new System.Drawing.Size(116, 21);
             this.displayContextMode.TabIndex = 17;
@@ -125,7 +129,7 @@
             // displayLeftMode
             // 
             this.displayLeftMode.AutoSize = true;
-            this.displayLeftMode.Location = new System.Drawing.Point(385, 272);
+            this.displayLeftMode.Location = new System.Drawing.Point(385, 375);
             this.displayLeftMode.Name = "displayLeftMode";
             this.displayLeftMode.Size = new System.Drawing.Size(126, 21);
             this.displayLeftMode.TabIndex = 18;
@@ -136,7 +140,7 @@
             // displaySleepMode
             // 
             this.displaySleepMode.AutoSize = true;
-            this.displaySleepMode.Location = new System.Drawing.Point(19, 272);
+            this.displaySleepMode.Location = new System.Drawing.Point(19, 375);
             this.displaySleepMode.Name = "displaySleepMode";
             this.displaySleepMode.Size = new System.Drawing.Size(105, 21);
             this.displaySleepMode.TabIndex = 19;
@@ -147,7 +151,7 @@
             // displayRightMode
             // 
             this.displayRightMode.AutoSize = true;
-            this.displayRightMode.Location = new System.Drawing.Point(19, 425);
+            this.displayRightMode.Location = new System.Drawing.Point(19, 528);
             this.displayRightMode.Name = "displayRightMode";
             this.displayRightMode.Size = new System.Drawing.Size(135, 21);
             this.displayRightMode.TabIndex = 20;
@@ -158,7 +162,7 @@
             // displayDoubleMode
             // 
             this.displayDoubleMode.AutoSize = true;
-            this.displayDoubleMode.Location = new System.Drawing.Point(202, 425);
+            this.displayDoubleMode.Location = new System.Drawing.Point(202, 528);
             this.displayDoubleMode.Name = "displayDoubleMode";
             this.displayDoubleMode.Size = new System.Drawing.Size(147, 21);
             this.displayDoubleMode.TabIndex = 21;
@@ -169,7 +173,7 @@
             // displayClickDragMode
             // 
             this.displayClickDragMode.AutoSize = true;
-            this.displayClickDragMode.Location = new System.Drawing.Point(385, 425);
+            this.displayClickDragMode.Location = new System.Drawing.Point(385, 528);
             this.displayClickDragMode.Name = "displayClickDragMode";
             this.displayClickDragMode.Size = new System.Drawing.Size(122, 21);
             this.displayClickDragMode.TabIndex = 22;
@@ -181,12 +185,13 @@
             // 
             this.timePlus.BackgroundImage = global::Smart_Clicker.Properties.Resources.plusblack;
             this.timePlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.timePlus.ImageKey = "(none)";
             this.timePlus.Location = new System.Drawing.Point(432, 32);
             this.timePlus.Name = "timePlus";
             this.timePlus.Size = new System.Drawing.Size(75, 34);
             this.timePlus.TabIndex = 32;
             this.timePlus.UseVisualStyleBackColor = true;
-            this.timePlus.Click += new System.EventHandler(this.timePlus_Click);
+            this.timePlus.MouseHover += new System.EventHandler(this.timePlus_MouseHover);
             // 
             // timeMinus
             // 
@@ -196,14 +201,14 @@
             this.timeMinus.Size = new System.Drawing.Size(83, 34);
             this.timeMinus.TabIndex = 31;
             this.timeMinus.UseVisualStyleBackColor = true;
-            this.timeMinus.Click += new System.EventHandler(this.timeMinus_Click);
+            this.timeMinus.MouseHover += new System.EventHandler(this.timeMinus_mouseHover);
             // 
             // clickAndDrag
             // 
             this.clickAndDrag.BackColor = System.Drawing.SystemColors.Window;
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(385, 311);
+            this.clickAndDrag.Location = new System.Drawing.Point(385, 414);
             this.clickAndDrag.Name = "clickAndDrag";
             this.clickAndDrag.Size = new System.Drawing.Size(98, 97);
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -215,7 +220,7 @@
             this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(202, 311);
+            this.doubleClick.Location = new System.Drawing.Point(202, 414);
             this.doubleClick.Name = "doubleClick";
             this.doubleClick.Size = new System.Drawing.Size(98, 98);
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -227,7 +232,7 @@
             this.rightClick.BackColor = System.Drawing.SystemColors.Window;
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(26, 311);
+            this.rightClick.Location = new System.Drawing.Point(26, 414);
             this.rightClick.Name = "rightClick";
             this.rightClick.Size = new System.Drawing.Size(98, 90);
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -239,7 +244,7 @@
             this.leftClick.BackColor = System.Drawing.SystemColors.Window;
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(386, 174);
+            this.leftClick.Location = new System.Drawing.Point(386, 277);
             this.leftClick.Name = "leftClick";
             this.leftClick.Size = new System.Drawing.Size(98, 82);
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -251,7 +256,7 @@
             this.contextClick.BackColor = System.Drawing.SystemColors.Window;
             this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(202, 174);
+            this.contextClick.Location = new System.Drawing.Point(202, 277);
             this.contextClick.Name = "contextClick";
             this.contextClick.Size = new System.Drawing.Size(98, 82);
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -263,7 +268,7 @@
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(19, 174);
+            this.pictureBox1.Location = new System.Drawing.Point(19, 277);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(98, 82);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -278,7 +283,7 @@
             this.boundingBoxMinus.Size = new System.Drawing.Size(83, 34);
             this.boundingBoxMinus.TabIndex = 36;
             this.boundingBoxMinus.UseVisualStyleBackColor = true;
-            this.boundingBoxMinus.Click += new System.EventHandler(this.boundingBoxMinus_Click);
+            this.boundingBoxMinus.MouseHover += new System.EventHandler(this.sizeMinus_MouseHover);
             // 
             // boxSizePlus
             // 
@@ -289,7 +294,7 @@
             this.boxSizePlus.Size = new System.Drawing.Size(75, 34);
             this.boxSizePlus.TabIndex = 37;
             this.boxSizePlus.UseVisualStyleBackColor = true;
-            this.boxSizePlus.Click += new System.EventHandler(this.boxSizePlus_Click);
+            this.boxSizePlus.MouseHover += new System.EventHandler(this.sizePlus_MouseHover);
             // 
             // boundingBoxText
             // 
@@ -315,7 +320,7 @@
             // 
             // confirmCustom
             // 
-            this.confirmCustom.Location = new System.Drawing.Point(202, 473);
+            this.confirmCustom.Location = new System.Drawing.Point(202, 557);
             this.confirmCustom.Name = "confirmCustom";
             this.confirmCustom.Size = new System.Drawing.Size(98, 42);
             this.confirmCustom.TabIndex = 38;
@@ -325,7 +330,7 @@
             // 
             // cancelCustom
             // 
-            this.cancelCustom.Location = new System.Drawing.Point(385, 477);
+            this.cancelCustom.Location = new System.Drawing.Point(385, 559);
             this.cancelCustom.Name = "cancelCustom";
             this.cancelCustom.Size = new System.Drawing.Size(98, 38);
             this.cancelCustom.TabIndex = 39;
@@ -333,11 +338,57 @@
             this.cancelCustom.UseVisualStyleBackColor = true;
             this.cancelCustom.Click += new System.EventHandler(this.cancelCustom_Click);
             // 
+            // startupBoot
+            // 
+            this.startupBoot.AutoSize = true;
+            this.startupBoot.Location = new System.Drawing.Point(202, 154);
+            this.startupBoot.Name = "startupBoot";
+            this.startupBoot.Size = new System.Drawing.Size(74, 21);
+            this.startupBoot.TabIndex = 40;
+            this.startupBoot.Text = "Enable";
+            this.startupBoot.UseVisualStyleBackColor = true;
+            this.startupBoot.CheckedChanged += new System.EventHandler(this.startupBoot_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(15, 152);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(126, 20);
+            this.label5.TabIndex = 42;
+            this.label5.Text = "Boot on Startup";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(14, 198);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(135, 20);
+            this.label4.TabIndex = 43;
+            this.label4.Text = "Reboot on Crash";
+            // 
+            // crashReboot
+            // 
+            this.crashReboot.AutoSize = true;
+            this.crashReboot.Location = new System.Drawing.Point(202, 197);
+            this.crashReboot.Name = "crashReboot";
+            this.crashReboot.Size = new System.Drawing.Size(74, 21);
+            this.crashReboot.TabIndex = 44;
+            this.crashReboot.Text = "Enable";
+            this.crashReboot.UseVisualStyleBackColor = true;
+            this.crashReboot.CheckedChanged += new System.EventHandler(this.crashReboot_CheckedChanged);
+            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 556);
+            this.ClientSize = new System.Drawing.Size(574, 628);
+            this.Controls.Add(this.crashReboot);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.startupBoot);
             this.Controls.Add(this.cancelCustom);
             this.Controls.Add(this.confirmCustom);
             this.Controls.Add(this.boxSizePlus);
@@ -403,5 +454,9 @@
         private System.Windows.Forms.TextBox timerText;
         private System.Windows.Forms.Button confirmCustom;
         private System.Windows.Forms.Button cancelCustom;
+        private System.Windows.Forms.CheckBox startupBoot;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox crashReboot;
     }
 }
