@@ -179,52 +179,38 @@ namespace Smart_Clicker
                 return;
             }
 
-            if (this.status.getContext())
+            if (this.status.getActiveMode().isContext)
             {
                 if (clickAndDrag)
                 {
-                    if (this.status.getStatus() != statusEnum.leftUp)
+                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
                     {
-                        this.status.setStatus(statusEnum.leftDown);
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
                     }
                 }
             }
 
-            switch (this.status.getStatus())
+            ProgramMode activeMode = this.status.getActiveMode();
+            clickActions(activeMode.mode[this.status.currentIndex], p);
+            this.status.currentIndex++;
+            if (this.status.currentIndex > activeMode.mode.Length - 1)
             {
-                case (statusEnum.leftClick):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    System.Diagnostics.Debug.WriteLine("Clickety click");
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.rightClick):
-                    mouse_event(MOUSEEVENTF_RIGHTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_RIGHTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.doubleClick):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.leftDown):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    this.status.setStatus(statusEnum.leftUp);
-                    break;
-
-                case (statusEnum.leftUp):
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-                default:
-                    break;
+                this.status.clearActiveMode();
             }
+            this.form.setClickDefault();
+        }
+
+        private void clickActions(Action[] actions, Point p)
+        {
+            foreach (Action action in actions)
+            {
+                performMouseAction((MouseAction) action, p);
+            }
+        }
+
+        private void performMouseAction(MouseAction action, Point p)
+        {
+            mouse_event((int) action.clickInt, p.X, p.Y, 0, 0);
         }
     }
 

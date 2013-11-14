@@ -5,52 +5,71 @@ using System.Text;
 
 namespace Smart_Clicker
 {
-    public enum statusEnum { leftClick, rightClick, doubleClick, leftDown, leftUp, sleepClick};
-
     public class ClickStatus
     {
-        private statusEnum status = statusEnum.leftClick;
-        private bool context = true;
-        private bool locked = false;
-        static private object Lock = new object();
+        public ProgramMode backgroundMode;
+        public ProgramMode currentMode;
+        public int currentIndex = 0;
+        static private object backgroundLock = new object();
+        static private object currentLock = new object();
 
         public ClickStatus()
         {
-
+            this.backgroundMode = ProgramMode.contextClick;
+            this.currentMode = null;
         }
 
-        public void setStatus(statusEnum newStatus)
+        public void setBackgroundMode(ProgramMode mode)
         {
-            lock(Lock)
+            lock (backgroundLock)
             {
-                this.status = newStatus;
+                this.backgroundMode = mode;
             }
-            System.Diagnostics.Debug.WriteLine(this.status.ToString());
+            this.currentIndex = 0;
         }
 
-        public statusEnum getStatus()
+        public void setCurrentMode(ProgramMode mode)
         {
-            return this.status;
+            lock (currentLock)
+            {
+                this.currentMode = mode;
+            }
+            this.currentIndex = 0;
         }
 
-        public void setContext(bool set)
+        public void clearActiveMode()
         {
-            this.context = set;
+            this.currentIndex = 0;
+            if (this.currentMode == null)
+            {
+                return;
+            }
+            this.currentMode = null;
         }
 
-        public bool getContext()
+        public ProgramMode getBackgroundMode()
         {
-            return this.context;
+            lock (backgroundLock)
+            {
+                return this.backgroundMode;
+            }
         }
 
-        public bool isLocked()
+        public ProgramMode getCurrentMode()
         {
-            return this.locked;
+            lock (currentLock)
+            {
+                return this.currentMode;
+            }
         }
 
-        public void setLocked(bool locked)
+        public ProgramMode getActiveMode()
         {
-            this.locked = locked;
+            if (this.currentMode == null)
+            {
+                return this.backgroundMode;
+            }
+            return this.currentMode;
         }
     }
 }

@@ -46,6 +46,7 @@ namespace Smart_Clicker
 
         public bool IsClickAndDrag(Bitmap currentMouse)
         {
+            /*
             //create instance or System.Drawing.ImageConverter to convert image to a byte array
             ImageConverter converter = new ImageConverter();
             //create byte arrays, for currentCursor
@@ -62,7 +63,7 @@ namespace Smart_Clicker
             {
                 return clickAndDragDictionary[currentMouseHash];
             }
-
+            */
             // Go through each known cursor in clickAndDrag
             foreach (Bitmap cursor in clickAndDragBitmaps)
             {
@@ -70,13 +71,13 @@ namespace Smart_Clicker
                 if (CompareCursorBitmaps(cursor, currentMouse))
                 {
                     // add to dictionary to avoid overhead
-                    clickAndDragDictionary.Add(currentMouseHash, true);
+                    //clickAndDragDictionary.Add(currentMouseHash, true);
                     return true;
                 }
             }
 
             // None match, add to dictionary to avoid next time
-            clickAndDragDictionary.Add(currentMouseHash, false);
+            //clickAndDragDictionary.Add(currentMouseHash, false);
             return false;
         }
 
@@ -85,6 +86,7 @@ namespace Smart_Clicker
         **************************************************************************/
         public static cursorInTime CaptureCursor()
         {
+            return new cursorInTime(0,0,0, null);
             Bitmap bmp;
             IntPtr hicon;
             Win32Stuff.CURSORINFO ci = new Win32Stuff.CURSORINFO();
@@ -118,8 +120,8 @@ namespace Smart_Clicker
 
                                 // These two operation will result in a black cursor over a white background.
                                 // Later in the code, a call to MakeTransparent() will get rid of the white background.
-                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 32, 0x00CC0020);//Win32Stuff.TernaryRasterOperations.SRCCOPY);
-                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 0, 0x00660046);//Win32Stuff.TernaryRasterOperations.SRCINVERT);
+                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 32, (int) Win32Stuff.TernaryRasterOperations.SRCCOPY);
+                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 0, (int) Win32Stuff.TernaryRasterOperations.SRCINVERT);
 
                                 resultGraphics.ReleaseHdc(resultHdc);
                             }
@@ -143,6 +145,7 @@ namespace Smart_Clicker
                     Win32Stuff.DeleteObject(hicon);
                     if (icInfo.hbmColor != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmColor);
                     if (icInfo.hbmMask != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmMask);
+                    Win32Stuff.DeleteObject(ci.hCursor);
                     return new cursorInTime(x, y, 0, bmp);
                 }
             }

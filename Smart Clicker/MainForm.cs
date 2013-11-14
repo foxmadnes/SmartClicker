@@ -71,7 +71,7 @@ namespace Smart_Clicker
 
         private ClickStatus clickStatus;
         private PictureBox[] buttons;
-        private Dictionary<PictureBox, statusEnum> ModeMapping;
+        private Dictionary<PictureBox, ProgramMode> ModeMapping;
         private PictureBox currentMousePictureBox;
         private bool inBox = false;
         private bool resizeForm = false;
@@ -87,14 +87,14 @@ namespace Smart_Clicker
                 mode.MouseHover += new EventHandler(pictureBox_MouseHover);
             }
 
-            ModeMapping = new Dictionary<PictureBox, statusEnum>() 
+            ModeMapping = new Dictionary<PictureBox, ProgramMode>() 
             {
-                {leftClick, statusEnum.leftClick},
-                {rightClick, statusEnum.rightClick},
-                {doubleClick, statusEnum.doubleClick},
-                {contextClick, statusEnum.leftClick},
-                {clickAndDrag, statusEnum.leftDown},
-                {sleepClick, statusEnum.sleepClick}
+                {leftClick, ProgramMode.leftClick},
+                {rightClick, ProgramMode.rightClick},
+                {doubleClick, ProgramMode.doubleClick},
+                {contextClick, ProgramMode.leftClick},
+                {clickAndDrag, ProgramMode.clickAndDrag},
+                {sleepClick, ProgramMode.sleepClick}
             };
 
             this.MaximizeBox = false;
@@ -148,15 +148,7 @@ namespace Smart_Clicker
             mouseOver.Dispose();
             if (this.inBox && (this.currentMousePictureBox == mode))
             {
-                if (mode == contextClick)
-                {
-                    this.clickStatus.setContext(true);
-                }
-                else
-                {
-                    this.clickStatus.setContext(false);
-                }
-                this.clickStatus.setStatus(ModeMapping[mode]);
+                this.clickStatus.setCurrentMode(ModeMapping[mode]);
             }
             setPictureBoxSelect(mode);
             this.inBox = false;
@@ -201,8 +193,6 @@ namespace Smart_Clicker
 
         public void setClickDefault()
         {
-            this.clickStatus.setContext(true);
-            this.clickStatus.setStatus(statusEnum.leftClick);
             setPictureBoxSelect(contextClick);
         }
 

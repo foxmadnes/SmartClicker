@@ -74,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="ProgramMode.cs" />
     <Compile Include="CursorCapture.cs" />
     <Compile Include="ClickStatus.cs" />
     <Compile Include="ClickDetector.cs" />
