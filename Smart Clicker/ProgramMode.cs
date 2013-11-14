@@ -35,5 +35,13 @@ namespace Smart_Clicker
 
         public static ProgramMode contextClick =
             new ProgramMode(new Action[][] { new Action[] { new MouseAction(MouseAction.clickType.leftDown), new MouseAction(MouseAction.clickType.leftUp) } }, true);
+
+        public static ProgramMode copyClick = 
+            new ProgramMode(new Action[][] { new Action[] { new MouseAction(MouseAction.clickType.leftDown)},
+                new Action[] { new MouseAction(MouseAction.clickType.leftUp) , KeyboardAction.ctrlDown, KeyboardAction.cDown, KeyboardAction.cUp, KeyboardAction.ctrlUp } });
+
+        public static ProgramMode pasteClick =
+            new ProgramMode(new Action[][] { new Action[] { new MouseAction(MouseAction.clickType.leftDown)},
+                new Action[] { new MouseAction(MouseAction.clickType.leftUp) , KeyboardAction.ctrlDown, KeyboardAction.vDown, KeyboardAction.vUp, KeyboardAction.ctrlUp } });
     }
 }

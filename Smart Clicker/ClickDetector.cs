@@ -11,16 +11,15 @@ namespace Smart_Clicker
     class ClickDetector
     {
 
+        // Note - Move these to Win32Stuff later
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void SetCursorPos(int x, int y);
+        public static extern void keybd_event(byte vk, byte scan, int flags, int extrainfo);
 
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
-        public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        public const int MOUSEEVENTF_RIGHTUP = 0x10;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void SetCursorPos(int x, int y);
 
         private ClickStatus status;
         private CursorCapture capture;
@@ -204,13 +203,25 @@ namespace Smart_Clicker
         {
             foreach (Action action in actions)
             {
-                performMouseAction((MouseAction) action, p);
+                if (action.GetType() == typeof(MouseAction))
+                {
+                    performMouseAction((MouseAction) action, p);
+                }
+                else
+                {
+                    performKeyboardAction((KeyboardAction) action);
+                }
             }
         }
 
         private void performMouseAction(MouseAction action, Point p)
         {
             mouse_event((int) action.clickInt, p.X, p.Y, 0, 0);
+        }
+
+        private void performKeyboardAction(KeyboardAction action)
+        {
+            keybd_event(action.key,0, (action.key_up ? 0x02 : 0), 0);
         }
     }
 

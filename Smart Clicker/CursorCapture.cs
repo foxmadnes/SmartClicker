@@ -86,7 +86,6 @@ namespace Smart_Clicker
         **************************************************************************/
         public static cursorInTime CaptureCursor()
         {
-            return new cursorInTime(0,0,0, null);
             Bitmap bmp;
             IntPtr hicon;
             Win32Stuff.CURSORINFO ci = new Win32Stuff.CURSORINFO();
