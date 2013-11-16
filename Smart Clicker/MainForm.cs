@@ -103,6 +103,7 @@ namespace Smart_Clicker
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             setPictureBoxSelect(contextClick);
         }
 
@@ -194,6 +195,14 @@ namespace Smart_Clicker
         public void setClickDefault()
         {
             setPictureBoxSelect(contextClick);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         // This function is never getting called by the APIs.

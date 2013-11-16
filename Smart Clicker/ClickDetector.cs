@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using interop.UIAutomationCore;
 
 namespace Smart_Clicker
 {
@@ -31,6 +32,8 @@ namespace Smart_Clicker
         private Timer timer1;
 
         private int CURSOR_DISTANCE = 25;
+
+        private IUIAutomation automator;
 
         public ClickDetector(ClickStatus status, CursorCapture capture, MainForm form)
         {

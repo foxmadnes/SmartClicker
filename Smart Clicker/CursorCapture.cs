@@ -46,38 +46,15 @@ namespace Smart_Clicker
 
         public bool IsClickAndDrag(Bitmap currentMouse)
         {
-            /*
-            //create instance or System.Drawing.ImageConverter to convert image to a byte array
-            ImageConverter converter = new ImageConverter();
-            //create byte arrays, for currentCursor
-            byte[] currentMouseBytes = new byte[1];
-
-            //convert images to byte array
-            currentMouseBytes = (byte[])converter.ConvertTo(currentMouse, currentMouseBytes.GetType());
-
-            //now compute a hash for current cursor from the byte arrays
-            SHA256Managed sha = new SHA256Managed();
-            byte[] currentMouseHash = sha.ComputeHash(currentMouseBytes);
-            
-            if (clickAndDragDictionary.ContainsKey(currentMouseHash))
-            {
-                return clickAndDragDictionary[currentMouseHash];
-            }
-            */
             // Go through each known cursor in clickAndDrag
             foreach (Bitmap cursor in clickAndDragBitmaps)
             {
                 // if bitmaps are close
                 if (CompareCursorBitmaps(cursor, currentMouse))
                 {
-                    // add to dictionary to avoid overhead
-                    //clickAndDragDictionary.Add(currentMouseHash, true);
                     return true;
                 }
             }
-
-            // None match, add to dictionary to avoid next time
-            //clickAndDragDictionary.Add(currentMouseHash, false);
             return false;
         }
 
@@ -142,8 +119,8 @@ namespace Smart_Clicker
                         }
                     }
                     Win32Stuff.DeleteObject(hicon);
-                    if (icInfo.hbmColor != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmColor);
-                    if (icInfo.hbmMask != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmMask);
+                    Win32Stuff.DeleteObject(icInfo.hbmColor);
+                    Win32Stuff.DeleteObject(icInfo.hbmMask);
                     Win32Stuff.DeleteObject(ci.hCursor);
                     return new cursorInTime(x, y, 0, bmp);
                 }
