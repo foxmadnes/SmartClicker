@@ -104,6 +104,10 @@ namespace Smart_Clicker
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
+            //Temporary solution to some problems
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+
             setPictureBoxSelect(contextClick);
         }
 
@@ -210,5 +214,10 @@ namespace Smart_Clicker
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
         }
+
+        public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            Application.Restart();
+        }  
     }
 }
