@@ -15,7 +15,7 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
-            Win32Stuff.RegisterApplicationRestart("", 0);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
@@ -24,12 +24,13 @@ namespace Smart_Clicker
             MainForm mainForm = new MainForm(status);
             ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
 
+            Application.ThreadException += new ThreadExceptionEventHandler(mainForm.CatchFatalException);
+
+
             Fetcher fetcher = new Fetcher(mainForm);
 
             fetcher.Show();
             Application.Run(mainForm);
-            //CustomUI cust1 = new CustomUI();
-            //Application.Run(cust1);
-        }
+        } 
     }
 }
