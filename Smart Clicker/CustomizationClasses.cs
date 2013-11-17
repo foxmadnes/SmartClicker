@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Smart_Clicker
 {
-    class CustomizationParameters
+    public class CustomizationParameters
     {
         public ClickCustomization clickValues;
         public LayoutCustomization layoutValues;
@@ -16,24 +16,30 @@ namespace Smart_Clicker
 
         public CustomizationParameters()
         {
-            // To be replaced by load from file!
-            this.clickValues = new ClickCustomization();
-            this.layoutValues = new LayoutCustomization();
-            this.contextValues = new ContextCustomization();
-
+            //this.clickValues = loadFromXML().clickValues;
+            //this.layoutValues = loadFromXML().layoutValues;
+            //this.contextValues = loadFromXML().contextValues;
         }
-        //// Umm.. where is this supposed to go? Ask Andres about design decisions.
-        //public CustomizationParameters readCustomParams()
-        //{
-        //    System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(CustomizationParameters));
-        //    System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\SmartClickerCustomization.xml");
-        //    return (CustomizationParameters)reader.Deserialize(file);
-        //    // break up into clickValues, layoutValues, contextValues
-        //}
+
+        public CustomizationParameters loadFromXML()
+        {
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(CustomizationParameters));
+            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\SmartClickerCustomization.xml");
+            return (CustomizationParameters)reader.Deserialize(file);
+        }
+  
+        public void saveCustomParams()
+        {
+            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(CustomizationParameters));
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"c:\temp\SmartClickerCustomization.xml");
+            CustomizationParameters currentParams = new CustomizationParameters(); // This may not be the best way to do this
+            writer.Serialize(file,currentParams);
+            file.Close();
+        }
 
     }
 
-    class ClickCustomization
+    public class ClickCustomization
     {
         // In ms
         public int timeout;
@@ -41,15 +47,16 @@ namespace Smart_Clicker
         public int clickBoundingBox;
     }
 
-    class LayoutCustomization
+    public class LayoutCustomization
     {
-        public List<PictureBox> orderedIcons;
-        int startWidth;
-        int startHeight;
-        bool restartOnCrash;
+        public List<String> hiddenIconNames;
+        public int startWidth;
+        public int startHeight;
+        public int totalModes;
+        public bool restartOnCrash;
     }
 
-    class ContextCustomization
+    public class ContextCustomization
     {
         public List<Bitmap> clickAndDragBitmaps;
         public List<Bitmap> doubleClickBitmaps;
