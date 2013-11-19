@@ -42,6 +42,7 @@ namespace Smart_Clicker
             this.form = form;
             this.lastClick = new cursorInTime(0, 0, 0, null);
             InitTimer();
+            this.automator = new CUIAutomation();
         }
 
         public void InitTimer()
@@ -184,6 +185,19 @@ namespace Smart_Clicker
             if (this.status.getActiveMode().isContext)
             {
                 if (clickAndDrag)
+                {
+                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+                    {
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                    }
+                }
+                tagPOINT reference = new tagPOINT();
+                reference.x = p.X;
+                reference.y = p.Y;
+                IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
+                System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+                System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+                if (focus.CurrentControlType == 50037 || focus.CurrentControlType == 50027)
                 {
                     if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
                     {
