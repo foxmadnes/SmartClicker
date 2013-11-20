@@ -76,6 +76,11 @@ namespace Smart_Clicker
                     {
                         hicon = Win32Stuff.CopyIcon(ci.hCursor);
                         Win32Stuff.GetIconInfo(hicon, out icInfo);
+                        while (icInfo.hbmMask == IntPtr.Zero)
+                        {
+                            Win32Stuff.GetIconInfo(hicon, out icInfo);
+                            System.Diagnostics.Debug.Print("Retrying cursor capture.");
+                        }
                         int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
                         int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
                         using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
