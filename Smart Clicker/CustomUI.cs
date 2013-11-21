@@ -32,6 +32,11 @@ namespace Smart_Clicker
             this.timerText.Text = (((double) changedParams.clickValues.timeout)/ 100).ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
             CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
+            CheckBox[] contextSettings = { contextCompareCursors, contextScrollBars, contextTabs, contextTitleBars };
+            contextCompareCursors.Checked = this.changedParams.contextValues.compareCursors;
+            contextScrollBars.Checked = this.changedParams.contextValues.supportScrollBars;
+            contextTabs.Checked = this.changedParams.contextValues.supportTabs;
+            contextTitleBars.Checked = this.changedParams.contextValues.supportTitleBars;
 
             ModeToStringMapping = new Dictionary<CheckBox, string>() 
             {
@@ -40,7 +45,7 @@ namespace Smart_Clicker
                 {displayDoubleMode, "doubleClick"},
                 {displayContextMode, "contextClick"},
                 {displayClickDragMode, "clickAndDrag"},
-                {displaySleepMode, "sleepClick"}
+                {displaySleepMode, "sleepClick"},
             };
             StringToModeMapping = new Dictionary<string,CheckBox>();
             foreach (CheckBox key in ModeToStringMapping.Keys)
@@ -160,49 +165,28 @@ namespace Smart_Clicker
             }
         }
 
-        /** Layout Alteration portion of the code.. Separate Tab? **/
-
-        private void displaySleepMode_CheckedChanged(object sender, EventArgs e)
+        private void contextCompareCursors_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox box = (CheckBox) sender;
+            this.changedParams.contextValues.compareCursors = box.Checked;
         }
 
-        private void displayContextMode_CheckedChanged(object sender, EventArgs e)
+        private void contextTitleBars_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox box = (CheckBox) sender;
+            this.changedParams.contextValues.supportTitleBars = box.Checked;
         }
 
-        private void displayLeftMode_CheckedChanged(object sender, EventArgs e)
+        private void contextScrollBars_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox box = (CheckBox) sender;
+            this.changedParams.contextValues.supportScrollBars = box.Checked;
         }
 
-        private void displayRightMode_CheckedChanged(object sender, EventArgs e)
+        private void contextTabs_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox box = (CheckBox) sender;
+            this.changedParams.contextValues.supportTabs = box.Checked;
         }
-
-        private void displayDoubleMode_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void displayClickDragMode_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void startupBoot_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void crashReboot_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-        
     }
 }

@@ -41,6 +41,10 @@ namespace Smart_Clicker
             defaultParameters.contextValues.clickAndDragBitmaps = new List<Bitmap>();
             defaultParameters.contextValues.doubleClickBitmaps = new List<Bitmap>();
             defaultParameters.contextValues.rightClickBitmaps = new List<Bitmap>();
+            defaultParameters.contextValues.supportScrollBars = true;
+            defaultParameters.contextValues.supportTitleBars = true;
+            defaultParameters.contextValues.supportTabs = true;
+            defaultParameters.contextValues.compareCursors = true;
             return defaultParameters;
         }
 
@@ -109,6 +113,10 @@ namespace Smart_Clicker
         public List<Bitmap> clickAndDragBitmaps;
         public List<Bitmap> doubleClickBitmaps;
         public List<Bitmap> rightClickBitmaps;
+        public bool compareCursors;
+        public bool supportTitleBars;
+        public bool supportScrollBars;
+        public bool supportTabs;
 
         // replace with actual copy method once we implement context customization
         public ContextCustomization copy()

@@ -33,7 +33,6 @@
             this.cancelCustom = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.crashReboot = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,6 +59,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.boundingBoxLabel = new System.Windows.Forms.Label();
             this.timerLabel = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.contextTitleBars = new System.Windows.Forms.CheckBox();
+            this.contextCompareCursors = new System.Windows.Forms.CheckBox();
+            this.contextScrollBars = new System.Windows.Forms.CheckBox();
+            this.contextTabs = new System.Windows.Forms.CheckBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
@@ -68,6 +73,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmCustom
@@ -135,16 +142,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(566, 548);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Context Mode";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // crashReboot
             // 
@@ -418,6 +415,75 @@
             this.timerLabel.TabIndex = 45;
             this.timerLabel.Text = "Seconds before Click:";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.pictureBox2);
+            this.tabPage2.Controls.Add(this.contextTabs);
+            this.tabPage2.Controls.Add(this.contextScrollBars);
+            this.tabPage2.Controls.Add(this.contextTitleBars);
+            this.tabPage2.Controls.Add(this.contextCompareCursors);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(569, 548);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Context Mode";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // contextTitleBars
+            // 
+            this.contextTitleBars.AutoSize = true;
+            this.contextTitleBars.Location = new System.Drawing.Point(19, 50);
+            this.contextTitleBars.Name = "contextTitleBars";
+            this.contextTitleBars.Size = new System.Drawing.Size(259, 21);
+            this.contextTitleBars.TabIndex = 1;
+            this.contextTitleBars.Text = "Click And Drag supported Title Bars.";
+            this.contextTitleBars.UseVisualStyleBackColor = true;
+            this.contextTitleBars.CheckedChanged += new System.EventHandler(this.contextTitleBars_CheckedChanged);
+            // 
+            // contextCompareCursors
+            // 
+            this.contextCompareCursors.AutoSize = true;
+            this.contextCompareCursors.Location = new System.Drawing.Point(19, 23);
+            this.contextCompareCursors.Name = "contextCompareCursors";
+            this.contextCompareCursors.Size = new System.Drawing.Size(372, 21);
+            this.contextCompareCursors.TabIndex = 0;
+            this.contextCompareCursors.Text = "Click and Drag when the cursor shows a resize cursor.";
+            this.contextCompareCursors.UseVisualStyleBackColor = true;
+            this.contextCompareCursors.CheckedChanged += new System.EventHandler(this.contextCompareCursors_CheckedChanged);
+            // 
+            // contextScrollBars
+            // 
+            this.contextScrollBars.AutoSize = true;
+            this.contextScrollBars.Location = new System.Drawing.Point(19, 77);
+            this.contextScrollBars.Name = "contextScrollBars";
+            this.contextScrollBars.Size = new System.Drawing.Size(261, 21);
+            this.contextScrollBars.TabIndex = 2;
+            this.contextScrollBars.Text = "Click and Drag supported Scrollbars.";
+            this.contextScrollBars.UseVisualStyleBackColor = true;
+            this.contextScrollBars.CheckedChanged += new System.EventHandler(this.contextScrollBars_CheckedChanged);
+            // 
+            // contextTabs
+            // 
+            this.contextTabs.AutoSize = true;
+            this.contextTabs.Location = new System.Drawing.Point(19, 104);
+            this.contextTabs.Name = "contextTabs";
+            this.contextTabs.Size = new System.Drawing.Size(230, 21);
+            this.contextTabs.TabIndex = 3;
+            this.contextTabs.Text = "Click and Drag supported Tabs.";
+            this.contextTabs.UseVisualStyleBackColor = true;
+            this.contextTabs.CheckedChanged += new System.EventHandler(this.contextTabs_CheckedChanged);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(417, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(31, 32);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -437,6 +503,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -474,5 +543,10 @@
         private System.Windows.Forms.Label boundingBoxLabel;
         private System.Windows.Forms.Label timerLabel;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox contextTitleBars;
+        private System.Windows.Forms.CheckBox contextCompareCursors;
+        private System.Windows.Forms.CheckBox contextTabs;
+        private System.Windows.Forms.CheckBox contextScrollBars;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

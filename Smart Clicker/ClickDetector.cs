@@ -141,28 +141,30 @@ namespace Smart_Clicker
                     MouseTracker.Clear();
                     return;
                 }
-            } 
-
-            int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
-            if (clickAndDragCursors > 1)
+            }
+            if (this.parameters.contextValues.compareCursors)
             {
-                if (capture.IsClickAndDrag(MouseTracker[currentCursorIndex].cursor))
+                int clickAndDragCursors = MouseTracker.Count(p => capture.IsClickAndDrag(p.cursor));
+                if (clickAndDragCursors > 1)
                 {
-                    click(MouseTracker[currentCursorIndex].p, true);
-                }
-                else
-                {
-                    // This didn't work - Programs freak out when you click where the mouse isn't
-                    // TODO: See if there is any way to get the mouse not to freak out when moved
-                    //cursorInTime lastDrag = MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor));
-                    //SetCursorPos(lastDrag.p.X, lastDrag.p.Y);
-                    //click(lastDrag.p, true);
+                    if (capture.IsClickAndDrag(MouseTracker[currentCursorIndex].cursor))
+                    {
+                        click(MouseTracker[currentCursorIndex].p, true);
+                        lastClick = MouseTracker[currentCursorIndex];
+                        MouseTracker.Clear();
+                        return;
+                    }
+                    else
+                    {
+                        // This didn't work - Programs freak out when you click where the mouse isn't
+                        // TODO: See if there is any way to get the mouse not to freak out when moved
+                        //cursorInTime lastDrag = MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor));
+                        //SetCursorPos(lastDrag.p.X, lastDrag.p.Y);
+                        //click(lastDrag.p, true);
+                    }
                 }
             }
-            else
-            {
-                click(MouseTracker[currentCursorIndex].p, false);
-            }
+            click(MouseTracker[currentCursorIndex].p, false);
             lastClick = MouseTracker[currentCursorIndex];
             MouseTracker.Clear();
         }
@@ -194,20 +196,9 @@ namespace Smart_Clicker
                         this.status.setCurrentMode(ProgramMode.clickAndDrag);
                     }
                 }
-                tagPOINT reference = new tagPOINT();
-                reference.x = p.X;
-                reference.y = p.Y;
-                IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
-                System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
-                System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
-                if (focus.CurrentControlType == 50037 || focus.CurrentControlType == 50027)
-                {
-                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
-                    {
-                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
-                    }
-                }
+                
             }
+            uiAutomationCheck(p);
 
             ProgramMode activeMode = this.status.getActiveMode();
             clickActions(activeMode.mode[this.status.currentIndex], p);
@@ -217,6 +208,25 @@ namespace Smart_Clicker
                 this.status.clearActiveMode();
             }
             this.form.setClickDefault();
+        }
+
+        private void uiAutomationCheck(Point p)
+        {
+            tagPOINT reference = new tagPOINT();
+            reference.x = p.X;
+            reference.y = p.Y;
+            IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
+            System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+            System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+            if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
+                || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
+                || (focus.CurrentControlType == 50018 && this.parameters.contextValues.supportTabs))
+            {
+                if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+                {
+                    this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                }
+            }
         }
 
         private void clickActions(Action[] actions, Point p)
