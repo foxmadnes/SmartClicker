@@ -27,7 +27,7 @@ namespace Smart_Clicker
         {
             CustomizationParameters defaultParameters = new CustomizationParameters();
             defaultParameters.clickValues = new ClickCustomization();
-            defaultParameters.clickValues.timeout = 1;
+            defaultParameters.clickValues.timeout = 100;
             defaultParameters.clickValues.clickBoundingBox = 25;
             defaultParameters.layoutValues = new LayoutCustomization();
             defaultParameters.layoutValues.hiddenIconNames = new List<string>();
@@ -61,7 +61,7 @@ namespace Smart_Clicker
     public class ClickCustomization
     {
         // In ms
-        public double timeout;
+        public int timeout;
         // In pixels
         public int clickBoundingBox;
 

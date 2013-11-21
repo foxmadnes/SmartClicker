@@ -9,7 +9,7 @@ using interop.UIAutomationCore;
 
 namespace Smart_Clicker
 {
-    class ClickDetector
+    public class ClickDetector
     {
 
         // Note - Move these to Win32Stuff later
@@ -24,6 +24,7 @@ namespace Smart_Clicker
 
         private ClickStatus status;
         private CursorCapture capture;
+        private CustomizationParameters parameters;
         private List<cursorInTime> MouseTracker = new List<cursorInTime>();
         private cursorInTime lastClick;
         private MainForm form;
@@ -31,14 +32,13 @@ namespace Smart_Clicker
 
         private Timer timer1;
 
-        private int CURSOR_DISTANCE = 25;
-
         private IUIAutomation automator;
 
-        public ClickDetector(ClickStatus status, CursorCapture capture, MainForm form)
+        public ClickDetector(ClickStatus status, CursorCapture capture, CustomizationParameters parameters, MainForm form)
         {
             this.status = status;
             this.capture = capture;
+            this.parameters = parameters;
             this.form = form;
             this.lastClick = new cursorInTime(0, 0, null);
             InitTimer();
@@ -49,8 +49,13 @@ namespace Smart_Clicker
         {
             timer1 = new Timer();
             timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 100; // in miliseconds
+            timer1.Interval = this.parameters.clickValues.timeout;
             timer1.Start();
+        }
+
+        public void resetTimerInterval()
+        {
+            timer1.Interval = this.parameters.clickValues.timeout;
         }
 
         // This is called every timer1.Interval
@@ -166,7 +171,7 @@ namespace Smart_Clicker
         private Boolean closeCursors(cursorInTime c1, cursorInTime c2)
         {
             // Check that X and Y positions of cursor 1 are not more than CURSOR_DISTANCE away
-            if (Math.Abs(c1.p.X - c2.p.X) < CURSOR_DISTANCE && Math.Abs(c1.p.Y - c2.p.Y) < CURSOR_DISTANCE)
+            if (Math.Abs(c1.p.X - c2.p.X) < this.parameters.clickValues.clickBoundingBox && Math.Abs(c1.p.Y - c2.p.Y) < this.parameters.clickValues.clickBoundingBox)
             {
                 return true;
             }

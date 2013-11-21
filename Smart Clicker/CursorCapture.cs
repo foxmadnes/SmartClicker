@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Smart_Clicker
 {
-    class CursorCapture
+    public class CursorCapture
     {
         public static Bitmap[] clickAndDragBitmaps;
         public Dictionary<Byte[], Boolean> clickAndDragDictionary;

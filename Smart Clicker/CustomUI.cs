@@ -29,7 +29,7 @@ namespace Smart_Clicker
             this.customParams = customParams;
             this.changedParams = customParams.copy();
             this.mainform = mainForm;
-            this.timerText.Text = changedParams.clickValues.timeout.ToString();
+            this.timerText.Text = (((double) changedParams.clickValues.timeout)/ 100).ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
             CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
 
@@ -67,6 +67,7 @@ namespace Smart_Clicker
                 this.customParams.merge(changedParams);
                 new XmlMethods().saveCustomParams(changedParams);
                 //this.mainform.draw(); --> Add this function to mainform!
+                this.mainform.detector.resetTimerInterval();
                 this.Close();
             }
             catch
@@ -91,7 +92,7 @@ namespace Smart_Clicker
                     val += 0.1;
                 }
                 timerText.Text = val.ToString();
-                this.changedParams.clickValues.timeout = val;
+                this.changedParams.clickValues.timeout = (int) (val * 100);
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly              
             }
@@ -111,7 +112,7 @@ namespace Smart_Clicker
                     val -= 0.1;
                 }
                 timerText.Text = val.ToString();
-                this.changedParams.clickValues.timeout = val;
+                this.changedParams.clickValues.timeout = (int) (val * 100);
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
             }

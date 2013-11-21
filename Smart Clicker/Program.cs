@@ -24,10 +24,10 @@ namespace Smart_Clicker
             ClickStatus status = new ClickStatus();
             CustomizationParameters customParams = new XmlMethods().loadFromXML();
             MainForm mainForm = new MainForm(status, customParams);
-            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
+            ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), customParams, mainForm);
+            mainForm.detector = clickDetector;
 
             Application.ThreadException += new ThreadExceptionEventHandler(mainForm.CatchFatalException);
-
 
             Fetcher fetcher = new Fetcher(mainForm);
 

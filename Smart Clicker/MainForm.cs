@@ -72,6 +72,7 @@ namespace Smart_Clicker
 
         private ClickStatus clickStatus;
         private CustomizationParameters customParams;
+        public ClickDetector detector;
         private PictureBox[] buttons;
         private Dictionary<PictureBox, ProgramMode> ModeMapping;
         private PictureBox currentMousePictureBox;
