@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -226,7 +227,21 @@ namespace Smart_Clicker
 
         public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(e.Exception.ToString(), w);
+            }
             Application.Restart();
+        }
+
+        public static void Log(string logMessage, TextWriter w)
+        {
+            w.Write("\r\nLog Entry : ");
+            w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                DateTime.Now.ToLongDateString());
+            w.WriteLine("  :");
+            w.WriteLine("  :{0}", logMessage);
+            w.WriteLine("-------------------------------");
         }
 
         private void customize_Click(object sender, EventArgs e)
@@ -234,8 +249,6 @@ namespace Smart_Clicker
             // launch custom UI
             CustomUI customWindow = new CustomUI(customParams, this);
             customWindow.Show();
-
-
         }
  
     }

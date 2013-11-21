@@ -175,7 +175,7 @@ namespace Smart_Clicker
 
         private void click(Point p, Boolean clickAndDrag)
         {
-            if (form.ClientRectangle.Contains(p) && (Form.ActiveForm == this.form))
+            if (form.ClientRectangle.Contains(p) && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0))
             {
                 return;
             }
