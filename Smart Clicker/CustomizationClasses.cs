@@ -29,7 +29,7 @@ namespace Smart_Clicker
     public class ClickCustomization
     {
         // In ms
-        public int timeout;
+        public double timeout;
         // In pixels
         public int clickBoundingBox;
     }

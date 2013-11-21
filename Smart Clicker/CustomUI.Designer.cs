@@ -304,7 +304,7 @@
             this.boundingBoxText.Name = "boundingBoxText";
             this.boundingBoxText.Size = new System.Drawing.Size(102, 34);
             this.boundingBoxText.TabIndex = 30;
-            this.boundingBoxText.Text = "10";
+            this.boundingBoxText.Text = "25";
             this.boundingBoxText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // timerText
@@ -315,7 +315,7 @@
             this.timerText.Name = "timerText";
             this.timerText.Size = new System.Drawing.Size(102, 34);
             this.timerText.TabIndex = 35;
-            this.timerText.Text = "10";
+            this.timerText.Text = "1";
             this.timerText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // confirmCustom

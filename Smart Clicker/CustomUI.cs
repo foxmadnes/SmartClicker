@@ -13,8 +13,10 @@ namespace Smart_Clicker
 {
     public partial class CustomUI : Form
     {
-        private int dwellTime = 10; // 10 by default
-        private int boxSize = 10; // 10 by default
+        private static double MAX_TIME = 10;
+        private static double MIN_TIME = 0.3;
+        private static int MAX_SIZE = 100;
+        private static int MIN_SIZE = 10;
         private CustomizationParameters customParams;
         private MainForm mainform;
 
@@ -28,9 +30,8 @@ namespace Smart_Clicker
             InitializeComponent();
             this.customParams = customParams;
             this.mainform = mainForm;
-            // Some random default values -- Andres?
-            this.customParams.clickValues.timeout = 10;
-            this.customParams.clickValues.clickBoundingBox = 10;
+            this.customParams.clickValues.timeout = 1;
+            this.customParams.clickValues.clickBoundingBox = 25;
         }
 
 
@@ -39,10 +40,10 @@ namespace Smart_Clicker
         {
             try
             {
-                dwellTime = int.Parse(timerText.Text);
-                boxSize = int.Parse(boundingBoxText.Text);
-                this.customParams.clickValues.timeout = dwellTime;
-                this.customParams.clickValues.clickBoundingBox = boxSize;
+                //dwellTime = int.Parse(timerText.Text);
+                //boxSize = int.Parse(boundingBoxText.Text);
+                //this.customParams.clickValues.timeout = dwellTime;
+                //this.customParams.clickValues.clickBoundingBox = boxSize;
                 new XmlMethods().saveCustomParams(customParams);
                 // the layout event handlers below will edit the customparams instance
                 //this.mainform.draw(); --> Klaudia add this function to mainform!
@@ -64,8 +65,11 @@ namespace Smart_Clicker
             while (timePlus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
                 Debug.WriteLine("In the plus loop");
+                double val = double.Parse(timerText.Text);
                 // While cursor is on the button, keep incrementing the values of the text box
-                int val = int.Parse(timerText.Text) + 1;
+                if (double.Parse(timerText.Text) != MAX_TIME) {
+                    val += 0.1;
+                }
                 timerText.Text = val.ToString();
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly              
@@ -74,14 +78,19 @@ namespace Smart_Clicker
             }
         }
 
+        // Combine this and timePlus into one callback function later
         private void timeMinus_mouseHover(object sender, EventArgs e)
         {
 
             while (timeMinus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
                 Debug.WriteLine("In the minus loop");
-                // While cursor is on the button, keep incrementing the values of the text box
-                int val = int.Parse(timerText.Text) - 1;
+                double val = double.Parse(timerText.Text);
+                // While cursor is on the button, keep decrementing the values of the text box
+                if (double.Parse(timerText.Text) != MIN_TIME)
+                {
+                    val -= 0.1;
+                }
                 timerText.Text = val.ToString();
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
