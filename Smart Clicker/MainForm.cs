@@ -203,6 +203,10 @@ namespace Smart_Clicker
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+            {
+                return;
+            }
             if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 e.Cancel = true;
@@ -218,6 +222,6 @@ namespace Smart_Clicker
         public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             Application.Restart();
-        }  
+        }
     }
 }

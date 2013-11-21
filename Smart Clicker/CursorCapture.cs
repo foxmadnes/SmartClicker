@@ -89,47 +89,25 @@ namespace Smart_Clicker
                             // This portion taken from http://stackoverflow.com/questions/918990/c-sharp-capturing-the-mouse-cursor-image
                             if (maskBitmap.Height == maskBitmap.Width * 2)
                             {
-                                Bitmap resultBitmap = new Bitmap(maskBitmap.Width, maskBitmap.Width);
+                                // Reverting to simple saving and no cleanup because of an object leak
+                                Rectangle sourceRectangle = new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2);
 
-                                Graphics desktopGraphics = Graphics.FromHwnd(Win32Stuff.GetDesktopWindow());
-                                IntPtr desktopHdc = desktopGraphics.GetHdc();
-
-                                IntPtr maskHdc = Win32Stuff.CreateCompatibleDC(desktopHdc);
-                                IntPtr oldPtr = Win32Stuff.SelectObject(maskHdc, maskBitmap.GetHbitmap());
-
-                                using (Graphics resultGraphics = Graphics.FromImage(resultBitmap))
-                                {
-                                    IntPtr resultHdc = resultGraphics.GetHdc();
-
-                                    // These two operation will result in a black cursor over a white background.
-                                    // Later in the code, a call to MakeTransparent() will get rid of the white background.
-                                    Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 32, (int)Win32Stuff.TernaryRasterOperations.SRCCOPY);
-                                    Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 0, (int)Win32Stuff.TernaryRasterOperations.SRCINVERT);
-
-                                    resultGraphics.ReleaseHdc(resultHdc);
-                                }
-
-                                IntPtr newPtr = Win32Stuff.SelectObject(maskHdc, oldPtr);
-                                Win32Stuff.DeleteObject(newPtr);
-                                Win32Stuff.DeleteDC(maskHdc);
-                                desktopGraphics.ReleaseHdc(desktopHdc);
-
-                                // Remove the white background from the BitBlt calls,
-                                // resulting in a black cursor over a transparent background.
-                                // resultBitmap.MakeTransparent(Color.White);
-                                bmp = resultBitmap;
+                                Bitmap secondBitmap = maskBitmap.Clone(sourceRectangle, PixelFormat.DontCare);
+                                
+                                bmp = secondBitmap;
                             }
                             else
                             {
                                 Icon ic = Icon.FromHandle(hicon);
                                 bmp = ic.ToBitmap();
+                                Win32Stuff.DestroyIcon(ic.Handle);
                             }
                         }
                         Win32Stuff.DeleteObject(hicon);
                         Win32Stuff.DeleteObject(icInfo.hbmColor);
                         Win32Stuff.DeleteObject(icInfo.hbmMask);
                         Win32Stuff.DeleteObject(ci.hCursor);
-                        return new cursorInTime(x, y, 0, bmp);
+                        return new cursorInTime(x, y, bmp);
                     }
                 }
             }

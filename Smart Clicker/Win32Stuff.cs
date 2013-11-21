@@ -105,6 +105,9 @@ namespace Smart_Clicker
         [DllImport("user32.dll", EntryPoint = "GetIconInfo")]
         public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool DestroyIcon(IntPtr handle);
+
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         public static extern IntPtr DeleteObject(IntPtr hDc);

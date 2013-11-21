@@ -40,7 +40,7 @@ namespace Smart_Clicker
             this.status = status;
             this.capture = capture;
             this.form = form;
-            this.lastClick = new cursorInTime(0, 0, 0, null);
+            this.lastClick = new cursorInTime(0, 0, null);
             InitTimer();
             this.automator = new CUIAutomation();
         }
@@ -63,8 +63,6 @@ namespace Smart_Clicker
             {
                 return;
             }
-
-            cursor.tMS = timer1.Interval;
             MouseTracker.Add(cursor);
 
             if (MouseTracker.Count >= 10)
@@ -79,7 +77,7 @@ namespace Smart_Clicker
                 else
                 {
                     // The last click position is not valid anymore, clear it
-                    this.lastClick = new cursorInTime(0, 0, 0, null);
+                    this.lastClick = new cursorInTime(0, 0, null);
                 }
             }
         }
@@ -245,13 +243,11 @@ namespace Smart_Clicker
     public class cursorInTime
     {
         public Point p;
-        public long tMS;
         public Bitmap cursor;
 
-        public cursorInTime(int x, int y, long et, Bitmap cursor)
+        public cursorInTime(int x, int y, Bitmap cursor)
         {
             p = new Point(x, y);
-            tMS = et;
             this.cursor = cursor;
         }
     }
