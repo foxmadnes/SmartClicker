@@ -23,7 +23,8 @@ namespace Smart_Clicker
                 WindowPos windowPos = (WindowPos)m.GetLParam(typeof(WindowPos));
 
                 // Make changes to windowPos
-                windowPos.width = 90;
+                windowPos.width = this.customParams.layoutValues.startWidth;
+                windowPos.height = this.customParams.layoutValues.startHeight;
                 resizeForm = false;
 
                 // Then marshal the changes back to the message
@@ -105,8 +106,8 @@ namespace Smart_Clicker
             this.MinimizeBox = false;
             this.Text = String.Empty;
             this.StartPosition = FormStartPosition.Manual;
-            this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
-            this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
+            this.Left = this.customParams.layoutValues.startLeft;
+            this.Top = this.customParams.layoutValues.startTop;
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
             //Temporary solution to some problems
@@ -208,13 +209,20 @@ namespace Smart_Clicker
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            if (e.CloseReason == CloseReason.WindowsShutDown)
+            if (e.CloseReason != CloseReason.WindowsShutDown)
             {
+                if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
                 //Grab the current width and height of the form for saving
                 customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
                 customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
                 // Save object to XML before you close
                 //customParams.saveCustomParams();
+                this.customParams.layoutValues.startLeft = this.Left;
+                this.customParams.layoutValues.startTop = this.Top;
                 new XmlMethods().saveCustomParams(customParams);
                 return;
             }
