@@ -53,9 +53,11 @@
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.clickAndDrag.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(0, 358);
+
+            this.clickAndDrag.Location = new System.Drawing.Point(0, 325);
             this.clickAndDrag.Name = "clickAndDrag";
-            this.clickAndDrag.Size = new System.Drawing.Size(272, 66);
+            this.clickAndDrag.Size = new System.Drawing.Size(321, 66);
+
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.clickAndDrag.TabIndex = 10;
             this.clickAndDrag.TabStop = false;
@@ -66,9 +68,11 @@
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.doubleClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(0, 291);
+
+            this.doubleClick.Location = new System.Drawing.Point(0, 258);
             this.doubleClick.Name = "doubleClick";
-            this.doubleClick.Size = new System.Drawing.Size(272, 67);
+            this.doubleClick.Size = new System.Drawing.Size(321, 67);
+
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.doubleClick.TabIndex = 11;
             this.doubleClick.TabStop = false;
@@ -79,9 +83,11 @@
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.rightClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(0, 221);
+
+            this.rightClick.Location = new System.Drawing.Point(0, 188);
             this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(272, 70);
+            this.rightClick.Size = new System.Drawing.Size(321, 70);
+
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.rightClick.TabIndex = 12;
             this.rightClick.TabStop = false;
@@ -92,9 +98,11 @@
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.leftClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(0, 159);
+
+            this.leftClick.Location = new System.Drawing.Point(0, 126);
             this.leftClick.Name = "leftClick";
-            this.leftClick.Size = new System.Drawing.Size(272, 62);
+            this.leftClick.Size = new System.Drawing.Size(321, 62);
+
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.leftClick.TabIndex = 13;
             this.leftClick.TabStop = false;
@@ -105,9 +113,11 @@
             this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.contextClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(0, 97);
+
+            this.contextClick.Location = new System.Drawing.Point(0, 64);
             this.contextClick.Name = "contextClick";
-            this.contextClick.Size = new System.Drawing.Size(272, 62);
+            this.contextClick.Size = new System.Drawing.Size(321, 62);
+
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.contextClick.TabIndex = 14;
             this.contextClick.TabStop = false;
@@ -118,9 +128,11 @@
             this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.sleepClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
-            this.sleepClick.Location = new System.Drawing.Point(0, 35);
+
+            this.sleepClick.Location = new System.Drawing.Point(0, 2);
             this.sleepClick.Name = "sleepClick";
-            this.sleepClick.Size = new System.Drawing.Size(272, 62);
+            this.sleepClick.Size = new System.Drawing.Size(321, 62);
+
             this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.sleepClick.TabIndex = 15;
             this.sleepClick.TabStop = false;
@@ -162,8 +174,10 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+
             this.ClientSize = new System.Drawing.Size(272, 424);
             this.Controls.Add(this.toolStrip1);
+
             this.Controls.Add(this.sleepClick);
             this.Controls.Add(this.contextClick);
             this.Controls.Add(this.leftClick);

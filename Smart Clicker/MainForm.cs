@@ -205,16 +205,17 @@ namespace Smart_Clicker
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
+
+            if (e.CloseReason == CloseReason.WindowsShutDown)
             {
-                e.Cancel = true;
+                //Grab the current width and height of the form for saving
+                customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
+                customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
+                // Save object to XML before you close
+                //customParams.saveCustomParams();
+                new XmlMethods().saveCustomParams(customParams);
+                return;
             }
-            //Grab the current width and height of the form for saving
-            customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
-            customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
-            // Save object to XML before you close
-            //customParams.saveCustomParams();
-            new XmlMethods().saveCustomParams(customParams);
         }
 
         // This function is never getting called by the APIs.

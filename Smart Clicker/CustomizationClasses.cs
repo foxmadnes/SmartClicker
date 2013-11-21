@@ -16,10 +16,13 @@ namespace Smart_Clicker
 
         public CustomizationParameters()
         {
+
             this.clickValues = new ClickCustomization();
             this.layoutValues = new LayoutCustomization();
             this.contextValues = new ContextCustomization();
+
         }
+
 
     }
 

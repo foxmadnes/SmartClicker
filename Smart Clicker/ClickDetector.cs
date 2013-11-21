@@ -5,22 +5,22 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using interop.UIAutomationCore;
 
 namespace Smart_Clicker
 {
     class ClickDetector
     {
 
+        // Note - Move these to Win32Stuff later
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void SetCursorPos(int x, int y);
+        public static extern void keybd_event(byte vk, byte scan, int flags, int extrainfo);
 
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
-        public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        public const int MOUSEEVENTF_RIGHTUP = 0x10;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void SetCursorPos(int x, int y);
 
         private ClickStatus status;
         private CursorCapture capture;
@@ -33,13 +33,16 @@ namespace Smart_Clicker
 
         private int CURSOR_DISTANCE = 25;
 
+        private IUIAutomation automator;
+
         public ClickDetector(ClickStatus status, CursorCapture capture, MainForm form)
         {
             this.status = status;
             this.capture = capture;
             this.form = form;
-            this.lastClick = new cursorInTime(0, 0, 0, null);
+            this.lastClick = new cursorInTime(0, 0, null);
             InitTimer();
+            this.automator = new CUIAutomation();
         }
 
         public void InitTimer()
@@ -60,8 +63,6 @@ namespace Smart_Clicker
             {
                 return;
             }
-
-            cursor.tMS = timer1.Interval;
             MouseTracker.Add(cursor);
 
             if (MouseTracker.Count >= 10)
@@ -76,7 +77,7 @@ namespace Smart_Clicker
                 else
                 {
                     // The last click position is not valid anymore, clear it
-                    this.lastClick = new cursorInTime(0, 0, 0, null);
+                    this.lastClick = new cursorInTime(0, 0, null);
                 }
             }
         }
@@ -179,65 +180,74 @@ namespace Smart_Clicker
                 return;
             }
 
-            if (this.status.getContext())
+            if (this.status.getActiveMode().isContext)
             {
                 if (clickAndDrag)
                 {
-                    if (this.status.getStatus() != statusEnum.leftUp)
+                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
                     {
-                        this.status.setStatus(statusEnum.leftDown);
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                    }
+                }
+                tagPOINT reference = new tagPOINT();
+                reference.x = p.X;
+                reference.y = p.Y;
+                IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
+                System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+                System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+                if (focus.CurrentControlType == 50037 || focus.CurrentControlType == 50027)
+                {
+                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+                    {
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
                     }
                 }
             }
 
-            switch (this.status.getStatus())
+            ProgramMode activeMode = this.status.getActiveMode();
+            clickActions(activeMode.mode[this.status.currentIndex], p);
+            this.status.currentIndex++;
+            if (this.status.currentIndex > activeMode.mode.Length - 1)
             {
-                case (statusEnum.leftClick):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    System.Diagnostics.Debug.WriteLine("Clickety click");
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.rightClick):
-                    mouse_event(MOUSEEVENTF_RIGHTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_RIGHTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.doubleClick):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-
-                case (statusEnum.leftDown):
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, p.X, p.Y, 0, 0);
-                    this.status.setStatus(statusEnum.leftUp);
-                    break;
-
-                case (statusEnum.leftUp):
-                    mouse_event(MOUSEEVENTF_LEFTUP, p.X, p.Y, 0, 0);
-                    this.form.setClickDefault();
-                    break;
-                default:
-                    break;
+                this.status.clearActiveMode();
             }
+            this.form.setClickDefault();
+        }
+
+        private void clickActions(Action[] actions, Point p)
+        {
+            foreach (Action action in actions)
+            {
+                if (action.GetType() == typeof(MouseAction))
+                {
+                    performMouseAction((MouseAction) action, p);
+                }
+                else
+                {
+                    performKeyboardAction((KeyboardAction) action);
+                }
+            }
+        }
+
+        private void performMouseAction(MouseAction action, Point p)
+        {
+            mouse_event((int) action.clickInt, p.X, p.Y, 0, 0);
+        }
+
+        private void performKeyboardAction(KeyboardAction action)
+        {
+            keybd_event(action.key,0, (action.key_up ? 0x02 : 0), 0);
         }
     }
 
     public class cursorInTime
     {
         public Point p;
-        public long tMS;
         public Bitmap cursor;
 
-        public cursorInTime(int x, int y, long et, Bitmap cursor)
+        public cursorInTime(int x, int y, Bitmap cursor)
         {
             p = new Point(x, y);
-            tMS = et;
             this.cursor = cursor;
         }
     }

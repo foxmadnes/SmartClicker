@@ -46,37 +46,15 @@ namespace Smart_Clicker
 
         public bool IsClickAndDrag(Bitmap currentMouse)
         {
-            //create instance or System.Drawing.ImageConverter to convert image to a byte array
-            ImageConverter converter = new ImageConverter();
-            //create byte arrays, for currentCursor
-            byte[] currentMouseBytes = new byte[1];
-
-            //convert images to byte array
-            currentMouseBytes = (byte[])converter.ConvertTo(currentMouse, currentMouseBytes.GetType());
-
-            //now compute a hash for current cursor from the byte arrays
-            SHA256Managed sha = new SHA256Managed();
-            byte[] currentMouseHash = sha.ComputeHash(currentMouseBytes);
-            
-            if (clickAndDragDictionary.ContainsKey(currentMouseHash))
-            {
-                return clickAndDragDictionary[currentMouseHash];
-            }
-
             // Go through each known cursor in clickAndDrag
             foreach (Bitmap cursor in clickAndDragBitmaps)
             {
                 // if bitmaps are close
                 if (CompareCursorBitmaps(cursor, currentMouse))
                 {
-                    // add to dictionary to avoid overhead
-                    clickAndDragDictionary.Add(currentMouseHash, true);
                     return true;
                 }
             }
-
-            // None match, add to dictionary to avoid next time
-            clickAndDragDictionary.Add(currentMouseHash, false);
             return false;
         }
 
@@ -90,61 +68,52 @@ namespace Smart_Clicker
             Win32Stuff.CURSORINFO ci = new Win32Stuff.CURSORINFO();
             Win32Stuff.ICONINFO icInfo;
             ci.cbSize = Marshal.SizeOf(ci);
-            if (Win32Stuff.GetCursorInfo(out ci))
+            try
             {
-                if (ci.flags == Win32Stuff.CURSOR_SHOWING)
+                if (Win32Stuff.GetCursorInfo(out ci))
                 {
-                    hicon = Win32Stuff.CopyIcon(ci.hCursor);
-                    Win32Stuff.GetIconInfo(hicon, out icInfo);
-                    int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
-                    int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
-                    using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
+                    if (ci.flags == Win32Stuff.CURSOR_SHOWING)
                     {
-                        // Is this a monochrome cursor?
-                        // This portion taken from http://stackoverflow.com/questions/918990/c-sharp-capturing-the-mouse-cursor-image
-                        if (maskBitmap.Height == maskBitmap.Width * 2)
+                        hicon = Win32Stuff.CopyIcon(ci.hCursor);
+                        Win32Stuff.GetIconInfo(hicon, out icInfo);
+                        while (icInfo.hbmMask == IntPtr.Zero)
                         {
-                            Bitmap resultBitmap = new Bitmap(maskBitmap.Width, maskBitmap.Width);
-
-                            Graphics desktopGraphics = Graphics.FromHwnd(Win32Stuff.GetDesktopWindow());
-                            IntPtr desktopHdc = desktopGraphics.GetHdc();
-
-                            IntPtr maskHdc = Win32Stuff.CreateCompatibleDC(desktopHdc);
-                            IntPtr oldPtr = Win32Stuff.SelectObject(maskHdc, maskBitmap.GetHbitmap());
-
-                            using (Graphics resultGraphics = Graphics.FromImage(resultBitmap))
+                            Win32Stuff.GetIconInfo(hicon, out icInfo);
+                            System.Diagnostics.Debug.Print("Retrying cursor capture.");
+                        }
+                        int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
+                        int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
+                        using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
+                        {
+                            // Is this a monochrome cursor?
+                            // This portion taken from http://stackoverflow.com/questions/918990/c-sharp-capturing-the-mouse-cursor-image
+                            if (maskBitmap.Height == maskBitmap.Width * 2)
                             {
-                                IntPtr resultHdc = resultGraphics.GetHdc();
+                                // Reverting to simple saving and no cleanup because of an object leak
+                                Rectangle sourceRectangle = new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2);
 
-                                // These two operation will result in a black cursor over a white background.
-                                // Later in the code, a call to MakeTransparent() will get rid of the white background.
-                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 32, 0x00CC0020);//Win32Stuff.TernaryRasterOperations.SRCCOPY);
-                                Win32Stuff.BitBlt(resultHdc, 0, 0, 32, 32, maskHdc, 0, 0, 0x00660046);//Win32Stuff.TernaryRasterOperations.SRCINVERT);
-
-                                resultGraphics.ReleaseHdc(resultHdc);
+                                Bitmap secondBitmap = maskBitmap.Clone(sourceRectangle, PixelFormat.DontCare);
+                                
+                                bmp = secondBitmap;
                             }
-
-                            IntPtr newPtr = Win32Stuff.SelectObject(maskHdc, oldPtr);
-                            Win32Stuff.DeleteObject(newPtr);
-                            Win32Stuff.DeleteDC(maskHdc);
-                            desktopGraphics.ReleaseHdc(desktopHdc);
-
-                            // Remove the white background from the BitBlt calls,
-                            // resulting in a black cursor over a transparent background.
-                            // resultBitmap.MakeTransparent(Color.White);
-                            bmp = resultBitmap;
+                            else
+                            {
+                                Icon ic = Icon.FromHandle(hicon);
+                                bmp = ic.ToBitmap();
+                                Win32Stuff.DestroyIcon(ic.Handle);
+                            }
                         }
-                        else
-                        {
-                            Icon ic = Icon.FromHandle(hicon);
-                            bmp = ic.ToBitmap();
-                        }
+                        Win32Stuff.DeleteObject(hicon);
+                        Win32Stuff.DeleteObject(icInfo.hbmColor);
+                        Win32Stuff.DeleteObject(icInfo.hbmMask);
+                        Win32Stuff.DeleteObject(ci.hCursor);
+                        return new cursorInTime(x, y, bmp);
                     }
-                    Win32Stuff.DeleteObject(hicon);
-                    if (icInfo.hbmColor != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmColor);
-                    if (icInfo.hbmMask != IntPtr.Zero) Win32Stuff.DeleteObject(icInfo.hbmMask);
-                    return new cursorInTime(x, y, 0, bmp);
                 }
+            }
+            catch (ExternalException e)
+            {
+                System.Diagnostics.Debug.Print(e.ToString());
             }
             return null;
         }

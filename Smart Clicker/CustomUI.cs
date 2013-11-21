@@ -18,7 +18,6 @@ namespace Smart_Clicker
         private CustomizationParameters customParams;
         private MainForm mainform;
 
-
         public CustomUI()
         {
             InitializeComponent();
@@ -33,6 +32,8 @@ namespace Smart_Clicker
             this.customParams.clickValues.timeout = 10;
             this.customParams.clickValues.clickBoundingBox = 10;
         }
+
+
 
         private void confirmCustom_Click(object sender, EventArgs e)
         {

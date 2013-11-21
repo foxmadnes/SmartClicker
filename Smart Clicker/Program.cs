@@ -15,8 +15,7 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
-            //// make the dummy xml
-            //dummyXMLmaker dummy = new dummyXMLmaker();
+
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
