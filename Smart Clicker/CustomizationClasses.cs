@@ -23,6 +23,23 @@ namespace Smart_Clicker
 
         }
 
+        public static CustomizationParameters createDefault()
+        {
+            CustomizationParameters defaultParameters = new CustomizationParameters();
+            defaultParameters.clickValues = new ClickCustomization();
+            defaultParameters.clickValues.timeout = 1;
+            defaultParameters.clickValues.clickBoundingBox = 25;
+            defaultParameters.layoutValues = new LayoutCustomization();
+            defaultParameters.layoutValues.hiddenIconNames = new List<string>();
+            defaultParameters.layoutValues.restartOnCrash = true;
+            defaultParameters.layoutValues.startOnStartup = false;
+            defaultParameters.contextValues = new ContextCustomization();
+            defaultParameters.contextValues.clickAndDragBitmaps = new List<Bitmap>();
+            defaultParameters.contextValues.doubleClickBitmaps = new List<Bitmap>();
+            defaultParameters.contextValues.rightClickBitmaps = new List<Bitmap>();
+            return defaultParameters;
+        }
+
         public CustomizationParameters copy()
         {
             CustomizationParameters copy = new CustomizationParameters();
@@ -64,6 +81,7 @@ namespace Smart_Clicker
         public int startHeight;
         public int totalModes;
         public bool restartOnCrash;
+        public bool startOnStartup;
 
         public LayoutCustomization copy()
         {
@@ -75,6 +93,7 @@ namespace Smart_Clicker
             copy.startHeight = this.startHeight;
             copy.totalModes = this.totalModes;
             copy.restartOnCrash = this.restartOnCrash;
+            copy.startOnStartup = this.startOnStartup;
             return copy;
         }
     }

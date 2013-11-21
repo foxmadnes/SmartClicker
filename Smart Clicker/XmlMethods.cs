@@ -21,8 +21,8 @@ namespace Smart_Clicker
 
             else
             {
-                //make new instance
-                return new CustomizationParameters();
+                //make new instance with default values
+                return CustomizationParameters.createDefault();
             }
         }
 
