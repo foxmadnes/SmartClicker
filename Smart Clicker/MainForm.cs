@@ -70,16 +70,18 @@ namespace Smart_Clicker
 
 
         private ClickStatus clickStatus;
+        private CustomizationParameters customParams;
         private PictureBox[] buttons;
-        private Dictionary<PictureBox, statusEnum> ModeMapping;
+        private Dictionary<PictureBox, ProgramMode> ModeMapping;
         private PictureBox currentMousePictureBox;
         private bool inBox = false;
         private bool resizeForm = false;
 
-        public MainForm(ClickStatus status)
+        public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
             InitializeComponent();
             this.clickStatus = status;
+            this.customParams = customParams;
 
             this.buttons = new PictureBox[] {leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
             foreach (PictureBox mode in buttons)
@@ -87,14 +89,14 @@ namespace Smart_Clicker
                 mode.MouseHover += new EventHandler(pictureBox_MouseHover);
             }
 
-            ModeMapping = new Dictionary<PictureBox, statusEnum>() 
+            ModeMapping = new Dictionary<PictureBox, ProgramMode>() 
             {
-                {leftClick, statusEnum.leftClick},
-                {rightClick, statusEnum.rightClick},
-                {doubleClick, statusEnum.doubleClick},
-                {contextClick, statusEnum.leftClick},
-                {clickAndDrag, statusEnum.leftDown},
-                {sleepClick, statusEnum.sleepClick}
+                {leftClick, ProgramMode.leftClick},
+                {rightClick, ProgramMode.rightClick},
+                {doubleClick, ProgramMode.doubleClick},
+                {contextClick, ProgramMode.leftClick},
+                {clickAndDrag, ProgramMode.clickAndDrag},
+                {sleepClick, ProgramMode.sleepClick}
             };
 
             this.MaximizeBox = false;
@@ -103,6 +105,11 @@ namespace Smart_Clicker
             this.StartPosition = FormStartPosition.Manual;
             this.Left = Screen.PrimaryScreen.Bounds.Width - (this.Bounds.Width + 10);
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - (this.Bounds.Height / 2);
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
+            //Temporary solution to some problems
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+
             setPictureBoxSelect(contextClick);
         }
 
@@ -148,15 +155,7 @@ namespace Smart_Clicker
             mouseOver.Dispose();
             if (this.inBox && (this.currentMousePictureBox == mode))
             {
-                if (mode == contextClick)
-                {
-                    this.clickStatus.setContext(true);
-                }
-                else
-                {
-                    this.clickStatus.setContext(false);
-                }
-                this.clickStatus.setStatus(ModeMapping[mode]);
+                this.clickStatus.setCurrentMode(ModeMapping[mode]);
             }
             setPictureBoxSelect(mode);
             this.inBox = false;
@@ -201,9 +200,21 @@ namespace Smart_Clicker
 
         public void setClickDefault()
         {
-            this.clickStatus.setContext(true);
-            this.clickStatus.setStatus(statusEnum.leftClick);
             setPictureBoxSelect(contextClick);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            //Grab the current width and height of the form for saving
+            customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
+            customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
+            // Save object to XML before you close
+            //customParams.saveCustomParams();
+            new XmlMethods().saveCustomParams(customParams);
         }
 
         // This function is never getting called by the APIs.
@@ -211,5 +222,20 @@ namespace Smart_Clicker
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
         }
+
+        public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void customize_Click(object sender, EventArgs e)
+        {
+            // launch custom UI
+            CustomUI customWindow = new CustomUI(customParams, this);
+            customWindow.Show();
+
+
+        }
+ 
     }
 }

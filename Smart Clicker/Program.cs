@@ -15,21 +15,25 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
-            Win32Stuff.RegisterApplicationRestart("", 0);
+            //// make the dummy xml
+            //dummyXMLmaker dummy = new dummyXMLmaker();
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClickStatus status = new ClickStatus();
-            MainForm mainForm = new MainForm(status);
+            CustomizationParameters customParams = new XmlMethods().loadFromXML();
+            MainForm mainForm = new MainForm(status, customParams);
             ClickDetector clickDetector = new ClickDetector(status, new CursorCapture(), mainForm);
+
+            Application.ThreadException += new ThreadExceptionEventHandler(mainForm.CatchFatalException);
+
 
             Fetcher fetcher = new Fetcher(mainForm);
 
             fetcher.Show();
             Application.Run(mainForm);
-            //CustomUI cust1 = new CustomUI();
-            //Application.Run(cust1);
-        }
+        } 
     }
 }

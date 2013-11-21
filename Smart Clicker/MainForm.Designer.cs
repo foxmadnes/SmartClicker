@@ -35,12 +35,16 @@
             this.leftClick = new System.Windows.Forms.PictureBox();
             this.contextClick = new System.Windows.Forms.PictureBox();
             this.sleepClick = new System.Windows.Forms.PictureBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.customize = new System.Windows.Forms.ToolStripButton();
+            this.help = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // clickAndDrag
@@ -49,9 +53,9 @@
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.clickAndDrag.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(0, 324);
+            this.clickAndDrag.Location = new System.Drawing.Point(0, 358);
             this.clickAndDrag.Name = "clickAndDrag";
-            this.clickAndDrag.Size = new System.Drawing.Size(140, 66);
+            this.clickAndDrag.Size = new System.Drawing.Size(272, 66);
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.clickAndDrag.TabIndex = 10;
             this.clickAndDrag.TabStop = false;
@@ -62,9 +66,9 @@
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.doubleClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(0, 257);
+            this.doubleClick.Location = new System.Drawing.Point(0, 291);
             this.doubleClick.Name = "doubleClick";
-            this.doubleClick.Size = new System.Drawing.Size(140, 67);
+            this.doubleClick.Size = new System.Drawing.Size(272, 67);
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.doubleClick.TabIndex = 11;
             this.doubleClick.TabStop = false;
@@ -75,9 +79,9 @@
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.rightClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(0, 187);
+            this.rightClick.Location = new System.Drawing.Point(0, 221);
             this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(140, 70);
+            this.rightClick.Size = new System.Drawing.Size(272, 70);
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.rightClick.TabIndex = 12;
             this.rightClick.TabStop = false;
@@ -88,9 +92,9 @@
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.leftClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(0, 125);
+            this.leftClick.Location = new System.Drawing.Point(0, 159);
             this.leftClick.Name = "leftClick";
-            this.leftClick.Size = new System.Drawing.Size(140, 62);
+            this.leftClick.Size = new System.Drawing.Size(272, 62);
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.leftClick.TabIndex = 13;
             this.leftClick.TabStop = false;
@@ -101,9 +105,9 @@
             this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.contextClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(0, 63);
+            this.contextClick.Location = new System.Drawing.Point(0, 97);
             this.contextClick.Name = "contextClick";
-            this.contextClick.Size = new System.Drawing.Size(140, 62);
+            this.contextClick.Size = new System.Drawing.Size(272, 62);
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.contextClick.TabIndex = 14;
             this.contextClick.TabStop = false;
@@ -114,12 +118,42 @@
             this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.sleepClick.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
-            this.sleepClick.Location = new System.Drawing.Point(0, 1);
+            this.sleepClick.Location = new System.Drawing.Point(0, 35);
             this.sleepClick.Name = "sleepClick";
-            this.sleepClick.Size = new System.Drawing.Size(140, 62);
+            this.sleepClick.Size = new System.Drawing.Size(272, 62);
             this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.sleepClick.TabIndex = 15;
             this.sleepClick.TabStop = false;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customize,
+            this.help});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(272, 25);
+            this.toolStrip1.TabIndex = 16;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // customize
+            // 
+            this.customize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.customize.Image = ((System.Drawing.Image)(resources.GetObject("customize.Image")));
+            this.customize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.customize.Name = "customize";
+            this.customize.Size = new System.Drawing.Size(23, 22);
+            this.customize.Text = "toolStripButton1";
+            this.customize.Click += new System.EventHandler(this.customize_Click);
+            // 
+            // help
+            // 
+            this.help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.help.Image = ((System.Drawing.Image)(resources.GetObject("help.Image")));
+            this.help.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.help.Name = "help";
+            this.help.Size = new System.Drawing.Size(23, 22);
+            this.help.Text = "toolStripButton2";
             // 
             // MainForm
             // 
@@ -128,7 +162,8 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(140, 390);
+            this.ClientSize = new System.Drawing.Size(272, 424);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.sleepClick);
             this.Controls.Add(this.contextClick);
             this.Controls.Add(this.leftClick);
@@ -148,7 +183,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -160,6 +198,9 @@
         private System.Windows.Forms.PictureBox leftClick;
         private System.Windows.Forms.PictureBox contextClick;
         private System.Windows.Forms.PictureBox sleepClick;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton customize;
+        private System.Windows.Forms.ToolStripButton help;
 
     }
 }

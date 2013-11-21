@@ -16,30 +16,22 @@ namespace Smart_Clicker
         private int dwellTime = 10; // 10 by default
         private int boxSize = 10; // 10 by default
         private CustomizationParameters customParams;
+        private MainForm mainform;
 
 
-        // Accept instance of customizable class
-        public CustomUI(CustomizationParameters customParams)
+        public CustomUI()
+        {
+            InitializeComponent();
+        }
+
+        public CustomUI(CustomizationParameters customParams, MainForm mainForm)
         {
             InitializeComponent();
             this.customParams = customParams;
-            // set default values- Andres, what would you like here?
+            this.mainform = mainForm;
+            // Some random default values -- Andres?
             this.customParams.clickValues.timeout = 10;
             this.customParams.clickValues.clickBoundingBox = 10;
-        }
-
-        private CustomizationParameters getCustomizationParameters()
-        {
-            return this.customParams;
-        }        
-
-        // Write object Data to an XML file 
-        private void saveCustomParams()
-        {
-            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(CustomizationParameters));
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"c:\temp\SmartClickerCustomization.xml");
-            writer.Serialize(file, this.customParams);
-            file.Close();
         }
 
         private void confirmCustom_Click(object sender, EventArgs e)
@@ -50,7 +42,9 @@ namespace Smart_Clicker
                 boxSize = int.Parse(boundingBoxText.Text);
                 this.customParams.clickValues.timeout = dwellTime;
                 this.customParams.clickValues.clickBoundingBox = boxSize;
-                saveCustomParams(); // Should this happen here? Or on the parent level?
+                new XmlMethods().saveCustomParams(customParams);
+                // the layout event handlers below will edit the customparams instance
+                //this.mainform.draw(); --> Klaudia add this function to mainform!
                 this.Close();
             }
             catch
@@ -161,7 +155,8 @@ namespace Smart_Clicker
         {
 
         }
-        
+
+
         
     }
 }
