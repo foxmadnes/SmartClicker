@@ -18,20 +18,17 @@ namespace Smart_Clicker
         private static int MAX_SIZE = 100;
         private static int MIN_SIZE = 10;
         private CustomizationParameters customParams;
+        private CustomizationParameters changedParams;
         private MainForm mainform;
-
-        public CustomUI()
-        {
-            InitializeComponent();
-        }
 
         public CustomUI(CustomizationParameters customParams, MainForm mainForm)
         {
             InitializeComponent();
             this.customParams = customParams;
+            this.changedParams = customParams.copy();
             this.mainform = mainForm;
-            this.customParams.clickValues.timeout = 1;
-            this.customParams.clickValues.clickBoundingBox = 25;
+            this.timerText.Text = changedParams.clickValues.timeout.ToString();
+            this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
         }
 
 
@@ -40,13 +37,9 @@ namespace Smart_Clicker
         {
             try
             {
-                //dwellTime = int.Parse(timerText.Text);
-                //boxSize = int.Parse(boundingBoxText.Text);
-                //this.customParams.clickValues.timeout = dwellTime;
-                //this.customParams.clickValues.clickBoundingBox = boxSize;
-                new XmlMethods().saveCustomParams(customParams);
-                // the layout event handlers below will edit the customparams instance
-                //this.mainform.draw(); --> Klaudia add this function to mainform!
+                this.customParams.merge(changedParams);
+                new XmlMethods().saveCustomParams(changedParams);
+                //this.mainform.draw(); --> Add this function to mainform!
                 this.Close();
             }
             catch
@@ -71,10 +64,9 @@ namespace Smart_Clicker
                     val += 0.1;
                 }
                 timerText.Text = val.ToString();
+                this.changedParams.clickValues.timeout = val;
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly              
-
-                
             }
         }
 
@@ -92,6 +84,7 @@ namespace Smart_Clicker
                     val -= 0.1;
                 }
                 timerText.Text = val.ToString();
+                this.changedParams.clickValues.timeout = val;
                 timerText.Refresh();
                 Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
             }
