@@ -19,6 +19,8 @@ namespace Smart_Clicker
         private static int MIN_SIZE = 10;
         private CustomizationParameters customParams;
         private CustomizationParameters changedParams;
+        private Dictionary<CheckBox, string> ModeToStringMapping;
+        private Dictionary<string, CheckBox> StringToModeMapping;
         private MainForm mainform;
 
         public CustomUI(CustomizationParameters customParams, MainForm mainForm)
@@ -29,6 +31,31 @@ namespace Smart_Clicker
             this.mainform = mainForm;
             this.timerText.Text = changedParams.clickValues.timeout.ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
+            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
+
+            ModeToStringMapping = new Dictionary<CheckBox, string>() 
+            {
+                {displayLeftMode, "leftClick"},
+                {displayRightMode, "rightClick"},
+                {displayDoubleMode, "doubleClick"},
+                {displayContextMode, "contextClick"},
+                {displayClickDragMode, "clickAndDrag"},
+                {displaySleepMode, "sleepClick"}
+            };
+            StringToModeMapping = new Dictionary<string,CheckBox>();
+            foreach (CheckBox key in ModeToStringMapping.Keys)
+            {
+                StringToModeMapping.Add(this.ModeToStringMapping[key], key);
+            }
+            foreach (CheckBox box in modes)
+            {
+                box.Checked = true;
+                box.CheckedChanged += new EventHandler(box_CheckedChanged);
+            }
+            foreach (string hidden in this.changedParams.layoutValues.hiddenIconNames.ToList<string>())
+            {
+                StringToModeMapping[hidden].Checked = false;
+            }
         }
 
 
@@ -116,6 +143,21 @@ namespace Smart_Clicker
             }
         }
 
+        private void box_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox currentBox = (CheckBox)sender;
+            if (currentBox.Checked)
+            {
+                while( this.changedParams.layoutValues.hiddenIconNames.Contains(this.ModeToStringMapping[currentBox]))
+                {
+                    this.changedParams.layoutValues.hiddenIconNames.Remove(this.ModeToStringMapping[currentBox]);
+                }
+            }
+            else
+            {
+                this.changedParams.layoutValues.hiddenIconNames.Add(this.ModeToStringMapping[currentBox]);
+            }
+        }
 
         /** Layout Alteration portion of the code.. Separate Tab? **/
 
