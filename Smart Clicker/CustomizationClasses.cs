@@ -33,10 +33,10 @@ namespace Smart_Clicker
             defaultParameters.layoutValues.hiddenIconNames = new List<string>();
             defaultParameters.layoutValues.restartOnCrash = true;
             defaultParameters.layoutValues.startOnStartup = false;
-            defaultParameters.layoutValues.startHeight = 469;
+            defaultParameters.layoutValues.startHeight = 465;
             defaultParameters.layoutValues.startWidth = 50;
             defaultParameters.layoutValues.startLeft = Screen.PrimaryScreen.Bounds.Width - (100);;
-            defaultParameters.layoutValues.startTop = Screen.PrimaryScreen.Bounds.Height / 2 - (475 / 2);;
+            defaultParameters.layoutValues.startTop = Screen.PrimaryScreen.Bounds.Height / 2 - (465 / 2);;
             defaultParameters.contextValues = new ContextCustomization();
             defaultParameters.contextValues.clickAndDragBitmaps = new List<Bitmap>();
             defaultParameters.contextValues.doubleClickBitmaps = new List<Bitmap>();

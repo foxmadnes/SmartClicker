@@ -24,7 +24,6 @@ namespace Smart_Clicker
 
                 // Make changes to windowPos
                 windowPos.width = this.customParams.layoutValues.startWidth;
-                windowPos.height = this.customParams.layoutValues.startHeight;
                 resizeForm = false;
 
                 // Then marshal the changes back to the message
@@ -112,6 +111,7 @@ namespace Smart_Clicker
 
             //Temporary solution to some problems
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.redraw();
 
             setPictureBoxSelect(contextClick);
         }
@@ -220,7 +220,6 @@ namespace Smart_Clicker
                 customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
                 customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
                 // Save object to XML before you close
-                //customParams.saveCustomParams();
                 this.customParams.layoutValues.startLeft = this.Left;
                 this.customParams.layoutValues.startTop = this.Top;
                 new XmlMethods().saveCustomParams(customParams);
@@ -240,7 +239,10 @@ namespace Smart_Clicker
             {
                 Log(e.Exception.ToString(), w);
             }
-            Application.Restart();
+            if (this.customParams.layoutValues.restartOnCrash)
+            {
+                Application.Restart();
+            }
         }
 
         public static void Log(string logMessage, TextWriter w)
@@ -259,6 +261,10 @@ namespace Smart_Clicker
             CustomUI customWindow = new CustomUI(customParams, this);
             customWindow.Show();
         }
- 
+
+        public void redraw()
+        {
+
+        }
     }
 }

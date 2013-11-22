@@ -29,9 +29,16 @@ namespace Smart_Clicker
         public void saveCustomParams(CustomizationParameters currentParams)
         {
             XmlSerializer writer = new XmlSerializer(typeof(CustomizationParameters));
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"SmartClickerConfig.xml");
-            writer.Serialize(file, currentParams);
-            file.Close();
+            try
+            {
+                System.IO.StreamWriter file = new System.IO.StreamWriter(@"SmartClickerConfig.xml");
+                writer.Serialize(file, currentParams);
+                file.Close();
+            }
+            catch (IOException e)
+            {
+                //File is already open by a different process, nothing we can do
+            }
         }
     }
 }

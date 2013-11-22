@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using interop.UIAutomationCore;
@@ -215,17 +216,24 @@ namespace Smart_Clicker
             tagPOINT reference = new tagPOINT();
             reference.x = p.X;
             reference.y = p.Y;
-            IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
-            System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
-            System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
-            if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
-                || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
-                || (focus.CurrentControlType == 50018 && this.parameters.contextValues.supportTabs))
+            try
             {
-                if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+                IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
+                System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+                System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+                if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
+                    || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
+                    || (focus.CurrentControlType == 50018 && this.parameters.contextValues.supportTabs))
                 {
-                    this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+                    {
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                    }
                 }
+            }
+            catch (COMException e)
+            {
+                // No element given, give up
             }
         }
 

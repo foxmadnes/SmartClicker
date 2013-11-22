@@ -33,6 +33,8 @@ namespace Smart_Clicker
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
             CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
             CheckBox[] contextSettings = { contextCompareCursors, contextScrollBars, contextTabs, contextTitleBars };
+            this.startupBoot.Checked = this.changedParams.layoutValues.startOnStartup;
+            this.crashReboot.Checked = this.changedParams.layoutValues.restartOnCrash;
             contextCompareCursors.Checked = this.changedParams.contextValues.compareCursors;
             contextScrollBars.Checked = this.changedParams.contextValues.supportScrollBars;
             contextTabs.Checked = this.changedParams.contextValues.supportTabs;
@@ -73,6 +75,7 @@ namespace Smart_Clicker
                 new XmlMethods().saveCustomParams(changedParams);
                 //this.mainform.draw(); --> Add this function to mainform!
                 this.mainform.detector.resetTimerInterval();
+                this.mainform.redraw();
                 this.Close();
             }
             catch
@@ -187,6 +190,18 @@ namespace Smart_Clicker
         {
             CheckBox box = (CheckBox) sender;
             this.changedParams.contextValues.supportTabs = box.Checked;
+        }
+
+        private void startupBoot_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox box = (CheckBox)sender;
+            this.changedParams.layoutValues.startOnStartup = box.Checked;
+        }
+
+        private void crashReboot_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox box = (CheckBox)sender;
+            this.changedParams.layoutValues.restartOnCrash = box.Checked;
         }
     }
 }

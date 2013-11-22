@@ -60,11 +60,11 @@
             this.boundingBoxLabel = new System.Windows.Forms.Label();
             this.timerLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.contextTabs = new System.Windows.Forms.CheckBox();
+            this.contextScrollBars = new System.Windows.Forms.CheckBox();
             this.contextTitleBars = new System.Windows.Forms.CheckBox();
             this.contextCompareCursors = new System.Windows.Forms.CheckBox();
-            this.contextScrollBars = new System.Windows.Forms.CheckBox();
-            this.contextTabs = new System.Windows.Forms.CheckBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
@@ -152,6 +152,7 @@
             this.crashReboot.TabIndex = 70;
             this.crashReboot.Text = "Enable";
             this.crashReboot.UseVisualStyleBackColor = true;
+            this.crashReboot.CheckedChanged += new System.EventHandler(this.crashReboot_CheckedChanged);
             // 
             // label4
             // 
@@ -182,6 +183,7 @@
             this.startupBoot.TabIndex = 67;
             this.startupBoot.Text = "Enable";
             this.startupBoot.UseVisualStyleBackColor = true;
+            this.startupBoot.CheckedChanged += new System.EventHandler(this.startupBoot_CheckedChanged);
             // 
             // boxSizePlus
             // 
@@ -192,6 +194,7 @@
             this.boxSizePlus.Size = new System.Drawing.Size(75, 34);
             this.boxSizePlus.TabIndex = 66;
             this.boxSizePlus.UseVisualStyleBackColor = true;
+            this.boxSizePlus.MouseHover += new System.EventHandler(this.sizePlus_MouseHover);
             // 
             // boundingBoxMinus
             // 
@@ -201,6 +204,7 @@
             this.boundingBoxMinus.Size = new System.Drawing.Size(83, 34);
             this.boundingBoxMinus.TabIndex = 65;
             this.boundingBoxMinus.UseVisualStyleBackColor = true;
+            this.boundingBoxMinus.MouseHover += new System.EventHandler(this.sizeMinus_MouseHover);
             // 
             // timerText
             // 
@@ -223,6 +227,7 @@
             this.timePlus.Size = new System.Drawing.Size(75, 34);
             this.timePlus.TabIndex = 63;
             this.timePlus.UseVisualStyleBackColor = true;
+            this.timePlus.Click += new System.EventHandler(this.timePlus_MouseHover);
             // 
             // timeMinus
             // 
@@ -232,6 +237,7 @@
             this.timeMinus.Size = new System.Drawing.Size(83, 34);
             this.timeMinus.TabIndex = 62;
             this.timeMinus.UseVisualStyleBackColor = true;
+            this.timeMinus.Click += new System.EventHandler(this.timeMinus_mouseHover);
             // 
             // boundingBoxText
             // 
@@ -430,6 +436,38 @@
             this.tabPage2.Text = "Context Mode";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(417, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(31, 32);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // contextTabs
+            // 
+            this.contextTabs.AutoSize = true;
+            this.contextTabs.Location = new System.Drawing.Point(19, 104);
+            this.contextTabs.Name = "contextTabs";
+            this.contextTabs.Size = new System.Drawing.Size(230, 21);
+            this.contextTabs.TabIndex = 3;
+            this.contextTabs.Text = "Click and Drag supported Tabs.";
+            this.contextTabs.UseVisualStyleBackColor = true;
+            this.contextTabs.CheckedChanged += new System.EventHandler(this.contextTabs_CheckedChanged);
+            // 
+            // contextScrollBars
+            // 
+            this.contextScrollBars.AutoSize = true;
+            this.contextScrollBars.Location = new System.Drawing.Point(19, 77);
+            this.contextScrollBars.Name = "contextScrollBars";
+            this.contextScrollBars.Size = new System.Drawing.Size(261, 21);
+            this.contextScrollBars.TabIndex = 2;
+            this.contextScrollBars.Text = "Click and Drag supported Scrollbars.";
+            this.contextScrollBars.UseVisualStyleBackColor = true;
+            this.contextScrollBars.CheckedChanged += new System.EventHandler(this.contextScrollBars_CheckedChanged);
+            // 
             // contextTitleBars
             // 
             this.contextTitleBars.AutoSize = true;
@@ -451,38 +489,6 @@
             this.contextCompareCursors.Text = "Click and Drag when the cursor shows a resize cursor.";
             this.contextCompareCursors.UseVisualStyleBackColor = true;
             this.contextCompareCursors.CheckedChanged += new System.EventHandler(this.contextCompareCursors_CheckedChanged);
-            // 
-            // contextScrollBars
-            // 
-            this.contextScrollBars.AutoSize = true;
-            this.contextScrollBars.Location = new System.Drawing.Point(19, 77);
-            this.contextScrollBars.Name = "contextScrollBars";
-            this.contextScrollBars.Size = new System.Drawing.Size(261, 21);
-            this.contextScrollBars.TabIndex = 2;
-            this.contextScrollBars.Text = "Click and Drag supported Scrollbars.";
-            this.contextScrollBars.UseVisualStyleBackColor = true;
-            this.contextScrollBars.CheckedChanged += new System.EventHandler(this.contextScrollBars_CheckedChanged);
-            // 
-            // contextTabs
-            // 
-            this.contextTabs.AutoSize = true;
-            this.contextTabs.Location = new System.Drawing.Point(19, 104);
-            this.contextTabs.Name = "contextTabs";
-            this.contextTabs.Size = new System.Drawing.Size(230, 21);
-            this.contextTabs.TabIndex = 3;
-            this.contextTabs.Text = "Click and Drag supported Tabs.";
-            this.contextTabs.UseVisualStyleBackColor = true;
-            this.contextTabs.CheckedChanged += new System.EventHandler(this.contextTabs_CheckedChanged);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(417, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(31, 32);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
             // 
             // CustomUI
             // 

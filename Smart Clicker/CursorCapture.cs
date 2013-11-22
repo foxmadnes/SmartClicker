@@ -120,6 +120,11 @@ namespace Smart_Clicker
 
         public bool CompareCursorBitmaps(Bitmap bmp1, Bitmap bmp2)
         {
+            if (bmp1.Height != bmp2.Height || bmp1.Width != bmp2.Width)
+            {
+                return false;
+            }
+
             int totalPixelCount = bmp1.Height*bmp1.Width;
             int pixelMatchCount = 0;
             for (int i = 0; i < bmp1.Width; i++)

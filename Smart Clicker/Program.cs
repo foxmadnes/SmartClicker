@@ -15,6 +15,13 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
+            bool ok;
+            Mutex m = new System.Threading.Mutex(true, "Smart Clicker", out ok);
+
+            if (!ok)
+            {
+                return;
+            }
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
@@ -33,6 +40,7 @@ namespace Smart_Clicker
 
             fetcher.Show();
             Application.Run(mainForm);
+            GC.KeepAlive(m);
         } 
     }
 }
