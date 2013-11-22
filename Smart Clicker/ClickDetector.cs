@@ -41,7 +41,7 @@ namespace Smart_Clicker
             this.capture = capture;
             this.parameters = parameters;
             this.form = form;
-            this.lastClick = new cursorInTime(0, 0, null);
+            this.lastClick = new cursorInTime(-50, -50, null);
             InitTimer();
             this.automator = new CUIAutomation();
         }
@@ -83,7 +83,7 @@ namespace Smart_Clicker
                 else
                 {
                     // The last click position is not valid anymore, clear it
-                    this.lastClick = new cursorInTime(0, 0, null);
+                    this.lastClick = new cursorInTime(-50, -50, null);
                 }
             }
         }

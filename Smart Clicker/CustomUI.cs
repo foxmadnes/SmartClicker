@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace Smart_Clicker
 {
@@ -76,6 +77,7 @@ namespace Smart_Clicker
                 //this.mainform.draw(); --> Add this function to mainform!
                 this.mainform.detector.resetTimerInterval();
                 this.mainform.redraw();
+                this.setStartOnBoot();
                 this.Close();
             }
             catch
@@ -165,6 +167,22 @@ namespace Smart_Clicker
             else
             {
                 this.changedParams.layoutValues.hiddenIconNames.Add(this.ModeToStringMapping[currentBox]);
+            }
+        }
+
+        private void setStartOnBoot()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (this.changedParams.layoutValues.startOnStartup)
+            {
+                key.SetValue("SmartClicker", "\"" + Application.ExecutablePath.ToString() + "\"");
+            }
+            else
+            {
+                if (key.GetValue("SmartClicker") != null)
+                {
+                    key.DeleteValue("SmartClicker");
+                }
             }
         }
 
