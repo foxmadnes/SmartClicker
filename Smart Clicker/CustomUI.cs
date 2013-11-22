@@ -93,6 +93,7 @@ namespace Smart_Clicker
 
         private void timePlus_MouseHover(object sender, EventArgs e)
         {
+            Debug.WriteLine("Click?");
             while (timePlus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
                 Debug.WriteLine("In the plus loop");
@@ -111,7 +112,7 @@ namespace Smart_Clicker
         // Combine this and timePlus into one callback function later
         private void timeMinus_mouseHover(object sender, EventArgs e)
         {
-
+            Debug.WriteLine("Minus Click?");
             while (timeMinus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
                 Debug.WriteLine("In the minus loop");

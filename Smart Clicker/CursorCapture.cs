@@ -93,7 +93,7 @@ namespace Smart_Clicker
                                 Rectangle sourceRectangle = new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2);
 
                                 Bitmap secondBitmap = maskBitmap.Clone(sourceRectangle, PixelFormat.DontCare);
-                                
+
                                 bmp = secondBitmap;
                             }
                             else

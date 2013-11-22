@@ -60,6 +60,7 @@
             this.boundingBoxLabel = new System.Windows.Forms.Label();
             this.timerLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cursorSave = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.contextTabs = new System.Windows.Forms.CheckBox();
             this.contextScrollBars = new System.Windows.Forms.CheckBox();
@@ -194,7 +195,7 @@
             this.boxSizePlus.Size = new System.Drawing.Size(75, 34);
             this.boxSizePlus.TabIndex = 66;
             this.boxSizePlus.UseVisualStyleBackColor = true;
-            this.boxSizePlus.MouseHover += new System.EventHandler(this.sizePlus_MouseHover);
+            this.boxSizePlus.Click += new System.EventHandler(this.sizePlus_MouseHover);
             // 
             // boundingBoxMinus
             // 
@@ -204,7 +205,7 @@
             this.boundingBoxMinus.Size = new System.Drawing.Size(83, 34);
             this.boundingBoxMinus.TabIndex = 65;
             this.boundingBoxMinus.UseVisualStyleBackColor = true;
-            this.boundingBoxMinus.MouseHover += new System.EventHandler(this.sizeMinus_MouseHover);
+            this.boundingBoxMinus.Click += new System.EventHandler(this.sizeMinus_MouseHover);
             // 
             // timerText
             // 
@@ -423,6 +424,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cursorSave);
             this.tabPage2.Controls.Add(this.pictureBox2);
             this.tabPage2.Controls.Add(this.contextTabs);
             this.tabPage2.Controls.Add(this.contextScrollBars);
@@ -435,6 +437,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Context Mode";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cursorSave
+            // 
+            this.cursorSave.Location = new System.Drawing.Point(350, 65);
+            this.cursorSave.Name = "cursorSave";
+            this.cursorSave.Size = new System.Drawing.Size(193, 60);
+            this.cursorSave.TabIndex = 5;
+            this.cursorSave.Text = "Save New Cursor";
+            this.cursorSave.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
@@ -554,5 +565,6 @@
         private System.Windows.Forms.CheckBox contextTabs;
         private System.Windows.Forms.CheckBox contextScrollBars;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button cursorSave;
     }
 }
