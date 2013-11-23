@@ -183,7 +183,9 @@ namespace Smart_Clicker
 
         private void click(Point p, Boolean clickAndDrag)
         {
-            if (form.ClientRectangle.Contains(p) && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0))
+            Point pt = form.PointToClient(p);
+            bool inside = (pt.X >= 0 && pt.Y >= 0 && pt.X <= form.Width && pt.Y <= form.Height);
+            if (inside && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0))
             {
                 return;
             }
@@ -197,9 +199,8 @@ namespace Smart_Clicker
                         this.status.setCurrentMode(ProgramMode.clickAndDrag);
                     }
                 }
-                
+                uiAutomationCheck(p);
             }
-            uiAutomationCheck(p);
 
             ProgramMode activeMode = this.status.getActiveMode();
             clickActions(activeMode.mode[this.status.currentIndex], p);
@@ -207,8 +208,8 @@ namespace Smart_Clicker
             if (this.status.currentIndex > activeMode.mode.Length - 1)
             {
                 this.status.clearActiveMode();
+                this.form.setClickDefault();
             }
-            this.form.setClickDefault();
         }
 
         private void uiAutomationCheck(Point p)

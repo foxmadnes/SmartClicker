@@ -18,9 +18,9 @@ namespace Smart_Clicker
         public ClickDetector detector;
         private PictureBox[] buttons;
         private Dictionary<PictureBox, ProgramMode> ModeMapping;
+        private Dictionary<ProgramMode, PictureBox> inverseModeMapping;
         private PictureBox currentMousePictureBox;
         private NotifyIcon trayIcon;
-        private bool inBox = false;
 
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
@@ -49,10 +49,16 @@ namespace Smart_Clicker
                 {leftClick, ProgramMode.leftClick},
                 {rightClick, ProgramMode.rightClick},
                 {doubleClick, ProgramMode.doubleClick},
-                {contextClick, ProgramMode.leftClick},
+                {contextClick, ProgramMode.contextClick},
                 {clickAndDrag, ProgramMode.clickAndDrag},
                 {sleepClick, ProgramMode.sleepClick}
             };
+
+            inverseModeMapping = new Dictionary<ProgramMode, PictureBox>();
+            foreach(PictureBox box in ModeMapping.Keys)
+            {
+                inverseModeMapping.Add(ModeMapping[box], box);
+            }
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -63,7 +69,7 @@ namespace Smart_Clicker
             this.Width = this.customParams.layoutValues.startWidth;
             this.Height = this.customParams.layoutValues.startHeight;
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
-            setPictureBoxSelect(contextClick);
+            setPictureBoxLock(contextClick);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -83,8 +89,11 @@ namespace Smart_Clicker
         private void pictureBox_MouseHover(object sender, EventArgs e)
         {
             PictureBox current = (PictureBox)sender;
+            if (ModeMapping[current] == this.clickStatus.getBackgroundMode())
+            {
+                return;
+            }
             setPictureBoxHighlighted(current);
-            this.inBox = true;
             this.currentMousePictureBox = current;
 
             startTimer(current);
@@ -104,12 +113,20 @@ namespace Smart_Clicker
             Timer mouseOver = (Timer)sender;
             mouseOver.Stop();
             mouseOver.Dispose();
-            if (this.inBox && (this.currentMousePictureBox == mode))
+            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
+            if ((this.currentMousePictureBox == mode))
             {
-                this.clickStatus.setCurrentMode(ModeMapping[mode]);
+                if (this.clickStatus.currentMode == ModeMapping[mode])
+                {
+                    this.clickStatus.setBackgroundMode(ModeMapping[mode]);
+                    setClickDefault();
+                }
+                else
+                {
+                    this.clickStatus.setCurrentMode(ModeMapping[mode]);
+                    setPictureBoxSelect(mode);
+                }
             }
-            setPictureBoxSelect(mode);
-            this.inBox = false;
             this.currentMousePictureBox = null;
         }
 
@@ -118,9 +135,9 @@ namespace Smart_Clicker
             PictureBox current = (PictureBox)sender;
             if (this.currentMousePictureBox == current)
             {
-                this.inBox = false;
                 this.currentMousePictureBox = null;
             }
+            current.BackColor = Color.White;
             current.MouseLeave -= new EventHandler(onPictureBoxLeave);
         }
 
@@ -130,28 +147,33 @@ namespace Smart_Clicker
             {
                 return;
             }
-            foreach (PictureBox p in buttons)
-            {
-                if (p.BackColor != Color.Red)
-                {
-                    p.BackColor = Color.White;
-                }
-            }
             toSet.BackColor = Color.Yellow;
+        }
+
+        private void setPictureBoxLock(PictureBox toSet)
+        {
+            toSet.BackColor = Color.DimGray;
         }
 
         private void setPictureBoxSelect(PictureBox toSet)
         {
-            foreach (PictureBox p in buttons)
+            foreach (PictureBox box in buttons)
             {
-                p.BackColor = Color.White;
+                if (box.BackColor == Color.Red)
+                {
+                    box.BackColor = Color.White;
+                }
             }
             toSet.BackColor = Color.Red;
         }
 
         public void setClickDefault()
         {
-            setPictureBoxSelect(contextClick);
+            foreach (PictureBox box in buttons)
+            {
+                box.BackColor = Color.White;
+            }
+            setPictureBoxLock(inverseModeMapping[this.clickStatus.getBackgroundMode()]);
         }
 
         private void OnExit(object sender, EventArgs e)

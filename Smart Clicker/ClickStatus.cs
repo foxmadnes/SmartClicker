@@ -16,6 +16,7 @@ namespace Smart_Clicker
         public ClickStatus()
         {
             this.backgroundMode = ProgramMode.contextClick;
+            this.currentMode = ProgramMode.contextClick;
             this.currentMode = null;
         }
 
