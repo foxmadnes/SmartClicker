@@ -13,63 +13,6 @@ namespace Smart_Clicker
 {
     public partial class MainForm : Form
     {
-        private const int WM_WINDOWPOSCHANGING = 0x0046;
-        private const int WM_GETMINMAXINFO = 0x0024;
-
-        protected override void WndProc(ref Message m)
-        {
-            if (resizeForm && m.Msg == WM_WINDOWPOSCHANGING)
-            {
-                WindowPos windowPos = (WindowPos)m.GetLParam(typeof(WindowPos));
-
-                // Make changes to windowPos
-                windowPos.width = this.customParams.layoutValues.startWidth;
-                resizeForm = false;
-
-                // Then marshal the changes back to the message
-                Marshal.StructureToPtr(windowPos, m.LParam, true);
-            }
-
-            base.WndProc(ref m);
-
-            // Make changes to WM_GETMINMAXINFO after it has been handled by the underlying
-            // WndProc, so we only need to repopulate the minimum size constraints
-            if (m.Msg == WM_GETMINMAXINFO)
-            {
-                MinMaxInfo minMaxInfo = (MinMaxInfo)m.GetLParam(typeof(MinMaxInfo));
-                minMaxInfo.ptMinTrackSize.x = this.MinimumSize.Width;
-                minMaxInfo.ptMinTrackSize.y = this.MinimumSize.Height;
-                Marshal.StructureToPtr(minMaxInfo, m.LParam, true);
-            }
-        }
-
-        struct WindowPos
-        {
-            public IntPtr hwnd;
-            public IntPtr hwndInsertAfter;
-            public int x;
-            public int y;
-            public int width;
-            public int height;
-            public uint flags;
-        }
-
-        struct POINT
-        {
-            public int x;
-            public int y;
-        }
-
-        struct MinMaxInfo
-        {
-            public POINT ptReserved;
-            public POINT ptMaxSize;
-            public POINT ptMaxPosition;
-            public POINT ptMinTrackSize;
-            public POINT ptMaxTrackSize;
-        }
-
-
         private ClickStatus clickStatus;
         private CustomizationParameters customParams;
         public ClickDetector detector;
@@ -78,7 +21,6 @@ namespace Smart_Clicker
         private PictureBox currentMousePictureBox;
         private NotifyIcon trayIcon;
         private bool inBox = false;
-        private bool resizeForm = false;
 
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
@@ -94,7 +36,7 @@ namespace Smart_Clicker
             trayIcon.Icon = this.Icon;
             // Add menu to tray icon and show it.
             trayIcon.ContextMenu = trayMenu;
-            trayIcon.Visible     = true;
+            trayIcon.Visible = true;
 
             this.buttons = new PictureBox[] {leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
             foreach (PictureBox mode in buttons)
@@ -118,12 +60,9 @@ namespace Smart_Clicker
             this.StartPosition = FormStartPosition.Manual;
             this.Left = this.customParams.layoutValues.startLeft;
             this.Top = this.customParams.layoutValues.startTop;
+            this.Width = this.customParams.layoutValues.startWidth;
+            this.Height = this.customParams.layoutValues.startHeight;
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
-
-            //Temporary solution to some problems
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.redraw();
-
             setPictureBoxSelect(contextClick);
         }
 
@@ -139,8 +78,6 @@ namespace Smart_Clicker
         public void OnLoaded(object sender, EventArgs e)
         {
             Application.Idle -= new EventHandler(OnLoaded);
-            resizeForm = true;
-            this.Width = 300;
         }
 
         private void pictureBox_MouseHover(object sender, EventArgs e)
@@ -233,8 +170,8 @@ namespace Smart_Clicker
                     return;
                 }
                 //Grab the current width and height of the form for saving
-                customParams.layoutValues.startWidth = this.DisplayRectangle.Width;
-                customParams.layoutValues.startHeight = this.DisplayRectangle.Height;
+                customParams.layoutValues.startWidth = this.Width;
+                customParams.layoutValues.startHeight = this.Height;
                 // Save object to XML before you close
                 this.customParams.layoutValues.startLeft = this.Left;
                 this.customParams.layoutValues.startTop = this.Top;

@@ -58,7 +58,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 399);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(140, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(92, 25);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -173,10 +173,9 @@
             this.AccessibleDescription = "Virtual Mouse Clicker Application";
             this.AccessibleName = "Smart Clicker";
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(140, 424);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(92, 424);
             this.Controls.Add(this.clickAndDrag);
             this.Controls.Add(this.doubleClick);
             this.Controls.Add(this.rightClick);
@@ -184,8 +183,9 @@
             this.Controls.Add(this.contextClick);
             this.Controls.Add(this.sleepClick);
             this.Controls.Add(this.toolStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(90, 90);
+            this.MinimumSize = new System.Drawing.Size(25, 45);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Smart Clicker";
