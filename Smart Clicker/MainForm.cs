@@ -76,14 +76,25 @@ namespace Smart_Clicker
         private PictureBox[] buttons;
         private Dictionary<PictureBox, ProgramMode> ModeMapping;
         private PictureBox currentMousePictureBox;
+        private NotifyIcon trayIcon;
         private bool inBox = false;
         private bool resizeForm = false;
 
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
             InitializeComponent();
+            this.ShowInTaskbar = false;
             this.clickStatus = status;
             this.customParams = customParams;
+
+            ContextMenu trayMenu = new ContextMenu();
+            trayMenu.MenuItems.Add("Exit", OnExit);
+            this.trayIcon = new NotifyIcon();
+            trayIcon.Text = "SmartClicker";
+            trayIcon.Icon = this.Icon;
+            // Add menu to tray icon and show it.
+            trayIcon.ContextMenu = trayMenu;
+            trayIcon.Visible     = true;
 
             this.buttons = new PictureBox[] {leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
             foreach (PictureBox mode in buttons)
@@ -204,6 +215,11 @@ namespace Smart_Clicker
         public void setClickDefault()
         {
             setPictureBoxSelect(contextClick);
+        }
+
+        private void OnExit(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

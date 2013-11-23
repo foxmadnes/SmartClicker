@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                this.trayIcon.Dispose();
             }
             base.Dispose(disposing);
         }
