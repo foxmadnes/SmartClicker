@@ -16,6 +16,7 @@ namespace Smart_Clicker
         private ClickStatus clickStatus;
         private CustomizationParameters customParams;
         public ClickDetector detector;
+        public Fetcher fetcher;
         private PictureBox[] buttons;
         private Dictionary<PictureBox, ProgramMode> ModeMapping;
         private Dictionary<ProgramMode, PictureBox> inverseModeMapping;
@@ -24,6 +25,10 @@ namespace Smart_Clicker
 
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
+            fetcher = new Fetcher(this);
+
+            fetcher.Show();
+
             InitializeComponent();
             this.ShowInTaskbar = false;
             this.clickStatus = status;

@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                this.trayIcon.Visible = false;
                 components.Dispose();
                 this.trayIcon.Dispose();
             }

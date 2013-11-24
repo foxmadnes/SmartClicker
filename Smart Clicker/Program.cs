@@ -36,9 +36,6 @@ namespace Smart_Clicker
 
             Application.ThreadException += new ThreadExceptionEventHandler(mainForm.CatchFatalException);
 
-            Fetcher fetcher = new Fetcher(mainForm);
-
-            fetcher.Show();
             Application.Run(mainForm);
             GC.KeepAlive(m);
         } 
