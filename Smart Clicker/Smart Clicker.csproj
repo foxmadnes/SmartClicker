@@ -185,6 +185,8 @@
     <None Include="Resources\TaskBarIcon.ico" />
     <None Include="Resources\TaskBarIcon.bmp" />
     <None Include="Resources\FetcherIcon.png" />
+    <Content Include="Resources\customize.jpg" />
+    <Content Include="Resources\help.jpg" />
     <Content Include="TaskBarIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

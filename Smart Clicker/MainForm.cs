@@ -230,16 +230,30 @@ namespace Smart_Clicker
             w.WriteLine("-------------------------------");
         }
 
-        private void customize_Click(object sender, EventArgs e)
+        public void redraw()
+        {
+
+        }
+
+        private void help_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CustomForm_MouseHover(object sender, EventArgs e)
+        {
+            PictureBox current = (PictureBox)sender;
+
+            setPictureBoxHighlighted(current);
+            this.currentMousePictureBox = current;
+        }
+
+        private void CustomForm_Click(object sender, EventArgs e)
         {
             // launch custom UI
             CustomUI customWindow = new CustomUI(customParams, this);
             customWindow.Show();
         }
 
-        public void redraw()
-        {
-
-        }
     }
 }
