@@ -66,6 +66,9 @@
             this.contextScrollBars = new System.Windows.Forms.CheckBox();
             this.contextTitleBars = new System.Windows.Forms.CheckBox();
             this.contextCompareCursors = new System.Windows.Forms.CheckBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
@@ -76,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmCustom
@@ -110,9 +114,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.checkBox1);
+            this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.crashReboot);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.displayDoubleMode);
             this.tabPage1.Controls.Add(this.startupBoot);
             this.tabPage1.Controls.Add(this.boxSizePlus);
             this.tabPage1.Controls.Add(this.boundingBoxMinus);
@@ -127,7 +135,6 @@
             this.tabPage1.Controls.Add(this.contextClick);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.displayClickDragMode);
-            this.tabPage1.Controls.Add(this.displayDoubleMode);
             this.tabPage1.Controls.Add(this.displayRightMode);
             this.tabPage1.Controls.Add(this.displaySleepMode);
             this.tabPage1.Controls.Add(this.displayLeftMode);
@@ -256,7 +263,7 @@
             this.clickAndDrag.BackColor = System.Drawing.SystemColors.Window;
             this.clickAndDrag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clickAndDrag.Image = ((System.Drawing.Image)(resources.GetObject("clickAndDrag.Image")));
-            this.clickAndDrag.Location = new System.Drawing.Point(407, 398);
+            this.clickAndDrag.Location = new System.Drawing.Point(41, 409);
             this.clickAndDrag.Name = "clickAndDrag";
             this.clickAndDrag.Size = new System.Drawing.Size(98, 97);
             this.clickAndDrag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,7 +275,7 @@
             this.doubleClick.BackColor = System.Drawing.SystemColors.Window;
             this.doubleClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.doubleClick.Image = ((System.Drawing.Image)(resources.GetObject("doubleClick.Image")));
-            this.doubleClick.Location = new System.Drawing.Point(224, 398);
+            this.doubleClick.Location = new System.Drawing.Point(165, 409);
             this.doubleClick.Name = "doubleClick";
             this.doubleClick.Size = new System.Drawing.Size(98, 98);
             this.doubleClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -280,9 +287,9 @@
             this.rightClick.BackColor = System.Drawing.SystemColors.Window;
             this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(48, 398);
+            this.rightClick.Location = new System.Drawing.Point(419, 261);
             this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(98, 90);
+            this.rightClick.Size = new System.Drawing.Size(96, 82);
             this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.rightClick.TabIndex = 58;
             this.rightClick.TabStop = false;
@@ -292,7 +299,7 @@
             this.leftClick.BackColor = System.Drawing.SystemColors.Window;
             this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(408, 261);
+            this.leftClick.Location = new System.Drawing.Point(296, 261);
             this.leftClick.Name = "leftClick";
             this.leftClick.Size = new System.Drawing.Size(98, 82);
             this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -304,7 +311,7 @@
             this.contextClick.BackColor = System.Drawing.SystemColors.Window;
             this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(224, 261);
+            this.contextClick.Location = new System.Drawing.Point(165, 261);
             this.contextClick.Name = "contextClick";
             this.contextClick.Size = new System.Drawing.Size(98, 82);
             this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -326,7 +333,7 @@
             // displayClickDragMode
             // 
             this.displayClickDragMode.AutoSize = true;
-            this.displayClickDragMode.Location = new System.Drawing.Point(407, 512);
+            this.displayClickDragMode.Location = new System.Drawing.Point(41, 521);
             this.displayClickDragMode.Name = "displayClickDragMode";
             this.displayClickDragMode.Size = new System.Drawing.Size(122, 21);
             this.displayClickDragMode.TabIndex = 54;
@@ -336,17 +343,17 @@
             // displayDoubleMode
             // 
             this.displayDoubleMode.AutoSize = true;
-            this.displayDoubleMode.Location = new System.Drawing.Point(224, 512);
+            this.displayDoubleMode.Location = new System.Drawing.Point(165, 521);
             this.displayDoubleMode.Name = "displayDoubleMode";
-            this.displayDoubleMode.Size = new System.Drawing.Size(147, 21);
+            this.displayDoubleMode.Size = new System.Drawing.Size(108, 21);
             this.displayDoubleMode.TabIndex = 53;
-            this.displayDoubleMode.Text = "Double Click Mode";
+            this.displayDoubleMode.Text = "Double Click";
             this.displayDoubleMode.UseVisualStyleBackColor = true;
             // 
             // displayRightMode
             // 
             this.displayRightMode.AutoSize = true;
-            this.displayRightMode.Location = new System.Drawing.Point(41, 512);
+            this.displayRightMode.Location = new System.Drawing.Point(417, 359);
             this.displayRightMode.Name = "displayRightMode";
             this.displayRightMode.Size = new System.Drawing.Size(135, 21);
             this.displayRightMode.TabIndex = 52;
@@ -366,7 +373,7 @@
             // displayLeftMode
             // 
             this.displayLeftMode.AutoSize = true;
-            this.displayLeftMode.Location = new System.Drawing.Point(407, 359);
+            this.displayLeftMode.Location = new System.Drawing.Point(284, 359);
             this.displayLeftMode.Name = "displayLeftMode";
             this.displayLeftMode.Size = new System.Drawing.Size(126, 21);
             this.displayLeftMode.TabIndex = 50;
@@ -376,7 +383,7 @@
             // displayContextMode
             // 
             this.displayContextMode.AutoSize = true;
-            this.displayContextMode.Location = new System.Drawing.Point(224, 359);
+            this.displayContextMode.Location = new System.Drawing.Point(165, 359);
             this.displayContextMode.Name = "displayContextMode";
             this.displayContextMode.Size = new System.Drawing.Size(116, 21);
             this.displayContextMode.TabIndex = 49;
@@ -501,11 +508,41 @@
             this.contextCompareCursors.UseVisualStyleBackColor = true;
             this.contextCompareCursors.CheckedChanged += new System.EventHandler(this.contextCompareCursors_CheckedChanged);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(296, 409);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(98, 97);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 71;
+            this.pictureBox3.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(98, 21);
+            this.checkBox1.TabIndex = 73;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(296, 521);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(59, 21);
+            this.checkBox2.TabIndex = 74;
+            this.checkBox2.Text = "Help";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(574, 628);
+            this.ClientSize = new System.Drawing.Size(574, 637);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cancelCustom);
             this.Controls.Add(this.confirmCustom);
@@ -524,6 +561,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -567,5 +605,8 @@
         private System.Windows.Forms.CheckBox contextScrollBars;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button cursorSave;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

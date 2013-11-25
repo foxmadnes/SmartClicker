@@ -222,5 +222,6 @@ namespace Smart_Clicker
             CheckBox box = (CheckBox)sender;
             this.changedParams.layoutValues.restartOnCrash = box.Checked;
         }
+
     }
 }

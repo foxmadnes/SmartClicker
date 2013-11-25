@@ -43,7 +43,7 @@ namespace Smart_Clicker
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
 
-            this.buttons = new PictureBox[] {leftClick, rightClick , doubleClick, contextClick, clickAndDrag, sleepClick};
+            this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag};
             foreach (PictureBox mode in buttons)
             {
                 mode.MouseHover += new EventHandler(pictureBox_MouseHover);
@@ -238,6 +238,29 @@ namespace Smart_Clicker
         public void redraw()
         {
 
+            foreach (PictureBox mode in this.buttons) 
+            
+            {
+                int size = this.customParams.layoutValues.hiddenIconNames.Count();
+                int allButtons = buttons.Count();
+//shown is the number of rows we need for our mode buttons
+                int shown = allButtons - size;
+// we add 2 to shown to account for config and help buttons
+                shown = shown + 2; 
+                
+                foreach (PictureBox button in buttons)
+                {
+                    if (hidden.Equals(mode.Name))
+                    {
+                        int rowNum = Array.IndexOf(buttons, mode);
+                        tableLayoutPanel1.RowStyles.RemoveAt(rowNum);
+                    }
+                    else
+                    {
+                    }
+
+                }
+            }
         }
 
         private void help_Click(object sender, EventArgs e)
