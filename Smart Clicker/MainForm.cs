@@ -130,9 +130,10 @@ namespace Smart_Clicker
                 {
                     this.clickStatus.setCurrentMode(ModeMapping[mode]);
                     setPictureBoxSelect(mode);
+                    startTimer(mode);
+                    mode.MouseLeave += new EventHandler(onPictureBoxLeave);
                 }
             }
-            this.currentMousePictureBox = null;
         }
 
         private void onPictureBoxLeave(object sender, EventArgs e)
@@ -142,7 +143,10 @@ namespace Smart_Clicker
             {
                 this.currentMousePictureBox = null;
             }
-            current.BackColor = Color.White;
+            if (current.BackColor == Color.Yellow)
+            {
+                current.BackColor = Color.White;
+            }
             current.MouseLeave -= new EventHandler(onPictureBoxLeave);
         }
 
