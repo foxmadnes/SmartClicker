@@ -285,6 +285,30 @@ namespace Smart_Clicker
 
             startSettingsTimer(current);
             current.MouseLeave += new EventHandler(onPictureBoxLeave);
+<<<<<<< HEAD
+=======
+        }
+
+        private void startSettingsTimer(PictureBox mode)
+        {
+            Timer mouseOver = new Timer();
+            mouseOver.Tick += (sender, e) => settingsSelected(sender, mode);
+            mouseOver.Interval = 1000; // in miliseconds
+            mouseOver.Start();
+        }
+
+        private void settingsSelected(object sender, PictureBox mode)
+        {
+            Timer mouseOver = (Timer)sender;
+            mouseOver.Stop();
+            mouseOver.Dispose();
+            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
+            if ((this.currentMousePictureBox == mode))
+            {
+                CustomForm_Click(sender, null);
+            }
+            this.currentMousePictureBox = null;
+>>>>>>> 06a4d09a0b8530e6358db43df2fed9b17536edc8
         }
 
         private void startSettingsTimer(PictureBox mode)
