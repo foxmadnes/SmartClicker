@@ -130,9 +130,10 @@ namespace Smart_Clicker
                 {
                     this.clickStatus.setCurrentMode(ModeMapping[mode]);
                     setPictureBoxSelect(mode);
+                    startTimer(mode);
+                    mode.MouseLeave += new EventHandler(onPictureBoxLeave);
                 }
             }
-            this.currentMousePictureBox = null;
         }
 
         private void onPictureBoxLeave(object sender, EventArgs e)
@@ -142,7 +143,10 @@ namespace Smart_Clicker
             {
                 this.currentMousePictureBox = null;
             }
-            current.BackColor = Color.White;
+            if (current.BackColor == Color.Yellow)
+            {
+                current.BackColor = Color.White;
+            }
             current.MouseLeave -= new EventHandler(onPictureBoxLeave);
         }
 
@@ -271,16 +275,39 @@ namespace Smart_Clicker
 
         }
 
-        //private void CustomForm_MouseHover(object sender, EventArgs e)
-        //{
-        //    PictureBox current = (PictureBox)sender;
+        private void CustomForm_MouseHover(object sender, EventArgs e)
+        {
+            PictureBox current = (PictureBox)sender;
 
-        //    setPictureBoxHighlighted(current);
-        //    this.currentMousePictureBox = current;
-        //    // launch custom UI
-        //    CustomUI customWindow = new CustomUI(customParams, this);
-        //    customWindow.Show();
-        //}
+
+            setPictureBoxHighlighted(current);
+            this.currentMousePictureBox = current;
+
+            startSettingsTimer(current);
+            current.MouseLeave += new EventHandler(onPictureBoxLeave);
+        }
+
+        private void startSettingsTimer(PictureBox mode)
+        {
+            Timer mouseOver = new Timer();
+            mouseOver.Tick += (sender, e) => settingsSelected(sender, mode);
+            mouseOver.Interval = 1000; // in miliseconds
+            mouseOver.Start();
+        }
+
+        private void settingsSelected(object sender, PictureBox mode)
+        {
+            Timer mouseOver = (Timer)sender;
+            mouseOver.Stop();
+            mouseOver.Dispose();
+            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
+            if ((this.currentMousePictureBox == mode))
+            {
+                CustomForm_Click(sender, null);
+            }
+            this.currentMousePictureBox = null;
+        }
+
 
         private void CustomForm_Click(object sender, EventArgs e)
         {

@@ -185,7 +185,7 @@ namespace Smart_Clicker
         {
             Point pt = form.PointToClient(p);
             bool inside = (pt.X >= 0 && pt.Y >= 0 && pt.X <= (form.Width) && pt.Y <= (form.Height));
-            if (inside && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0))
+            if (inside && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0) && !clickAndDrag)
             {
                 return;
             }
