@@ -191,7 +191,7 @@
             this.CustomForm.TabIndex = 26;
             this.CustomForm.TabStop = false;
             this.CustomForm.Click += new System.EventHandler(this.CustomForm_Click);
-            this.CustomForm.MouseHover += new System.EventHandler(this.CustomForm_MouseHover);
+            //this.CustomForm.MouseHover += new System.EventHandler(this.CustomForm_MouseHover);
             // 
             // help
             // 

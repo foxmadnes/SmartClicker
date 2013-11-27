@@ -42,7 +42,7 @@ namespace Smart_Clicker
             // Add menu to tray icon and show it.
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
-
+            //buttons1 = new PictureBox[] { sleepClick, contextClick, leftClick, rightClick, doubleClick, clickAndDrag, CustomForm, help };
             this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag};
             foreach (PictureBox mode in buttons)
             {
@@ -237,30 +237,33 @@ namespace Smart_Clicker
 
         public void redraw()
         {
-
-            foreach (PictureBox mode in this.buttons) 
-            
-            {
-                int size = this.customParams.layoutValues.hiddenIconNames.Count();
-                int allButtons = buttons.Count();
-//shown is the number of rows we need for our mode buttons
-                int shown = allButtons - size;
-// we add 2 to shown to account for config and help buttons
-                shown = shown + 2; 
-                
-                foreach (PictureBox button in buttons)
+            int size = this.customParams.layoutValues.hiddenIconNames.Count();
+            int allButtons = buttons.Count();
+            //shown is the number of rows we need for our mode buttons
+            int shown = allButtons - size;
+            // we add 1 to shown to account for config button
+            shown = shown + 1; 
+            Control temp= buttons[1];
+            foreach (PictureBox button in buttons)
                 {
-                    if (hidden.Equals(mode.Name))
-                    {
-                        int rowNum = Array.IndexOf(buttons, mode);
-                        tableLayoutPanel1.RowStyles.RemoveAt(rowNum);
+                    foreach (String name in this.customParams.layoutValues.hiddenIconNames) 
+            
+                      {
+                        if (button.Name.Equals(name))
+                        {
+                            int rowNum = Array.IndexOf(buttons, button);
+                            Control c = tableLayoutPanel1.GetControlFromPosition(0, rowNum);
+                            SizeF x= new SizeF(0,0);
+                            c.Scale(x);
+                            tableLayoutPanel1.SetRow(c, rowNum);
+
+                        }
                     }
-                    else
-                    {
-                    }
+
+
 
                 }
-            }
+            
         }
 
         private void help_Click(object sender, EventArgs e)
@@ -268,13 +271,16 @@ namespace Smart_Clicker
 
         }
 
-        private void CustomForm_MouseHover(object sender, EventArgs e)
-        {
-            PictureBox current = (PictureBox)sender;
+        //private void CustomForm_MouseHover(object sender, EventArgs e)
+        //{
+        //    PictureBox current = (PictureBox)sender;
 
-            setPictureBoxHighlighted(current);
-            this.currentMousePictureBox = current;
-        }
+        //    setPictureBoxHighlighted(current);
+        //    this.currentMousePictureBox = current;
+        //    // launch custom UI
+        //    CustomUI customWindow = new CustomUI(customParams, this);
+        //    customWindow.Show();
+        //}
 
         private void CustomForm_Click(object sender, EventArgs e)
         {
@@ -282,6 +288,12 @@ namespace Smart_Clicker
             CustomUI customWindow = new CustomUI(customParams, this);
             customWindow.Show();
         }
+
+        //private void launchCustomForm()
+        //{
+        //    CustomUI customWindow = new CustomUI(customParams, this);
+        //    customWindow.Show();
+        //}
 
     }
 }
