@@ -44,7 +44,7 @@ namespace Smart_Clicker
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
             //buttons1 = new PictureBox[] { sleepClick, contextClick, leftClick, rightClick, doubleClick, clickAndDrag, CustomForm, help };
-            this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag};
+            this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag, help};
             foreach (PictureBox mode in buttons)
             {
                 mode.MouseHover += new EventHandler(pictureBox_MouseHover);
@@ -65,6 +65,9 @@ namespace Smart_Clicker
             {
                 inverseModeMapping.Add(ModeMapping[box], box);
             }
+
+            // need to read from xml and redraw based on prefs
+            this.redraw();
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -284,6 +287,7 @@ namespace Smart_Clicker
                     i++;
                     if (button.Name.Equals("help"))
                     {
+                        
                         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
                     }
                     else
@@ -292,6 +296,9 @@ namespace Smart_Clicker
                     }
                 }
             }
+
+            this.tableLayoutPanel1.Controls.Add(this.CustomForm, 0, i);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
             
             
         }
