@@ -33,9 +33,13 @@
             this.cancelCustom = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.displayHelp = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.crashReboot = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.displayDoubleMode = new System.Windows.Forms.CheckBox();
             this.startupBoot = new System.Windows.Forms.CheckBox();
             this.boxSizePlus = new System.Windows.Forms.Button();
             this.boundingBoxMinus = new System.Windows.Forms.Button();
@@ -50,7 +54,6 @@
             this.contextClick = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.displayClickDragMode = new System.Windows.Forms.CheckBox();
-            this.displayDoubleMode = new System.Windows.Forms.CheckBox();
             this.displayRightMode = new System.Windows.Forms.CheckBox();
             this.displaySleepMode = new System.Windows.Forms.CheckBox();
             this.displayLeftMode = new System.Windows.Forms.CheckBox();
@@ -66,11 +69,9 @@
             this.contextScrollBars = new System.Windows.Forms.CheckBox();
             this.contextTitleBars = new System.Windows.Forms.CheckBox();
             this.contextCompareCursors = new System.Windows.Forms.CheckBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
@@ -79,7 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmCustom
@@ -114,7 +114,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.displayHelp);
             this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.crashReboot);
@@ -151,6 +151,36 @@
             this.tabPage1.Text = "General Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // displayHelp
+            // 
+            this.displayHelp.AutoSize = true;
+            this.displayHelp.Location = new System.Drawing.Point(296, 521);
+            this.displayHelp.Name = "displayHelp";
+            this.displayHelp.Size = new System.Drawing.Size(59, 21);
+            this.displayHelp.TabIndex = 74;
+            this.displayHelp.Text = "Help";
+            this.displayHelp.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(98, 21);
+            this.checkBox1.TabIndex = 73;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(296, 409);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(98, 97);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 71;
+            this.pictureBox3.TabStop = false;
+            // 
             // crashReboot
             // 
             this.crashReboot.AutoSize = true;
@@ -181,6 +211,16 @@
             this.label5.Size = new System.Drawing.Size(126, 20);
             this.label5.TabIndex = 68;
             this.label5.Text = "Boot on Startup";
+            // 
+            // displayDoubleMode
+            // 
+            this.displayDoubleMode.AutoSize = true;
+            this.displayDoubleMode.Location = new System.Drawing.Point(165, 521);
+            this.displayDoubleMode.Name = "displayDoubleMode";
+            this.displayDoubleMode.Size = new System.Drawing.Size(108, 21);
+            this.displayDoubleMode.TabIndex = 53;
+            this.displayDoubleMode.Text = "Double Click";
+            this.displayDoubleMode.UseVisualStyleBackColor = true;
             // 
             // startupBoot
             // 
@@ -340,16 +380,6 @@
             this.displayClickDragMode.Text = "Click and Drag";
             this.displayClickDragMode.UseVisualStyleBackColor = true;
             // 
-            // displayDoubleMode
-            // 
-            this.displayDoubleMode.AutoSize = true;
-            this.displayDoubleMode.Location = new System.Drawing.Point(165, 521);
-            this.displayDoubleMode.Name = "displayDoubleMode";
-            this.displayDoubleMode.Size = new System.Drawing.Size(108, 21);
-            this.displayDoubleMode.TabIndex = 53;
-            this.displayDoubleMode.Text = "Double Click";
-            this.displayDoubleMode.UseVisualStyleBackColor = true;
-            // 
             // displayRightMode
             // 
             this.displayRightMode.AutoSize = true;
@@ -508,36 +538,6 @@
             this.contextCompareCursors.UseVisualStyleBackColor = true;
             this.contextCompareCursors.CheckedChanged += new System.EventHandler(this.contextCompareCursors_CheckedChanged);
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(296, 409);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(98, 97);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 71;
-            this.pictureBox3.TabStop = false;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(98, 21);
-            this.checkBox1.TabIndex = 73;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(296, 521);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 21);
-            this.checkBox2.TabIndex = 74;
-            this.checkBox2.Text = "Help";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -552,6 +552,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
@@ -561,7 +562,6 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -605,7 +605,7 @@
         private System.Windows.Forms.CheckBox contextScrollBars;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button cursorSave;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox displayHelp;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox pictureBox3;
     }

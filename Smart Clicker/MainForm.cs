@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Smart_Clicker
 {
@@ -241,32 +242,57 @@ namespace Smart_Clicker
 
         public void redraw()
         {
+            foreach (string name in this.customParams.layoutValues.hiddenIconNames)
+            {
+                Debug.WriteLine(name);
+            }
             int size = this.customParams.layoutValues.hiddenIconNames.Count();
             int allButtons = buttons.Count();
             //shown is the number of rows we need for our mode buttons
             int shown = allButtons - size;
             // we add 1 to shown to account for config button
             shown = shown + 1; 
-            Control temp= buttons[1];
+
+            // Try to rebuild the tablelayoutpanel each time
+            this.Controls.Remove(tableLayoutPanel1);
+
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+
+            this.Controls.Add(tableLayoutPanel1);
+
+            //Formatting things, move to another method eventually if this works
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(221, 360);
+            this.tableLayoutPanel1.TabIndex = 26;
+
+            this.tableLayoutPanel1.RowCount = shown;
+            int i = 0;
+
             foreach (PictureBox button in buttons)
+            {
+                if (!(this.customParams.layoutValues.hiddenIconNames.Contains(button.Name)))
                 {
-                    foreach (String name in this.customParams.layoutValues.hiddenIconNames) 
-            
-                      {
-                        if (button.Name.Equals(name))
-                        {
-                            int rowNum = Array.IndexOf(buttons, button);
-                            Control c = tableLayoutPanel1.GetControlFromPosition(0, rowNum);
-                            SizeF x= new SizeF(0,0);
-                            c.Scale(x);
-                            tableLayoutPanel1.SetRow(c, rowNum);
-
-                        }
+                    this.tableLayoutPanel1.Controls.Add(button, 0, i);
+                    i++;
+                    if (button.Name.Equals("help"))
+                    {
+                        this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
                     }
-
-
-
+                    else
+                    {
+                        this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.31594F));
+                    }
                 }
+            }
+            
             
         }
 
@@ -285,8 +311,7 @@ namespace Smart_Clicker
 
             startSettingsTimer(current);
             current.MouseLeave += new EventHandler(onPictureBoxLeave);
-<<<<<<< HEAD
-=======
+
         }
 
         private void startSettingsTimer(PictureBox mode)
@@ -297,27 +322,6 @@ namespace Smart_Clicker
             mouseOver.Start();
         }
 
-        private void settingsSelected(object sender, PictureBox mode)
-        {
-            Timer mouseOver = (Timer)sender;
-            mouseOver.Stop();
-            mouseOver.Dispose();
-            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
-            if ((this.currentMousePictureBox == mode))
-            {
-                CustomForm_Click(sender, null);
-            }
-            this.currentMousePictureBox = null;
->>>>>>> 06a4d09a0b8530e6358db43df2fed9b17536edc8
-        }
-
-        private void startSettingsTimer(PictureBox mode)
-        {
-            Timer mouseOver = new Timer();
-            mouseOver.Tick += (sender, e) => settingsSelected(sender, mode);
-            mouseOver.Interval = 1000; // in miliseconds
-            mouseOver.Start();
-        }
 
         private void settingsSelected(object sender, PictureBox mode)
         {

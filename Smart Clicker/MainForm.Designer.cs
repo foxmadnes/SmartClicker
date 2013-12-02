@@ -31,89 +31,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.sleepClick = new System.Windows.Forms.PictureBox();
-            this.contextClick = new System.Windows.Forms.PictureBox();
-            this.leftClick = new System.Windows.Forms.PictureBox();
-            this.rightClick = new System.Windows.Forms.PictureBox();
             this.doubleClick = new System.Windows.Forms.PictureBox();
             this.clickAndDrag = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.CustomForm = new System.Windows.Forms.PictureBox();
+            this.rightClick = new System.Windows.Forms.PictureBox();
+            this.leftClick = new System.Windows.Forms.PictureBox();
             this.help = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
+            this.CustomForm = new System.Windows.Forms.PictureBox();
+            this.contextClick = new System.Windows.Forms.PictureBox();
+            this.sleepClick = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.help)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // sleepClick
-            // 
-            this.sleepClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.sleepClick.BackColor = System.Drawing.SystemColors.Window;
-            this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
-            this.sleepClick.Location = new System.Drawing.Point(1, 1);
-            this.sleepClick.Margin = new System.Windows.Forms.Padding(1);
-            this.sleepClick.Name = "sleepClick";
-            this.sleepClick.Size = new System.Drawing.Size(219, 49);
-            this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.sleepClick.TabIndex = 20;
-            this.sleepClick.TabStop = false;
-            // 
-            // contextClick
-            // 
-            this.contextClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.contextClick.BackColor = System.Drawing.SystemColors.Window;
-            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
-            this.contextClick.Location = new System.Drawing.Point(1, 52);
-            this.contextClick.Margin = new System.Windows.Forms.Padding(1);
-            this.contextClick.Name = "contextClick";
-            this.contextClick.Size = new System.Drawing.Size(219, 49);
-            this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.contextClick.TabIndex = 21;
-            this.contextClick.TabStop = false;
-            // 
-            // leftClick
-            // 
-            this.leftClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.leftClick.BackColor = System.Drawing.SystemColors.Window;
-            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
-            this.leftClick.Location = new System.Drawing.Point(1, 103);
-            this.leftClick.Margin = new System.Windows.Forms.Padding(1);
-            this.leftClick.Name = "leftClick";
-            this.leftClick.Size = new System.Drawing.Size(219, 49);
-            this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.leftClick.TabIndex = 22;
-            this.leftClick.TabStop = false;
-            // 
-            // rightClick
-            // 
-            this.rightClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.rightClick.BackColor = System.Drawing.SystemColors.Window;
-            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
-            this.rightClick.Location = new System.Drawing.Point(1, 154);
-            this.rightClick.Margin = new System.Windows.Forms.Padding(1);
-            this.rightClick.Name = "rightClick";
-            this.rightClick.Size = new System.Drawing.Size(219, 49);
-            this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.rightClick.TabIndex = 23;
-            this.rightClick.TabStop = false;
             // 
             // doubleClick
             // 
@@ -147,6 +83,102 @@
             this.clickAndDrag.TabIndex = 25;
             this.clickAndDrag.TabStop = false;
             // 
+            // rightClick
+            // 
+            this.rightClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.rightClick.BackColor = System.Drawing.SystemColors.Window;
+            this.rightClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.rightClick.Image = ((System.Drawing.Image)(resources.GetObject("rightClick.Image")));
+            this.rightClick.Location = new System.Drawing.Point(1, 154);
+            this.rightClick.Margin = new System.Windows.Forms.Padding(1);
+            this.rightClick.Name = "rightClick";
+            this.rightClick.Size = new System.Drawing.Size(219, 49);
+            this.rightClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.rightClick.TabIndex = 23;
+            this.rightClick.TabStop = false;
+            // 
+            // leftClick
+            // 
+            this.leftClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.leftClick.BackColor = System.Drawing.SystemColors.Window;
+            this.leftClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.leftClick.Image = ((System.Drawing.Image)(resources.GetObject("leftClick.Image")));
+            this.leftClick.Location = new System.Drawing.Point(1, 103);
+            this.leftClick.Margin = new System.Windows.Forms.Padding(1);
+            this.leftClick.Name = "leftClick";
+            this.leftClick.Size = new System.Drawing.Size(219, 49);
+            this.leftClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.leftClick.TabIndex = 22;
+            this.leftClick.TabStop = false;
+            // 
+            // help
+            // 
+            this.help.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.help.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.help.Image = ((System.Drawing.Image)(resources.GetObject("help.Image")));
+            this.help.Location = new System.Drawing.Point(1, 332);
+            this.help.Margin = new System.Windows.Forms.Padding(1);
+            this.help.Name = "help";
+            this.help.Size = new System.Drawing.Size(219, 27);
+            this.help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.help.TabIndex = 27;
+            this.help.TabStop = false;
+            this.help.Click += new System.EventHandler(this.help_Click);
+            // 
+            // CustomForm
+            // 
+            this.CustomForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomForm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.CustomForm.Image = ((System.Drawing.Image)(resources.GetObject("CustomForm.Image")));
+            this.CustomForm.Location = new System.Drawing.Point(1, 307);
+            this.CustomForm.Margin = new System.Windows.Forms.Padding(1);
+            this.CustomForm.Name = "CustomForm";
+            this.CustomForm.Size = new System.Drawing.Size(219, 23);
+            this.CustomForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CustomForm.TabIndex = 26;
+            this.CustomForm.TabStop = false;
+            this.CustomForm.Click += new System.EventHandler(this.CustomForm_Click);
+            // 
+            // contextClick
+            // 
+            this.contextClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.contextClick.BackColor = System.Drawing.SystemColors.Window;
+            this.contextClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.contextClick.Image = ((System.Drawing.Image)(resources.GetObject("contextClick.Image")));
+            this.contextClick.Location = new System.Drawing.Point(1, 52);
+            this.contextClick.Margin = new System.Windows.Forms.Padding(1);
+            this.contextClick.Name = "contextClick";
+            this.contextClick.Size = new System.Drawing.Size(219, 49);
+            this.contextClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.contextClick.TabIndex = 21;
+            this.contextClick.TabStop = false;
+            // 
+            // sleepClick
+            // 
+            this.sleepClick.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.sleepClick.BackColor = System.Drawing.SystemColors.Window;
+            this.sleepClick.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sleepClick.Image = ((System.Drawing.Image)(resources.GetObject("sleepClick.Image")));
+            this.sleepClick.Location = new System.Drawing.Point(1, 1);
+            this.sleepClick.Margin = new System.Windows.Forms.Padding(1);
+            this.sleepClick.Name = "sleepClick";
+            this.sleepClick.Size = new System.Drawing.Size(219, 49);
+            this.sleepClick.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.sleepClick.TabIndex = 20;
+            this.sleepClick.TabStop = false;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
@@ -176,39 +208,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(221, 360);
             this.tableLayoutPanel1.TabIndex = 26;
             // 
-            // CustomForm
-            // 
-            this.CustomForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.CustomForm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.CustomForm.Image = ((System.Drawing.Image)(resources.GetObject("CustomForm.Image")));
-            this.CustomForm.Location = new System.Drawing.Point(1, 307);
-            this.CustomForm.Margin = new System.Windows.Forms.Padding(1);
-            this.CustomForm.Name = "CustomForm";
-            this.CustomForm.Size = new System.Drawing.Size(219, 23);
-            this.CustomForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CustomForm.TabIndex = 26;
-            this.CustomForm.TabStop = false;
-            this.CustomForm.Click += new System.EventHandler(this.CustomForm_Click);
-            //this.CustomForm.MouseHover += new System.EventHandler(this.CustomForm_MouseHover);
-            // 
-            // help
-            // 
-            this.help.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.help.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.help.Image = ((System.Drawing.Image)(resources.GetObject("help.Image")));
-            this.help.Location = new System.Drawing.Point(1, 332);
-            this.help.Margin = new System.Windows.Forms.Padding(1);
-            this.help.Name = "help";
-            this.help.Size = new System.Drawing.Size(219, 27);
-            this.help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.help.TabIndex = 27;
-            this.help.TabStop = false;
-            this.help.Click += new System.EventHandler(this.help_Click);
-            // 
             // MainForm
             // 
             this.AccessibleDescription = "Virtual Mouse Clicker Application";
@@ -228,15 +227,15 @@
             this.Text = "Smart Clicker";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
-            ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.help)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,15 +243,16 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox sleepClick;
-        private System.Windows.Forms.PictureBox contextClick;
-        private System.Windows.Forms.PictureBox leftClick;
-        private System.Windows.Forms.PictureBox rightClick;
         private System.Windows.Forms.PictureBox doubleClick;
         private System.Windows.Forms.PictureBox clickAndDrag;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.PictureBox CustomForm;
+        private System.Windows.Forms.PictureBox rightClick;
+        private System.Windows.Forms.PictureBox leftClick;
         private System.Windows.Forms.PictureBox help;
+        private System.Windows.Forms.PictureBox CustomForm;
+        private System.Windows.Forms.PictureBox contextClick;
+        private System.Windows.Forms.PictureBox sleepClick;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+
 
     }
 }

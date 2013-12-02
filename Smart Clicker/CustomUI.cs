@@ -49,6 +49,7 @@ namespace Smart_Clicker
                 {displayContextMode, "contextClick"},
                 {displayClickDragMode, "clickAndDrag"},
                 {displaySleepMode, "sleepClick"},
+                {displayHelp, "help"},
             };
             StringToModeMapping = new Dictionary<string,CheckBox>();
             foreach (CheckBox key in ModeToStringMapping.Keys)
@@ -72,16 +73,29 @@ namespace Smart_Clicker
         {
             try
             {
+                // hack, will clean this up
+                this.changedParams.layoutValues.hiddenIconNames.Clear();
+                CheckBox[] checkmodes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
+                foreach (CheckBox checkbox in checkmodes)
+                {
+                    if (!(checkbox.Checked))
+                    {
+                        this.changedParams.layoutValues.hiddenIconNames.Add(StringToModeMapping.FirstOrDefault(x => x.Value == checkbox).Key);
+                    }
+                }
                 this.customParams.merge(changedParams);
                 new XmlMethods().saveCustomParams(changedParams);
-                //this.mainform.draw(); --> Add this function to mainform!
                 this.mainform.detector.resetTimerInterval();
                 this.mainform.redraw();
                 this.setStartOnBoot();
+
+                // add the currently unchecked options to the hidden string list
+
                 this.Close();
             }
-            catch
+            catch(Exception exp)
             {
+                Debug.Write(exp.ToString());
                 MessageBox.Show("Invalid input.  Please try again!", "Error", MessageBoxButtons.OK);
             }
         }
