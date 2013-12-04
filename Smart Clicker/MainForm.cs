@@ -47,8 +47,15 @@ namespace Smart_Clicker
             this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag, help};
             foreach (PictureBox mode in buttons)
             {
-                mode.MouseHover += new EventHandler(pictureBox_MouseHover);
+                if (!(mode.Name == "help"))
+                {
+                    mode.MouseHover += new EventHandler(pictureBox_MouseHover);
+                }
             }
+            // need to add a mouse hover handler to the config and help button too
+            CustomForm.MouseHover += new EventHandler(CustomForm_MouseHover);
+            //CustomForm.MouseHover += new EventHandler(pictureBox_MouseHover);
+            help.MouseHover += new EventHandler(help_MouseHover);
 
             ModeMapping = new Dictionary<PictureBox, ProgramMode>() 
             {
@@ -311,13 +318,14 @@ namespace Smart_Clicker
         private void CustomForm_MouseHover(object sender, EventArgs e)
         {
             PictureBox current = (PictureBox)sender;
-
-
+            startSettingsTimer(current);
             setPictureBoxHighlighted(current);
             this.currentMousePictureBox = current;
-
-            startSettingsTimer(current);
             current.MouseLeave += new EventHandler(onPictureBoxLeave);
+        }
+
+        private void help_MouseHover(object sender, EventArgs e)
+        {
 
         }
 
@@ -350,12 +358,6 @@ namespace Smart_Clicker
             CustomUI customWindow = new CustomUI(customParams, this);
             customWindow.Show();
         }
-
-        //private void launchCustomForm()
-        //{
-        //    CustomUI customWindow = new CustomUI(customParams, this);
-        //    customWindow.Show();
-        //}
 
     }
 }
