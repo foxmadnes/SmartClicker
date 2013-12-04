@@ -120,6 +120,7 @@
             this.help.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.help.BackColor = System.Drawing.SystemColors.Window;
             this.help.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.help.Image = ((System.Drawing.Image)(resources.GetObject("help.Image")));
             this.help.Location = new System.Drawing.Point(1, 332);
@@ -136,6 +137,7 @@
             this.CustomForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomForm.BackColor = System.Drawing.SystemColors.Window;
             this.CustomForm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.CustomForm.Image = ((System.Drawing.Image)(resources.GetObject("CustomForm.Image")));
             this.CustomForm.Location = new System.Drawing.Point(1, 307);
@@ -221,7 +223,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(300, 1800);
-            this.MinimumSize = new System.Drawing.Size(50, 300);
+            this.MinimumSize = new System.Drawing.Size(25, 100);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Smart Clicker";
