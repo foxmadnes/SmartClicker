@@ -10,10 +10,12 @@ using System.Windows.Forms;
 
 namespace Smart_Clicker
 {
+    // Low level interface to capture cursor images and location, as well as compare bitmaps
     public class CursorCapture
     {
         public static Bitmap[] clickAndDragBitmaps;
         public Dictionary<Byte[], Boolean> clickAndDragDictionary;
+        private static double EQUALITY_PERCENTAGE = 0.9;
 
         public CursorCapture()
         {
@@ -28,6 +30,7 @@ namespace Smart_Clicker
             clickAndDragBitmaps = new Bitmap[5] { sizeAllCursor, sizeNESW, sizeNS, sizeNWSE, sizeWE };
         }
 
+        // Used for system resize cursors, on application startup
         private Bitmap BitmapFromCursor(Cursor cur)
         {
             Win32Stuff.ICONINFO ii;
@@ -44,23 +47,7 @@ namespace Smart_Clicker
             return new Bitmap(dstBitmap);
         }
 
-        public bool IsClickAndDrag(Bitmap currentMouse)
-        {
-            // Go through each known cursor in clickAndDrag
-            foreach (Bitmap cursor in clickAndDragBitmaps)
-            {
-                // if bitmaps are close
-                if (CompareCursorBitmaps(cursor, currentMouse))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /*************************************************************************
-        * method for retrieving the current bitmap of the global cursor
-        **************************************************************************/
+        // Method for retrieving the current bitmap of the global cursor
         public static cursorInTime CaptureCursor()
         {
             Bitmap bmp;
@@ -76,20 +63,21 @@ namespace Smart_Clicker
                     {
                         hicon = Win32Stuff.CopyIcon(ci.hCursor);
                         Win32Stuff.GetIconInfo(hicon, out icInfo);
+
+                        // If fetch failed, retry as specified by Windows API
                         while (icInfo.hbmMask == IntPtr.Zero)
                         {
                             Win32Stuff.GetIconInfo(hicon, out icInfo);
-                            System.Diagnostics.Debug.Print("Retrying cursor capture.");
                         }
+
                         int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
                         int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
+                        
                         using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
                         {
                             // Is this a monochrome cursor?
-                            // This portion taken from http://stackoverflow.com/questions/918990/c-sharp-capturing-the-mouse-cursor-image
                             if (maskBitmap.Height == maskBitmap.Width * 2)
                             {
-                                // Reverting to simple saving and no cleanup because of an object leak
                                 Rectangle sourceRectangle = new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2);
 
                                 Bitmap secondBitmap = maskBitmap.Clone(sourceRectangle, PixelFormat.DontCare);
@@ -118,6 +106,25 @@ namespace Smart_Clicker
             return null;
         }
 
+        #region BitmapComparison
+
+        // Compare a bitmap with known resize cursors
+        public bool IsClickAndDrag(Bitmap currentMouse)
+        {
+            // Go through each known cursor in clickAndDrag
+            foreach (Bitmap cursor in clickAndDragBitmaps)
+            {
+                // if bitmaps are close
+                if (CompareCursorBitmaps(cursor, currentMouse))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Bit by bit comparison of two bitmaps to check if they are similar
+        // Necessary due to dynamic shadowing and smoothing in Windows Cursors
         public bool CompareCursorBitmaps(Bitmap bmp1, Bitmap bmp2)
         {
             if (bmp1.Height != bmp2.Height || bmp1.Width != bmp2.Width)
@@ -125,28 +132,32 @@ namespace Smart_Clicker
                 return false;
             }
 
-            int totalPixelCount = bmp1.Height*bmp1.Width;
+            int totalPixelCount = bmp1.Height * bmp1.Width;
             int pixelMatchCount = 0;
             for (int i = 0; i < bmp1.Width; i++)
             {
                 for (int j = 0; j < bmp1.Height; j++)
                 {
-                    if (bmp1.GetPixel(i,j).Equals(bmp2.GetPixel(i,j)))
+                    if (bmp1.GetPixel(i, j).Equals(bmp2.GetPixel(i, j)))
                     {
                         pixelMatchCount++;
                     }
                 }
             }
 
-            double proportion = (double) pixelMatchCount / (double) totalPixelCount;
+            double proportion = (double)pixelMatchCount / (double)totalPixelCount;
 
-            if (proportion > 0.9)
+            if (proportion > EQUALITY_PERCENTAGE)
             {
                 return true;
             }
 
             return false;
         }
+
+        #endregion
+
+
  
     }
 }

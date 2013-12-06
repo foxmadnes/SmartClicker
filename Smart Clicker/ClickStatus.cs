@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Smart_Clicker
 {
+    // Data structure that handles all Mode interactions between the ClickDetector and MainForm
     public class ClickStatus
     {
         public ProgramMode backgroundMode;
@@ -19,6 +20,8 @@ namespace Smart_Clicker
             this.currentMode = ProgramMode.contextClick;
             this.currentMode = null;
         }
+
+        #region Setters
 
         public void setBackgroundMode(ProgramMode mode)
         {
@@ -41,12 +44,12 @@ namespace Smart_Clicker
         public void clearActiveMode()
         {
             this.currentIndex = 0;
-            if (this.currentMode == null)
-            {
-                return;
-            }
             this.currentMode = null;
         }
+
+        #endregion
+
+        #region Getters
 
         public ProgramMode getBackgroundMode()
         {
@@ -64,6 +67,7 @@ namespace Smart_Clicker
             }
         }
 
+        // Returns currentMode if it exists, background mode if not
         public ProgramMode getActiveMode()
         {
             if (this.currentMode == null)
@@ -72,5 +76,7 @@ namespace Smart_Clicker
             }
             return this.currentMode;
         }
+
+        #endregion
     }
 }

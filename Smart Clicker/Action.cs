@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Smart_Clicker
 {
-
+    // Superclass that holds an arbitrary keyboard or mouse action for Program Mode definition
     public class Action
     {
         
@@ -47,11 +47,15 @@ namespace Smart_Clicker
             this.key_up = up;
         }
 
+        #region Static Known Keyboard Actions
+
         public static KeyboardAction ctrlDown = new KeyboardAction(0x11, false);
         public static KeyboardAction ctrlUp = new KeyboardAction(0x11, true);
         public static KeyboardAction cDown = new KeyboardAction(0x43, false);
         public static KeyboardAction cUp = new KeyboardAction(0x43, true);
         public static KeyboardAction vDown = new KeyboardAction(0x56, false);
         public static KeyboardAction vUp = new KeyboardAction(0x56, true);
+
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace Smart_Clicker
     public class ProgramMode
     {
         // First array is by click-step, second array is group of actions done in that clickstep
+        // Example: Click and Drag is {{LeftDown},{LeftUp}} , Left Click is {{LeftDown,LeftUp}}
         public Action[][] mode;
         public bool isContext;
 
@@ -16,6 +17,8 @@ namespace Smart_Clicker
             this.mode = mode;
             this.isContext = context;
         }
+
+        #region Static Default ProgramModes
 
         public static ProgramMode leftClick = 
             new ProgramMode(new Action[][] { new Action[] {new MouseAction(MouseAction.clickType.leftDown), new MouseAction(MouseAction.clickType.leftUp) } });
@@ -43,5 +46,7 @@ namespace Smart_Clicker
         public static ProgramMode pasteClick =
             new ProgramMode(new Action[][] { new Action[] { new MouseAction(MouseAction.clickType.leftDown)},
                 new Action[] { new MouseAction(MouseAction.clickType.leftUp) , KeyboardAction.ctrlDown, KeyboardAction.vDown, KeyboardAction.vUp, KeyboardAction.ctrlUp } });
+
+        #endregion
     }
 }

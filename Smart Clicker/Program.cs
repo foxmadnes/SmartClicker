@@ -15,6 +15,7 @@ namespace Smart_Clicker
         [STAThread]
         static void Main()
         {
+            // Make sure this is the only "Smart Clicker" running!
             bool ok;
             Mutex m = new System.Threading.Mutex(true, "Smart Clicker", out ok);
 
@@ -23,11 +24,15 @@ namespace Smart_Clicker
                 return;
             }
 
+            // Set handler for all uncaught exceptions, so we can restart
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
+            // Set Global application parameters
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Initialize the application
             ClickStatus status = new ClickStatus();
             CustomizationParameters customParams = new XmlMethods().loadFromXML();
             MainForm mainForm = new MainForm(status, customParams);
