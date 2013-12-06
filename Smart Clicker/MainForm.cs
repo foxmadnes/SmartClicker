@@ -29,7 +29,7 @@ namespace Smart_Clicker
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
             // Initialize Fetcher icon, that pulls main form forward when moused over, and is always TopForm
-            this.fetcher = new Fetcher(this);
+            this.fetcher = new Fetcher(this, customParams);
             fetcher.Show();
 
             // Set starting variables

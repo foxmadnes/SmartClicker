@@ -13,7 +13,7 @@ namespace Smart_Clicker
     {
         private MainForm mainForm;
 
-        public Fetcher(MainForm mainForm) //, CustomizationParameters parameters)
+        public Fetcher(MainForm mainForm, CustomizationParameters parameters)
         {
             InitializeComponent();
             this.mainForm = mainForm;
@@ -23,14 +23,9 @@ namespace Smart_Clicker
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ControlBox = false;
             this.MinimumSize = new Size(10, 10);
-            this.Size = new Size(25, 25);   //(parameters.clickValues.clickBoundingBox, parameters.clickValues.clickBoundingBox);
+            this.Size = new Size(parameters.clickValues.clickBoundingBox, parameters.clickValues.clickBoundingBox);
             this.Location = new Point(this.mainForm.Location.X, this.mainForm.Location.Y - this.Size.Height);
             this.TopMost = true;
-        }
-
-        private void Fetcher_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void move_On_Main_Form(object sender, EventArgs e)

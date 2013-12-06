@@ -23,6 +23,7 @@ namespace Smart_Clicker
 
         }
 
+        // Default values used if configuration is missing
         public static CustomizationParameters createDefault()
         {
             CustomizationParameters defaultParameters = new CustomizationParameters();
@@ -48,6 +49,7 @@ namespace Smart_Clicker
             return defaultParameters;
         }
 
+        // Used by Customization UI (CustomUI) to clone configurations without "committing"
         public CustomizationParameters copy()
         {
             CustomizationParameters copy = new CustomizationParameters();
@@ -58,6 +60,7 @@ namespace Smart_Clicker
 
         }
 
+        // Used by Customization UI to save new configurations while application is running
         public void merge(CustomizationParameters newCustomization)
         {
             this.clickValues = newCustomization.clickValues;
@@ -110,17 +113,24 @@ namespace Smart_Clicker
 
     public class ContextCustomization
     {
+        // For future support of adding cursors to ContextMode
         public List<Bitmap> clickAndDragBitmaps;
         public List<Bitmap> doubleClickBitmaps;
         public List<Bitmap> rightClickBitmaps;
+
+        // Booleans to turn off API and cursor Comparison functionality
         public bool compareCursors;
         public bool supportTitleBars;
         public bool supportScrollBars;
         public bool supportTabs;
 
-        // replace with actual copy method once we implement context customization
         public ContextCustomization copy()
         {
+            ContextCustomization copy = new ContextCustomization();
+            copy.compareCursors = this.compareCursors;
+            copy.supportTitleBars = this.supportTitleBars;
+            copy.supportScrollBars = this.supportScrollBars;
+            copy.supportTabs = this.supportTabs;
             return this;
         }
     }

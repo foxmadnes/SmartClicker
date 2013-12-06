@@ -41,7 +41,6 @@
             this.DoubleBuffered = true;
             this.Name = "Fetcher";
             this.Text = "Fetcher";
-            this.Load += new System.EventHandler(this.Fetcher_Load);
             this.MouseEnter += new System.EventHandler(this.Fetcher_MouseEnter);
             this.ResumeLayout(false);
 
