@@ -65,7 +65,7 @@ namespace Smart_Clicker
             // Take snapshot of current cursor
             cursorInTime cursor = CursorCapture.CaptureCursor();
 
-            if (cursor == null)
+            if (cursor == null || (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick))
             {
                 return;
             }
@@ -189,6 +189,7 @@ namespace Smart_Clicker
             {
                 return;
             }
+            Debug.WriteLine("Making TopMost");
             this.form.fetcher.TopMost = true;
 
             if (this.status.getActiveMode().isContext)
