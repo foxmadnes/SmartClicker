@@ -74,7 +74,7 @@ namespace Smart_Clicker
             }
 
             // need to read from xml and redraw based on prefs
-            this.redraw();
+            //this.redraw();
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -279,8 +279,8 @@ namespace Smart_Clicker
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(221, 360);
+            //221, 360
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 100);
             this.tableLayoutPanel1.TabIndex = 26;
 
             this.tableLayoutPanel1.RowCount = shown;

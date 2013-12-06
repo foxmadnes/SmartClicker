@@ -35,8 +35,8 @@ namespace Smart_Clicker
             defaultParameters.layoutValues.startOnStartup = false;
             defaultParameters.layoutValues.startHeight = 462;
             defaultParameters.layoutValues.startWidth = 100;
-            defaultParameters.layoutValues.startLeft = Screen.PrimaryScreen.Bounds.Width - (100);;
-            defaultParameters.layoutValues.startTop = Screen.PrimaryScreen.Bounds.Height / 2 - (465 / 2);;
+            defaultParameters.layoutValues.startLeft = 0;
+            defaultParameters.layoutValues.startTop = 0;
             defaultParameters.contextValues = new ContextCustomization();
             defaultParameters.contextValues.clickAndDragBitmaps = new List<Bitmap>();
             defaultParameters.contextValues.doubleClickBitmaps = new List<Bitmap>();

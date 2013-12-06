@@ -32,7 +32,7 @@ namespace Smart_Clicker
             this.mainform = mainForm;
             this.timerText.Text = (((double) changedParams.clickValues.timeout)/ 100).ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
-            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
+            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
             CheckBox[] contextSettings = { contextCompareCursors, contextScrollBars, contextTabs, contextTitleBars };
             this.startupBoot.Checked = this.changedParams.layoutValues.startOnStartup;
             this.crashReboot.Checked = this.changedParams.layoutValues.restartOnCrash;
