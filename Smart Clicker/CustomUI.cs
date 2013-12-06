@@ -32,14 +32,16 @@ namespace Smart_Clicker
             this.mainform = mainForm;
             this.timerText.Text = (((double) changedParams.clickValues.timeout)/ 100).ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
-            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
+            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
             CheckBox[] contextSettings = { contextCompareCursors, contextScrollBars, contextTabs, contextTitleBars };
+            // Read several parameters from the customization classes
             this.startupBoot.Checked = this.changedParams.layoutValues.startOnStartup;
             this.crashReboot.Checked = this.changedParams.layoutValues.restartOnCrash;
             contextCompareCursors.Checked = this.changedParams.contextValues.compareCursors;
             contextScrollBars.Checked = this.changedParams.contextValues.supportScrollBars;
             contextTabs.Checked = this.changedParams.contextValues.supportTabs;
             contextTitleBars.Checked = this.changedParams.contextValues.supportTitleBars;
+
 
             ModeToStringMapping = new Dictionary<CheckBox, string>() 
             {
@@ -52,6 +54,7 @@ namespace Smart_Clicker
                 {displayHelp, "help"},
             };
             StringToModeMapping = new Dictionary<string,CheckBox>();
+            // Initialize checkboxes on first tab, load settings 
             foreach (CheckBox key in ModeToStringMapping.Keys)
             {
                 StringToModeMapping.Add(this.ModeToStringMapping[key], key);
@@ -73,7 +76,7 @@ namespace Smart_Clicker
         {
             try
             {
-                // hack, will clean this up
+                // on confirm, add unchecked boxes to the hidden icons list in customization object
                 this.changedParams.layoutValues.hiddenIconNames.Clear();
                 CheckBox[] checkmodes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
                 foreach (CheckBox checkbox in checkmodes)
@@ -84,12 +87,12 @@ namespace Smart_Clicker
                     }
                 }
                 this.customParams.merge(changedParams);
+                // serialize object --> XML
                 new XmlMethods().saveCustomParams(changedParams);
                 this.mainform.detector.resetTimerInterval();
+                // update the mainform with the configuration changes made by the user
                 this.mainform.redraw();
                 this.setStartOnBoot();
-
-                // add the currently unchecked options to the hidden string list
 
                 this.Close();
             }
@@ -107,10 +110,9 @@ namespace Smart_Clicker
 
         private void timePlus_MouseHover(object sender, EventArgs e)
         {
-            Debug.WriteLine("Click?");
             while (timePlus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
-                Debug.WriteLine("In the plus loop");
+                
                 double val = double.Parse(timerText.Text);
                 // While cursor is on the button, keep incrementing the values of the text box
                 if (double.Parse(timerText.Text) != MAX_TIME) {
@@ -119,17 +121,15 @@ namespace Smart_Clicker
                 timerText.Text = val.ToString();
                 this.changedParams.clickValues.timeout = (int) (val * 100);
                 timerText.Refresh();
-                Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly              
+                Thread.Sleep(500);  // Half second delays after each update             
             }
         }
 
-        // Combine this and timePlus into one callback function later
         private void timeMinus_mouseHover(object sender, EventArgs e)
         {
-            Debug.WriteLine("Minus Click?");
+           
             while (timeMinus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
-                Debug.WriteLine("In the minus loop");
                 double val = double.Parse(timerText.Text);
                 // While cursor is on the button, keep decrementing the values of the text box
                 if (double.Parse(timerText.Text) != MIN_TIME)
@@ -139,7 +139,7 @@ namespace Smart_Clicker
                 timerText.Text = val.ToString();
                 this.changedParams.clickValues.timeout = (int) (val * 100);
                 timerText.Refresh();
-                Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
+                Thread.Sleep(500);  // Half second delays after each update
             }
         }
 
@@ -147,12 +147,10 @@ namespace Smart_Clicker
         {
             while (boxSizePlus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
-                Debug.WriteLine("In the loop, assuming the ticking interval will trigger the update handler");
-                // While cursor is on the button, keep incrementing the values of the text box
                 int val = int.Parse(boundingBoxText.Text) + 1;
                 boundingBoxText.Text = val.ToString();
                 boundingBoxText.Refresh();
-                Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
+                Thread.Sleep(500); 
             }
         }
 
@@ -160,15 +158,14 @@ namespace Smart_Clicker
         {
             while (boundingBoxMinus.Bounds.Contains(PointToClient(Cursor.Position)))
             {
-                Debug.WriteLine("In the loop, assuming the ticking interval will trigger the update handler");
-                // While cursor is on the button, keep incrementing the values of the text box
                 int val = int.Parse(boundingBoxText.Text) - 1;
                 boundingBoxText.Text = val.ToString();
                 boundingBoxText.Refresh();
-                Thread.Sleep(500);  // Take half second delays right after refreshing each update, else it happens too quickly
+                Thread.Sleep(500);  
             }
         }
 
+        // update customization object when checkbox changed
         private void box_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox currentBox = (CheckBox)sender;
