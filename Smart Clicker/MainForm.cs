@@ -250,12 +250,10 @@ namespace Smart_Clicker
             w.WriteLine("-------------------------------");
         }
 
+        // repaints the mainform each time settings are changed from the customizability form or 
+        //  based on config file when application is launched
         public void redraw()
         {
-            foreach (string name in this.customParams.layoutValues.hiddenIconNames)
-            {
-                Debug.WriteLine(name);
-            }
             int size = this.customParams.layoutValues.hiddenIconNames.Count();
             int allButtons = buttons.Count();
             //shown is the number of rows we need for our mode buttons
@@ -263,14 +261,14 @@ namespace Smart_Clicker
             // we add 1 to shown to account for config button
             shown = shown + 1; 
 
-            // Try to rebuild the tablelayoutpanel each time
+            // Rebuild the tableLayoutPanel 
             this.Controls.Remove(tableLayoutPanel1);
 
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 
             this.Controls.Add(tableLayoutPanel1);
 
-            //Formatting things, move to another method eventually if this works
+            // Format the tableLayoutPanel correctly
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -279,11 +277,13 @@ namespace Smart_Clicker
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            //221, 360
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 100);
+
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(32, 60);
             this.tableLayoutPanel1.TabIndex = 26;
 
             this.tableLayoutPanel1.RowCount = shown;
+
+            // Add the specified buttons to the mainform page
             int i = 0;
 
             foreach (PictureBox button in buttons)
@@ -310,11 +310,13 @@ namespace Smart_Clicker
             
         }
 
+        // Eventually launch a help menu with documentation
         private void help_Click(object sender, EventArgs e)
         {
 
         }
 
+        // Launch settings page
         private void CustomForm_MouseHover(object sender, EventArgs e)
         {
             PictureBox current = (PictureBox)sender;
