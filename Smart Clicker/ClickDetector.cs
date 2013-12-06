@@ -13,16 +13,6 @@ namespace Smart_Clicker
     public class ClickDetector
     {
 
-        // Note - Move these to Win32Stuff later
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void keybd_event(byte vk, byte scan, int flags, int extrainfo);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void SetCursorPos(int x, int y);
-
         private ClickStatus status;
         private CursorCapture capture;
         private CustomizationParameters parameters;
@@ -46,6 +36,8 @@ namespace Smart_Clicker
             this.automator = new CUIAutomation();
         }
 
+        #region Timer Functions
+
         public void InitTimer()
         {
             timer1 = new Timer();
@@ -54,6 +46,7 @@ namespace Smart_Clicker
             timer1.Start();
         }
 
+        // Called by CustomUI when changing timer interval
         public void resetTimerInterval()
         {
             timer1.Interval = this.parameters.clickValues.timeout;
@@ -88,41 +81,9 @@ namespace Smart_Clicker
             }
         }
 
-        // Checks if the list of cursors seems to indicate a dwell, and if it is, returns the index of the cursor that should be clicked
-        // If the mouse had too much activity (did not dwell), then returns -1
-        private int checkDwell()
-        {
-            // A dwell is designated as a series of 10 captured cursors that don't move outside of a bounding box
-            // So we start with the last cursor and compare backwards
-            int currentCursorIndex = MouseTracker.Count -1;
-            int breakIndex = -1;
-            for (int i = MouseTracker.Count - 1; i > 0; i--)
-            {
-                if (closeCursors(MouseTracker[i], MouseTracker[currentCursorIndex]))
-                {
-                    continue;
-                }
-                else
-                {
-                    breakIndex = i;
-                    break;
-                }
-            }
-            // This means that any one of the previous cursors was too far from the current one
-            if (breakIndex != -1)
-            {
-                // So we remove all the ones that don't match 
-                // This may be a bit unclear so say the cursors were  R R L R R R R R R
-                // Once we find it breaks, we want to remove all the L's so that the next check is sooner
-                // AKA now the list is R R R R R R - and within 4 more samples we can check for a dwell again
-                MouseTracker.RemoveRange(0, breakIndex);
-                return -1;
-            }
-            else
-            {
-                return currentCursorIndex;
-            }
-        }
+        #endregion
+
+        #region Click Functions
 
         // Wrapper function for click() that scans last few cursors to aid click and drag in context mode
         private void checkDragThenClick(int currentCursorIndex)
@@ -159,6 +120,8 @@ namespace Smart_Clicker
                     {
                         // This didn't work - Programs freak out when you click where the mouse isn't
                         // TODO: See if there is any way to get the mouse not to freak out when moved
+                        // This section would move the cursor back to a resize position if some of the cursors matched,
+                        // to help with efficiency
                         //cursorInTime lastDrag = MouseTracker.Last(p => capture.IsClickAndDrag(p.cursor));
                         //SetCursorPos(lastDrag.p.X, lastDrag.p.Y);
                         //click(lastDrag.p, true);
@@ -170,31 +133,25 @@ namespace Smart_Clicker
             MouseTracker.Clear();
         }
 
-
-        private Boolean closeCursors(cursorInTime c1, cursorInTime c2)
-        {
-            // Check that X and Y positions of cursor 1 are not more than CURSOR_DISTANCE away
-            if (Math.Abs(c1.p.X - c2.p.X) < this.parameters.clickValues.clickBoundingBox && Math.Abs(c1.p.Y - c2.p.Y) < this.parameters.clickValues.clickBoundingBox)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void click(Point p, Boolean clickAndDrag)
+        private void click(Point p, Boolean setClickAndDrag)
         {
             Point pt = form.PointToClient(p);
+
+            // Check if the clicking point is inside the form
             bool inside = (pt.X >= 0 && pt.Y >= 0 && pt.X <= (form.Width) && pt.Y <= (form.Height));
-            if (inside && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0) && !clickAndDrag)
+
+            //Should not click inside the mainForm, unless we are in the process of resizing it
+            if (inside && (Form.ActiveForm == this.form) && (this.status.currentIndex == 0) && !setClickAndDrag)
             {
                 return;
             }
-            Debug.WriteLine("Making TopMost");
+
+            // Make sure the fetcher stays on top, since other applications could set themselves TopMost
             this.form.fetcher.TopMost = true;
 
             if (this.status.getActiveMode().isContext)
             {
-                if (clickAndDrag)
+                if (setClickAndDrag)
                 {
                     if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
                     {
@@ -203,9 +160,12 @@ namespace Smart_Clicker
                 }
                 uiAutomationCheck(p);
             }
-
+            
+            // Get activeMode and perform the current actions for this time step
             ProgramMode activeMode = this.status.getActiveMode();
             clickActions(activeMode.mode[this.status.currentIndex], p);
+
+            // Increase the timestep and clear if done with current ProgramMode
             this.status.currentIndex++;
             if (this.status.currentIndex > activeMode.mode.Length - 1)
             {
@@ -214,32 +174,7 @@ namespace Smart_Clicker
             }
         }
 
-        private void uiAutomationCheck(Point p)
-        {
-            tagPOINT reference = new tagPOINT();
-            reference.x = p.X;
-            reference.y = p.Y;
-            try
-            {
-                IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
-                System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
-                System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
-                if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
-                    || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
-                    || (focus.CurrentControlType == 50018 && this.parameters.contextValues.supportTabs))
-                {
-                    if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
-                    {
-                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
-                    }
-                }
-            }
-            catch (COMException e)
-            {
-                // No element given, give up
-            }
-        }
-
+        //Performs all mouse and keyboard actions for this time step
         private void clickActions(Action[] actions, Point p)
         {
             foreach (Action action in actions)
@@ -257,15 +192,99 @@ namespace Smart_Clicker
 
         private void performMouseAction(MouseAction action, Point p)
         {
-            mouse_event((int) action.clickInt, p.X, p.Y, 0, 0);
+            Win32Stuff.mouse_event((int) action.clickInt, p.X, p.Y, 0, 0);
         }
 
         private void performKeyboardAction(KeyboardAction action)
         {
-            keybd_event(action.key,0, (action.key_up ? 0x02 : 0), 0);
+            Win32Stuff.keybd_event(action.key,0, (action.key_up ? 0x02 : 0), 0);
         }
+
+        #endregion
+
+        #region Click Helper Functions
+
+        // Checks if the list of cursors seems to indicate a dwell, and if it is, returns the index of the cursor that should be clicked
+        // If the mouse had too much activity (did not dwell), then returns -1
+        private int checkDwell()
+        {
+            // A dwell is designated as a series of 10 captured cursors that don't move outside of a bounding box
+            // So we start with the last cursor and compare backwards
+            int currentCursorIndex = MouseTracker.Count - 1;
+            int breakIndex = -1;
+            for (int i = MouseTracker.Count - 1; i > 0; i--)
+            {
+                if (closeCursors(MouseTracker[i], MouseTracker[currentCursorIndex]))
+                {
+                    continue;
+                }
+                else
+                {
+                    breakIndex = i;
+                    break;
+                }
+            }
+            // This means that any one of the previous cursors was too far from the current one
+            if (breakIndex != -1)
+            {
+                // So we remove all the ones that don't match 
+                // This may be a bit unclear so say the cursors were  R R L R R R R R R
+                // Once we find it breaks, we want to remove all the L's so that the next check is sooner
+                // AKA now the list is R R R R R R - and within 4 more samples we can check for a dwell again
+                MouseTracker.RemoveRange(0, breakIndex);
+                return -1;
+            }
+            else
+            {
+                return currentCursorIndex;
+            }
+        }
+
+        private Boolean closeCursors(cursorInTime c1, cursorInTime c2)
+        {
+            // Check that X and Y positions of cursor 1 are not more than CURSOR_DISTANCE away
+            if (Math.Abs(c1.p.X - c2.p.X) < this.parameters.clickValues.clickBoundingBox && Math.Abs(c1.p.Y - c2.p.Y) < this.parameters.clickValues.clickBoundingBox)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // Uses Windows UI Automation API to determine if we should click and Drag in context Mode
+        private void uiAutomationCheck(Point p)
+        {
+            tagPOINT reference = new tagPOINT();
+            reference.x = p.X;
+            reference.y = p.Y;
+
+            if (this.status.getCurrentMode() != ProgramMode.clickAndDrag)
+            {
+                try
+                {
+                    IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
+
+                    // Useful for debugging API support
+                    //System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+                    //System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+
+                    if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
+                        || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
+                        || (focus.CurrentControlType == 50018 && this.parameters.contextValues.supportTabs))
+                    {
+                        this.status.setCurrentMode(ProgramMode.clickAndDrag);
+                    }
+                }
+                catch (COMException e)
+                {
+                    // No element given, give up
+                }
+            }
+        }
+
+        #endregion
     }
 
+    //Represents a snapshot of the cursor
     public class cursorInTime
     {
         public Point p;

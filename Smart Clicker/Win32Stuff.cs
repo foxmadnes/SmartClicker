@@ -124,8 +124,17 @@ namespace Smart_Clicker
         [DllImport("gdi32.dll", EntryPoint = "DeleteDC")]
         public static extern bool DeleteDC(IntPtr hDc);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", EntryPoint = "RegisterApplicationRestart")]
         public static extern int RegisterApplicationRestart([MarshalAs(UnmanagedType.BStr)] string commandLineArgs, int flags);
+
+        [DllImport("user32.dll", EntryPoint = "mouse_event")]
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        [DllImport("user32.dll", EntryPoint = "keybd_event")]
+        public static extern void keybd_event(byte vk, byte scan, int flags, int extrainfo);
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        public static extern void SetCursorPos(int x, int y);
 
         #endregion
     }
