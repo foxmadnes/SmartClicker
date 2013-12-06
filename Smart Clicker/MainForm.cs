@@ -24,39 +24,51 @@ namespace Smart_Clicker
         private PictureBox currentMousePictureBox;
         private NotifyIcon trayIcon;
 
+        #region Initialization
+
         public MainForm(ClickStatus status, CustomizationParameters customParams)
         {
-            fetcher = new Fetcher(this);
-
+            // Initialize Fetcher icon, that pulls main form forward when moused over, and is always TopForm
+            this.fetcher = new Fetcher(this);
             fetcher.Show();
 
+            // Set starting variables
             InitializeComponent();
-            this.ShowInTaskbar = false;
             this.clickStatus = status;
             this.customParams = customParams;
 
+            // Set Windows Application parameters and add tray icon
+            this.ShowInTaskbar = false;
             ContextMenu trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Exit", OnExit);
             this.trayIcon = new NotifyIcon();
             trayIcon.Text = "SmartClicker";
             trayIcon.Icon = this.Icon;
+
             // Add menu to tray icon and show it.
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
-            //buttons1 = new PictureBox[] { sleepClick, contextClick, leftClick, rightClick, doubleClick, clickAndDrag, CustomForm, help };
+
+            // This holds every hide-able picturebox for different program modes
             this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag, help};
             foreach (PictureBox mode in buttons)
             {
+                // Help gets its own Event Handler, as it is hideable but not a program mode
                 if (!(mode.Name == "help"))
                 {
+                    // Add mouseover handler for selection
                     mode.MouseHover += new EventHandler(pictureBox_MouseHover);
                 }
+                else
+                {
+                    help.MouseHover += new EventHandler(help_MouseHover);
+                }
             }
-            // need to add a mouse hover handler to the config and help button too
-            CustomForm.MouseHover += new EventHandler(CustomForm_MouseHover);
-            //CustomForm.MouseHover += new EventHandler(pictureBox_MouseHover);
-            help.MouseHover += new EventHandler(help_MouseHover);
 
+            // Need to add a mouse hover handler to the config button too
+            CustomForm.MouseHover += new EventHandler(CustomForm_MouseHover);
+
+            // Create a mapping from picture boxes to default program modes, so we can set them if they are selected
             ModeMapping = new Dictionary<PictureBox, ProgramMode>() 
             {
                 {leftClick, ProgramMode.leftClick},
@@ -67,15 +79,17 @@ namespace Smart_Clicker
                 {sleepClick, ProgramMode.sleepClick}
             };
 
+            // Create an inverse mapping so the detector can also change how pictureboxes look
             inverseModeMapping = new Dictionary<ProgramMode, PictureBox>();
             foreach(PictureBox box in ModeMapping.Keys)
             {
                 inverseModeMapping.Add(ModeMapping[box], box);
             }
 
-            // need to read from xml and redraw based on prefs
-            //this.redraw();
+            // Redraw the MainForm to match XML configuration
+            this.redraw();
 
+            // Initialize the form to the XML/default parameters
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = String.Empty;
@@ -84,24 +98,19 @@ namespace Smart_Clicker
             this.Top = this.customParams.layoutValues.startTop;
             this.Width = this.customParams.layoutValues.startWidth;
             this.Height = this.customParams.layoutValues.startHeight;
+
+            // Add handler to ask "Are you sure?" dialog
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             setPictureBoxLock(contextClick);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
+        #endregion
 
-        protected override void OnLoad(EventArgs args)
-        {
-            Application.Idle += new EventHandler(OnLoaded);
-        }
+        #region Mode Selection
 
-        public void OnLoaded(object sender, EventArgs e)
-        {
-            Application.Idle -= new EventHandler(OnLoaded);
-        }
+        #region Click Modes
 
+        // Starts a timer and highlights the pictureBox when mousedOver
         private void pictureBox_MouseHover(object sender, EventArgs e)
         {
             PictureBox current = (PictureBox)sender;
@@ -116,6 +125,7 @@ namespace Smart_Clicker
             current.MouseLeave += new EventHandler(onPictureBoxLeave);
         }
 
+        // Starts timer for mouseover, used both for selection and locking
         private void startTimer(PictureBox mode)
         {
             Timer mouseOver = new Timer();
@@ -124,6 +134,7 @@ namespace Smart_Clicker
             mouseOver.Start();
         }
 
+        // Called when mouse was successfully moused over, used for selection and locking
         private void modeSelected(object sender, PictureBox mode)
         {
             Timer mouseOver = (Timer)sender;
@@ -147,6 +158,7 @@ namespace Smart_Clicker
             }
         }
 
+        // Clears timer settings if mouse leaves pictureBox while selecting
         private void onPictureBoxLeave(object sender, EventArgs e)
         {
             PictureBox current = (PictureBox)sender;
@@ -170,11 +182,6 @@ namespace Smart_Clicker
             toSet.BackColor = Color.Yellow;
         }
 
-        private void setPictureBoxLock(PictureBox toSet)
-        {
-            toSet.BackColor = Color.DimGray;
-        }
-
         private void setPictureBoxSelect(PictureBox toSet)
         {
             foreach (PictureBox box in buttons)
@@ -187,6 +194,12 @@ namespace Smart_Clicker
             toSet.BackColor = Color.Red;
         }
 
+        private void setPictureBoxLock(PictureBox toSet)
+        {
+            toSet.BackColor = Color.DimGray;
+        }
+
+        // Called by Click detector when clearing current mode
         public void setClickDefault()
         {
             foreach (PictureBox box in buttons)
@@ -196,53 +209,68 @@ namespace Smart_Clicker
             setPictureBoxLock(inverseModeMapping[this.clickStatus.getBackgroundMode()]);
         }
 
-        private void OnExit(object sender, EventArgs e)
+        #endregion
+
+        #region Settings Button
+
+        // Launch settings page
+        private void CustomForm_MouseHover(object sender, EventArgs e)
         {
-            this.Close();
+            PictureBox current = (PictureBox)sender;
+            startSettingsTimer(current);
+            setPictureBoxHighlighted(current);
+            this.currentMousePictureBox = current;
+            current.MouseLeave += new EventHandler(onPictureBoxLeave);
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void startSettingsTimer(PictureBox mode)
         {
+            Timer mouseOver = new Timer();
+            mouseOver.Tick += (sender, e) => settingsSelected(sender, mode);
+            mouseOver.Interval = 1000; // in miliseconds
+            mouseOver.Start();
+        }
 
-            if (e.CloseReason != CloseReason.WindowsShutDown)
+        private void CustomForm_Click(object sender, EventArgs e)
+        {
+            // launch custom UI
+            CustomUI customWindow = new CustomUI(customParams, this);
+            customWindow.Show();
+        }
+
+        private void settingsSelected(object sender, PictureBox mode)
+        {
+            Timer mouseOver = (Timer)sender;
+            mouseOver.Stop();
+            mouseOver.Dispose();
+            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
+            if ((this.currentMousePictureBox == mode))
             {
-                if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-                //Grab the current width and height of the form for saving
-                customParams.layoutValues.startWidth = this.Width;
-                customParams.layoutValues.startHeight = this.Height;
-                // Save object to XML before you close
-                this.customParams.layoutValues.startLeft = this.Left;
-                this.customParams.layoutValues.startTop = this.Top;
-                new XmlMethods().saveCustomParams(customParams);
-                return;
+                CustomForm_Click(sender, null);
             }
+            this.currentMousePictureBox = null;
         }
 
-        public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        #endregion
+
+        #region Help Button
+
+        // Eventually launch a help menu with documentation
+        private void help_Click(object sender, EventArgs e)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
-            {
-                Log(e.Exception.ToString(), w);
-            }
-            if (this.customParams.layoutValues.restartOnCrash)
-            {
-                Application.Restart();
-            }
+
         }
 
-        public static void Log(string logMessage, TextWriter w)
+        private void help_MouseHover(object sender, EventArgs e)
         {
-            w.Write("\r\nLog Entry : ");
-            w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
-                DateTime.Now.ToLongDateString());
-            w.WriteLine("  :");
-            w.WriteLine("  :{0}", logMessage);
-            w.WriteLine("-------------------------------");
+
         }
+
+        #endregion
+
+        #endregion
+
+        #region GUI Functions
 
         // repaints the mainform each time settings are changed from the customizability form or 
         //  based on config file when application is launched
@@ -253,7 +281,7 @@ namespace Smart_Clicker
             //shown is the number of rows we need for our mode buttons
             int shown = allButtons - size;
             // we add 1 to shown to account for config button
-            shown = shown + 1; 
+            shown = shown + 1;
 
             // Rebuild the tableLayoutPanel 
             this.Controls.Remove(tableLayoutPanel1);
@@ -288,7 +316,7 @@ namespace Smart_Clicker
                     i++;
                     if (button.Name.Equals("help"))
                     {
-                        
+
                         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
                     }
                     else
@@ -300,60 +328,65 @@ namespace Smart_Clicker
 
             this.tableLayoutPanel1.Controls.Add(this.CustomForm, 0, i);
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
-            
-            
-        }
 
-        // Eventually launch a help menu with documentation
-        private void help_Click(object sender, EventArgs e)
-        {
 
         }
 
-        // Launch settings page
-        private void CustomForm_MouseHover(object sender, EventArgs e)
+        #endregion
+
+        #region Exit Functions
+
+        private void OnExit(object sender, EventArgs e)
         {
-            PictureBox current = (PictureBox)sender;
-            startSettingsTimer(current);
-            setPictureBoxHighlighted(current);
-            this.currentMousePictureBox = current;
-            current.MouseLeave += new EventHandler(onPictureBoxLeave);
+            this.Close();
         }
 
-        private void help_MouseHover(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-        }
-
-        private void startSettingsTimer(PictureBox mode)
-        {
-            Timer mouseOver = new Timer();
-            mouseOver.Tick += (sender, e) => settingsSelected(sender, mode);
-            mouseOver.Interval = 1000; // in miliseconds
-            mouseOver.Start();
-        }
-
-
-        private void settingsSelected(object sender, PictureBox mode)
-        {
-            Timer mouseOver = (Timer)sender;
-            mouseOver.Stop();
-            mouseOver.Dispose();
-            mode.MouseLeave -= new EventHandler(onPictureBoxLeave);
-            if ((this.currentMousePictureBox == mode))
+            // If Windows shut down, skip dialog
+            if (e.CloseReason != CloseReason.WindowsShutDown)
             {
-                CustomForm_Click(sender, null);
+                if (MessageBox.Show("Are you sure you want to close?", "Smart Clicker", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
-            this.currentMousePictureBox = null;
+            //Grab the current width and height of the form for saving
+            customParams.layoutValues.startWidth = this.Width;
+            customParams.layoutValues.startHeight = this.Height;
+
+            // Save object to XML before you close
+            this.customParams.layoutValues.startLeft = this.Left;
+            this.customParams.layoutValues.startTop = this.Top;
+            new XmlMethods().saveCustomParams(customParams);
+
+            return;
         }
 
-
-        private void CustomForm_Click(object sender, EventArgs e)
+        //Catches any uncaught exceptions in the application and restarts if configured
+        public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            // launch custom UI
-            CustomUI customWindow = new CustomUI(customParams, this);
-            customWindow.Show();
+            using (StreamWriter w = File.AppendText("ExceptionLog.txt"))
+            {
+                Log(e.Exception.ToString(), w);
+            }
+            if (this.customParams.layoutValues.restartOnCrash)
+            {
+                Application.Restart();
+            }
         }
 
+        public static void Log(string logMessage, TextWriter w)
+        {
+            w.Write("\r\nLog Entry : ");
+            w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                DateTime.Now.ToLongDateString());
+            w.WriteLine("  :");
+            w.WriteLine("  :{0}", logMessage);
+            w.WriteLine("-------------------------------");
+        }
+
+        #endregion
     }
 }

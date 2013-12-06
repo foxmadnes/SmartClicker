@@ -227,8 +227,6 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Smart Clicker";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
