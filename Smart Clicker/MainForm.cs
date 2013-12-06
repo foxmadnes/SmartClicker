@@ -222,12 +222,6 @@ namespace Smart_Clicker
             }
         }
 
-        // This function is never getting called by the APIs.
-        // TODO: Investigate
-        private void MainForm_MouseLeave(object sender, EventArgs e)
-        {
-        }
-
         public void CatchFatalException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             using (StreamWriter w = File.AppendText("log.txt"))
