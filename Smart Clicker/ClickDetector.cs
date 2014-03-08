@@ -55,13 +55,20 @@ namespace Smart_Clicker
         // This is called every timer1.Interval
         private void timer1_Tick(object sender, EventArgs e)
         {
+
+            if (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick)
+            {
+                MouseTracker.Clear();
+                return;
+            }
             // Take snapshot of current cursor
             cursorInTime cursor = CursorCapture.CaptureCursor();
 
-            if (cursor == null || (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick))
+            if (cursor == null)
             {
                 return;
             }
+
             MouseTracker.Add(cursor);
 
             if (MouseTracker.Count >= 10)
