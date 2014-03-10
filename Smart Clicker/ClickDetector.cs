@@ -58,7 +58,7 @@ namespace Smart_Clicker
 
             if (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick)
             {
-                MouseTracker.Clear();
+                clearCursors();
                 return;
             }
             // Take snapshot of current cursor
@@ -107,7 +107,7 @@ namespace Smart_Clicker
                 else 
                 {
                     this.lastClick = MouseTracker[currentCursorIndex];
-                    MouseTracker.Clear();
+                    clearCursors();
                     return;
                 }
             }
@@ -120,7 +120,7 @@ namespace Smart_Clicker
                     {
                         click(MouseTracker[currentCursorIndex].p, true);
                         lastClick = MouseTracker[currentCursorIndex];
-                        MouseTracker.Clear();
+                        clearCursors();
                         return;
                     }
                     else
@@ -137,7 +137,7 @@ namespace Smart_Clicker
             }
             click(MouseTracker[currentCursorIndex].p, false);
             lastClick = MouseTracker[currentCursorIndex];
-            MouseTracker.Clear();
+            clearCursors();
         }
 
         private void click(Point p, Boolean setClickAndDrag)
@@ -286,6 +286,15 @@ namespace Smart_Clicker
                     // No element given, give up
                 }
             }
+        }
+
+        private void clearCursors()
+        {
+            foreach (cursorInTime cursor in this.MouseTracker)
+            {
+                cursor.cursor.Dispose();
+            }
+            this.MouseTracker.Clear();
         }
 
         #endregion
