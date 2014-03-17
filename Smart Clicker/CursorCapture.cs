@@ -72,7 +72,7 @@ namespace Smart_Clicker
 
                         int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);
                         int y = ci.ptScreenPos.y - ((int)icInfo.yHotspot);
-                        
+
                         using (Bitmap maskBitmap = Bitmap.FromHbitmap(icInfo.hbmMask))
                         {
                             // Is this a monochrome cursor?
@@ -99,7 +99,13 @@ namespace Smart_Clicker
                     }
                 }
             }
+            // GDI+ Had a bad day getting the cursor, API says ignore and try again
             catch (ExternalException e)
+            {
+                System.Diagnostics.Debug.Print(e.ToString());
+            }
+            //Invalid cursor information! The cursor is likely blank.
+            catch (ArgumentException e)
             {
                 System.Diagnostics.Debug.Print(e.ToString());
             }

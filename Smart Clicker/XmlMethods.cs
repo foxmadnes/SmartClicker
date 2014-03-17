@@ -16,7 +16,9 @@ namespace Smart_Clicker
             {
                 XmlSerializer reader = new XmlSerializer(typeof(CustomizationParameters));
                 System.IO.StreamReader file = new System.IO.StreamReader(@"SmartClickerConfig.xml");
-                return (CustomizationParameters)reader.Deserialize(file);
+                CustomizationParameters currentParameters =  (CustomizationParameters)reader.Deserialize(file);
+                file.Close();
+                return currentParameters;
             }
 
             else
