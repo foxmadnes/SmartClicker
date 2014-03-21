@@ -64,10 +64,10 @@ namespace Smart_Clicker
                         hicon = Win32Stuff.CopyIcon(ci.hCursor);
                         Win32Stuff.GetIconInfo(hicon, out icInfo);
 
-                        // If fetch failed, retry as specified by Windows API
-                        while (icInfo.hbmMask == IntPtr.Zero)
+                        // If fetch failed, something wrong with current cursor, give up
+                        if (icInfo.hbmMask == IntPtr.Zero)
                         {
-                            Win32Stuff.GetIconInfo(hicon, out icInfo);
+                            return null;
                         }
 
                         int x = ci.ptScreenPos.x - ((int)icInfo.xHotspot);

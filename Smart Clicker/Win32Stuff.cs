@@ -83,6 +83,9 @@ namespace Smart_Clicker
         [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
         public static extern IntPtr GetDesktopWindow();
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
         [DllImport("user32.dll", EntryPoint = "GetDC")]
         public static extern IntPtr GetDC(IntPtr ptr);
 

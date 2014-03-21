@@ -20,6 +20,7 @@ namespace Smart_Clicker
         private cursorInTime lastClick;
         private MainForm form;
         private Stopwatch sw = new Stopwatch();
+        private int lastSentToBack;
 
         private Timer timer1;
 
@@ -34,6 +35,7 @@ namespace Smart_Clicker
             this.lastClick = new cursorInTime(-50, -50, null);
             InitTimer();
             this.automator = new CUIAutomation();
+            this.lastSentToBack = 0;
         }
 
         #region Timer Functions
@@ -60,8 +62,23 @@ namespace Smart_Clicker
 
             if (cursor == null || (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick))
             {
+                cursor.cursor.Dispose();
                 return;
             }
+
+            // Magic Number for hiding (fix this)
+            if (this.lastSentToBack >= 50) {
+                if (Win32Stuff.GetForegroundWindow() == this.form.Handle)
+                {
+                    if (!this.form.Bounds.Contains(cursor.p) && !this.form.fetcher.Bounds.Contains(cursor.p))
+                    {
+                        Debug.Print("Sending to back.");
+                        this.lastSentToBack = 0;
+                        this.form.SendToBack();
+                    }
+                }
+            }
+            this.lastSentToBack++;
 
             MouseTracker.Add(cursor);
 

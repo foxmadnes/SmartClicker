@@ -12,6 +12,7 @@ namespace Smart_Clicker
     public partial class Fetcher : Form
     {
         private MainForm mainForm;
+        private bool inBox;
 
         public Fetcher(MainForm mainForm, CustomizationParameters parameters)
         {
@@ -26,6 +27,9 @@ namespace Smart_Clicker
             this.Size = new Size(parameters.clickValues.clickBoundingBox, parameters.clickValues.clickBoundingBox);
             this.Location = new Point(this.mainForm.Location.X, this.mainForm.Location.Y - this.Size.Height);
             this.TopMost = true;
+            this.inBox = false;
+
+            this.MouseMove += new MouseEventHandler(Fetcher_MouseMove);
         }
 
         private void move_On_Main_Form(object sender, EventArgs e)
@@ -34,6 +38,11 @@ namespace Smart_Clicker
         }
 
         private void Fetcher_MouseEnter(object sender, EventArgs e)
+        {
+            this.mainForm.Activate();
+        }
+
+        private void Fetcher_MouseMove(object sender, EventArgs e)
         {
             this.mainForm.Activate();
         }

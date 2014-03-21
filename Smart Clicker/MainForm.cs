@@ -94,8 +94,8 @@ namespace Smart_Clicker
             this.MinimizeBox = false;
             this.Text = String.Empty;
             this.StartPosition = FormStartPosition.Manual;
-            this.Left = this.customParams.layoutValues.startLeft;
-            this.Top = this.customParams.layoutValues.startTop;
+            this.Left = Math.Min(this.customParams.layoutValues.startLeft, Screen.PrimaryScreen.Bounds.Width - this.customParams.layoutValues.startWidth);
+            this.Top = Math.Max(this.customParams.layoutValues.startTop, this.customParams.clickValues.clickBoundingBox);
             this.Width = this.customParams.layoutValues.startWidth;
             this.Height = this.customParams.layoutValues.startHeight;
 
