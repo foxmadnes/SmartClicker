@@ -7,6 +7,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Smart_Clicker
 {
@@ -103,11 +104,29 @@ namespace Smart_Clicker
             catch (ExternalException e)
             {
                 System.Diagnostics.Debug.Print(e.ToString());
+                using (StreamWriter w = File.AppendText("Cursor-Bug-External-Exception-Log.txt"))
+                {
+                    w.Write("\r\nLog Entry : ");
+                    w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                        DateTime.Now.ToLongDateString());
+                    w.WriteLine("  :");
+                    w.WriteLine("  :{0}", e.ToString());
+                    w.WriteLine("-------------------------------");
+                }
             }
             //Invalid cursor information! The cursor is likely blank.
             catch (ArgumentException e)
             {
                 System.Diagnostics.Debug.Print(e.ToString());
+                using (StreamWriter w = File.AppendText("Cursor-Bug-Argument-Exception-Log.txt"))
+                {
+                    w.Write("\r\nLog Entry : ");
+                    w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                        DateTime.Now.ToLongDateString());
+                    w.WriteLine("  :");
+                    w.WriteLine("  :{0}", e.ToString());
+                    w.WriteLine("-------------------------------");
+                }
             }
             return null;
         }

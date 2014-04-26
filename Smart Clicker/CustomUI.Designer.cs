@@ -534,6 +534,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cancelCustom);
             this.Controls.Add(this.confirmCustom);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CustomUI";
             this.Text = "CustomUI";

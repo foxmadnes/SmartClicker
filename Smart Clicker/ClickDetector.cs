@@ -130,6 +130,7 @@ namespace Smart_Clicker
                     if (capture.IsClickAndDrag(MouseTracker[currentCursorIndex].cursor))
                     {
                         click(MouseTracker[currentCursorIndex].p, true);
+                        Debug.Print("Click and drag cursor click!");
                         lastClick = MouseTracker[currentCursorIndex];
                         clearCursors();
                         return;
@@ -181,7 +182,9 @@ namespace Smart_Clicker
             
             // Get activeMode and perform the current actions for this time step
             ProgramMode activeMode = this.status.getActiveMode();
+            Debug.Print("Performing Click Action: " + activeMode.mode[this.status.currentIndex].ToString());
             clickActions(activeMode.mode[this.status.currentIndex], p);
+            Debug.Print("f");
 
             // Increase the timestep and clear if done with current ProgramMode
             this.status.currentIndex++;
@@ -282,8 +285,8 @@ namespace Smart_Clicker
                     IUIAutomationElement focus = this.automator.ElementFromPoint(reference);
 
                     // Useful for debugging API support
-                    //System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
-                    //System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
+                    System.Diagnostics.Debug.Print(focus.CurrentControlType.ToString());
+                    System.Diagnostics.Debug.Print("localized:" + focus.CurrentLocalizedControlType);
 
                     if ((focus.CurrentControlType == 50037 && this.parameters.contextValues.supportTitleBars)
                         || (focus.CurrentControlType == 50027 && this.parameters.contextValues.supportScrollBars)
