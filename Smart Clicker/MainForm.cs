@@ -150,6 +150,12 @@ namespace Smart_Clicker
                 }
                 else
                 {
+                    if (ModeMapping[mode] == ModeMapping[sleepClick])
+                    {
+                        this.clickStatus.setBackgroundMode(ModeMapping[sleepClick]);
+                        setClickDefault();
+                        return;
+                    }
                     this.clickStatus.setCurrentMode(ModeMapping[mode]);
                     setPictureBoxSelect(mode);
                     startTimer(mode);
