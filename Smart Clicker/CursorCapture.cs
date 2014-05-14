@@ -52,7 +52,6 @@ namespace Smart_Clicker
         public static cursorInTime CaptureCursor()
         {
             Bitmap bmp;
-            IntPtr hicon;
             Win32Stuff.CURSORINFO ci = new Win32Stuff.CURSORINFO();
             Win32Stuff.ICONINFO icInfo;
             ci.cbSize = Marshal.SizeOf(ci);
@@ -62,12 +61,14 @@ namespace Smart_Clicker
                 {
                     if (ci.flags == Win32Stuff.CURSOR_SHOWING)
                     {
-                        hicon = Win32Stuff.CopyIcon(ci.hCursor);
-                        Win32Stuff.GetIconInfo(hicon, out icInfo);
+                        Win32Stuff.GetIconInfo(ci.hCursor, out icInfo);
 
                         // If fetch failed, something wrong with current cursor, give up
                         if (icInfo.hbmMask == IntPtr.Zero)
                         {
+                            Win32Stuff.DeleteObject(icInfo.hbmColor);
+                            Win32Stuff.DeleteObject(icInfo.hbmMask);
+                            Win32Stuff.DeleteObject(ci.hCursor);
                             return null;
                         }
 
@@ -79,23 +80,20 @@ namespace Smart_Clicker
                             // Is this a monochrome cursor?
                             if (maskBitmap.Height == maskBitmap.Width * 2)
                             {
-                                Rectangle sourceRectangle = new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2);
-
-                                Bitmap secondBitmap = maskBitmap.Clone(sourceRectangle, PixelFormat.DontCare);
-
-                                bmp = secondBitmap;
+                                bmp = maskBitmap.Clone(new Rectangle(0, 0, maskBitmap.Width, maskBitmap.Height / 2), PixelFormat.DontCare);
                             }
                             else
                             {
-                                Icon ic = Icon.FromHandle(hicon);
+                                Icon ic = Icon.FromHandle(ci.hCursor);
                                 bmp = ic.ToBitmap();
                                 Win32Stuff.DestroyIcon(ic.Handle);
+                                ic.Dispose();
                             }
+                            maskBitmap.Dispose();
                         }
-                        Win32Stuff.DeleteObject(hicon);
                         Win32Stuff.DeleteObject(icInfo.hbmColor);
                         Win32Stuff.DeleteObject(icInfo.hbmMask);
-                        Win32Stuff.DeleteObject(ci.hCursor);
+                        Win32Stuff.DestroyIcon(ci.hCursor);
                         return new cursorInTime(x, y, bmp);
                     }
                 }
