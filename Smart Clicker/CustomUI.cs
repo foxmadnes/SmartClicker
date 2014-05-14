@@ -37,6 +37,7 @@ namespace Smart_Clicker
             // Read several parameters from the customization classes
             this.startupBoot.Checked = this.changedParams.layoutValues.startOnStartup;
             this.crashReboot.Checked = this.changedParams.layoutValues.restartOnCrash;
+            this.autoHide.Checked = this.changedParams.layoutValues.autoHide;
             contextCompareCursors.Checked = this.changedParams.contextValues.compareCursors;
             contextScrollBars.Checked = this.changedParams.contextValues.supportScrollBars;
             contextTabs.Checked = this.changedParams.contextValues.supportTabs;
@@ -231,6 +232,12 @@ namespace Smart_Clicker
         {
             CheckBox box = (CheckBox)sender;
             this.changedParams.layoutValues.restartOnCrash = box.Checked;
+        }
+
+        private void autoHide_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox box = (CheckBox)sender;
+            this.changedParams.layoutValues.autoHide = box.Checked;
         }
 
     }

@@ -60,26 +60,35 @@ namespace Smart_Clicker
             // Take snapshot of current cursor
             cursorInTime cursor = CursorCapture.CaptureCursor();
 
-            if (cursor == null || (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick))
+            if (cursor == null)
             {
                 cursor.cursor.Dispose();
                 return;
             }
 
-            // Magic Number for hiding (fix this)
-            if (this.lastSentToBack >= 50) {
-                if (Win32Stuff.GetForegroundWindow() == this.form.Handle)
+            if (this.parameters.layoutValues.autoHide)
+            {
+                // Magic Number for hiding (fix this)
+                if (this.lastSentToBack >= 50)
                 {
-                    if (!this.form.Bounds.Contains(cursor.p) && !this.form.fetcher.Bounds.Contains(cursor.p))
+                    if (Win32Stuff.GetForegroundWindow() == this.form.Handle)
                     {
-                        Debug.Print("Sending to back.");
-                        this.lastSentToBack = 0;
-                        this.form.SendToBack();
-                        this.form.Hide();
+                        if (!this.form.Bounds.Contains(cursor.p) && !this.form.fetcher.Bounds.Contains(cursor.p))
+                        {
+                            this.lastSentToBack = 0;
+                            this.form.SendToBack();
+                            this.form.Hide();
+                        }
                     }
                 }
             }
             this.lastSentToBack++;
+
+            if (this.status.getCurrentMode() == null && this.status.getBackgroundMode() == ProgramMode.sleepClick)
+            {
+                cursor.cursor.Dispose();
+                return;
+            }
 
             MouseTracker.Add(cursor);
 

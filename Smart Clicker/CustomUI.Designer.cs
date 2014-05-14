@@ -66,6 +66,8 @@
             this.contextScrollBars = new System.Windows.Forms.CheckBox();
             this.contextTitleBars = new System.Windows.Forms.CheckBox();
             this.contextCompareCursors = new System.Windows.Forms.CheckBox();
+            this.autoHide = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
@@ -110,6 +112,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.autoHide);
             this.tabPage1.Controls.Add(this.crashReboot);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label5);
@@ -147,7 +151,7 @@
             // crashReboot
             // 
             this.crashReboot.AutoSize = true;
-            this.crashReboot.Location = new System.Drawing.Point(224, 181);
+            this.crashReboot.Location = new System.Drawing.Point(189, 181);
             this.crashReboot.Name = "crashReboot";
             this.crashReboot.Size = new System.Drawing.Size(74, 21);
             this.crashReboot.TabIndex = 70;
@@ -188,7 +192,7 @@
             // startupBoot
             // 
             this.startupBoot.AutoSize = true;
-            this.startupBoot.Location = new System.Drawing.Point(224, 138);
+            this.startupBoot.Location = new System.Drawing.Point(189, 138);
             this.startupBoot.Name = "startupBoot";
             this.startupBoot.Size = new System.Drawing.Size(74, 21);
             this.startupBoot.TabIndex = 67;
@@ -501,6 +505,27 @@
             this.contextCompareCursors.UseVisualStyleBackColor = true;
             this.contextCompareCursors.CheckedChanged += new System.EventHandler(this.contextCompareCursors_CheckedChanged);
             // 
+            // autoHide
+            // 
+            this.autoHide.AutoSize = true;
+            this.autoHide.Location = new System.Drawing.Point(454, 138);
+            this.autoHide.Name = "autoHide";
+            this.autoHide.Size = new System.Drawing.Size(74, 21);
+            this.autoHide.TabIndex = 71;
+            this.autoHide.Text = "Enable";
+            this.autoHide.UseVisualStyleBackColor = true;
+            this.autoHide.CheckedChanged += new System.EventHandler(this.autoHide_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(308, 139);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 20);
+            this.label1.TabIndex = 72;
+            this.label1.Text = "Auto Hide Form";
+            // 
             // CustomUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -568,5 +593,7 @@
         private System.Windows.Forms.CheckBox contextScrollBars;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button cursorSave;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox autoHide;
     }
 }

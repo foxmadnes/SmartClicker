@@ -34,6 +34,7 @@ namespace Smart_Clicker
             defaultParameters.layoutValues.hiddenIconNames = new List<string>();
             defaultParameters.layoutValues.restartOnCrash = true;
             defaultParameters.layoutValues.startOnStartup = false;
+            defaultParameters.layoutValues.autoHide = false;
             defaultParameters.layoutValues.startHeight = 462;
             defaultParameters.layoutValues.startWidth = 100;
             defaultParameters.layoutValues.startLeft = 0;
@@ -95,6 +96,7 @@ namespace Smart_Clicker
         public int startTop;
         public bool restartOnCrash;
         public bool startOnStartup;
+        public bool autoHide;
 
         public LayoutCustomization copy()
         {
@@ -107,6 +109,7 @@ namespace Smart_Clicker
             copy.totalModes = this.totalModes;
             copy.restartOnCrash = this.restartOnCrash;
             copy.startOnStartup = this.startOnStartup;
+            copy.autoHide = this.autoHide;
             return copy;
         }
     }

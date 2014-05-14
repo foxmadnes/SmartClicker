@@ -53,16 +53,7 @@ namespace Smart_Clicker
             this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag};
             foreach (PictureBox mode in buttons)
             {
-                // Help gets its own Event Handler, as it is hideable but not a program mode
-                if (!(mode.Name == "help"))
-                {
-                    // Add mouseover handler for selection
-                    mode.MouseHover += new EventHandler(pictureBox_MouseHover);
-                }
-                else
-                {
-                    //sleepClick.MouseHover += new EventHandler(null);
-                }
+                mode.MouseHover += new EventHandler(pictureBox_MouseHover);
             }
 
             // Need to add a mouse hover handler to the config button too
@@ -335,7 +326,8 @@ namespace Smart_Clicker
             this.tableLayoutPanel1.Controls.Add(this.CustomForm, 0, i);
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.052186F));
 
-
+            this.Width = this.customParams.layoutValues.startWidth;
+            this.Height = this.customParams.layoutValues.startHeight;
         }
 
         #endregion
