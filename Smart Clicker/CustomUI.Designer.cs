@@ -33,8 +33,6 @@
             this.cancelCustom = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.displayHelp = new System.Windows.Forms.CheckBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.crashReboot = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,7 +68,6 @@
             this.contextCompareCursors = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
@@ -113,8 +110,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.displayHelp);
-            this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.crashReboot);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label5);
@@ -148,26 +143,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // displayHelp
-            // 
-            this.displayHelp.AutoSize = true;
-            this.displayHelp.Location = new System.Drawing.Point(296, 521);
-            this.displayHelp.Name = "displayHelp";
-            this.displayHelp.Size = new System.Drawing.Size(59, 21);
-            this.displayHelp.TabIndex = 74;
-            this.displayHelp.Text = "Help";
-            this.displayHelp.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(296, 409);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(98, 97);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 71;
-            this.pictureBox3.TabStop = false;
             // 
             // crashReboot
             // 
@@ -541,7 +516,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
@@ -594,7 +568,5 @@
         private System.Windows.Forms.CheckBox contextScrollBars;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button cursorSave;
-        private System.Windows.Forms.CheckBox displayHelp;
-        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

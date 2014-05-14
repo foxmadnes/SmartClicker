@@ -75,6 +75,7 @@ namespace Smart_Clicker
                         Debug.Print("Sending to back.");
                         this.lastSentToBack = 0;
                         this.form.SendToBack();
+                        this.form.Hide();
                     }
                 }
             }

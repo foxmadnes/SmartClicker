@@ -32,7 +32,7 @@ namespace Smart_Clicker
             this.mainform = mainForm;
             this.timerText.Text = (((double) changedParams.clickValues.timeout)/ 100).ToString();
             this.boundingBoxText.Text = changedParams.clickValues.clickBoundingBox.ToString();
-            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
+            CheckBox[] modes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode };
             CheckBox[] contextSettings = { contextCompareCursors, contextScrollBars, contextTabs, contextTitleBars };
             // Read several parameters from the customization classes
             this.startupBoot.Checked = this.changedParams.layoutValues.startOnStartup;
@@ -51,7 +51,6 @@ namespace Smart_Clicker
                 {displayContextMode, "contextClick"},
                 {displayClickDragMode, "clickAndDrag"},
                 {displaySleepMode, "sleepClick"},
-                {displayHelp, "help"},
             };
             StringToModeMapping = new Dictionary<string,CheckBox>();
             // Initialize checkboxes on first tab, load settings 
@@ -78,7 +77,7 @@ namespace Smart_Clicker
             {
                 // on confirm, add unchecked boxes to the hidden icons list in customization object
                 this.changedParams.layoutValues.hiddenIconNames.Clear();
-                CheckBox[] checkmodes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode, displayHelp };
+                CheckBox[] checkmodes = { displayClickDragMode, displayContextMode, displayDoubleMode, displayLeftMode, displayRightMode, displaySleepMode};
                 foreach (CheckBox checkbox in checkmodes)
                 {
                     if (!(checkbox.Checked))

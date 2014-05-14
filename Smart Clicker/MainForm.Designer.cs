@@ -38,7 +38,6 @@
             this.clickAndDrag = new System.Windows.Forms.PictureBox();
             this.rightClick = new System.Windows.Forms.PictureBox();
             this.leftClick = new System.Windows.Forms.PictureBox();
-            this.help = new System.Windows.Forms.PictureBox();
             this.CustomForm = new System.Windows.Forms.PictureBox();
             this.contextClick = new System.Windows.Forms.PictureBox();
             this.sleepClick = new System.Windows.Forms.PictureBox();
@@ -47,7 +46,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.help)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).BeginInit();
@@ -118,23 +116,6 @@
             this.leftClick.TabIndex = 22;
             this.leftClick.TabStop = false;
             // 
-            // help
-            // 
-            this.help.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.help.BackColor = System.Drawing.SystemColors.Window;
-            this.help.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.help.Image = ((System.Drawing.Image)(resources.GetObject("help.Image")));
-            this.help.Location = new System.Drawing.Point(1, 53);
-            this.help.Margin = new System.Windows.Forms.Padding(1);
-            this.help.Name = "help";
-            this.help.Size = new System.Drawing.Size(30, 6);
-            this.help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.help.TabIndex = 27;
-            this.help.TabStop = false;
-            this.help.Click += new System.EventHandler(this.help_Click);
-            // 
             // CustomForm
             // 
             this.CustomForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -193,7 +174,6 @@
             this.tableLayoutPanel1.Controls.Add(this.sleepClick, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.contextClick, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.CustomForm, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.help, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.leftClick, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.rightClick, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.clickAndDrag, 0, 5);
@@ -234,7 +214,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.clickAndDrag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftClick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.help)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CustomForm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contextClick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sleepClick)).EndInit();
@@ -250,7 +229,6 @@
         private System.Windows.Forms.PictureBox clickAndDrag;
         private System.Windows.Forms.PictureBox rightClick;
         private System.Windows.Forms.PictureBox leftClick;
-        private System.Windows.Forms.PictureBox help;
         private System.Windows.Forms.PictureBox CustomForm;
         private System.Windows.Forms.PictureBox contextClick;
         private System.Windows.Forms.PictureBox sleepClick;

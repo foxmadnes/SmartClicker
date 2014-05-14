@@ -50,7 +50,7 @@ namespace Smart_Clicker
             trayIcon.Visible = true;
 
             // This holds every hide-able picturebox for different program modes
-            this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag, help};
+            this.buttons = new PictureBox[] {sleepClick, contextClick, leftClick, rightClick , doubleClick, clickAndDrag};
             foreach (PictureBox mode in buttons)
             {
                 // Help gets its own Event Handler, as it is hideable but not a program mode
@@ -61,7 +61,7 @@ namespace Smart_Clicker
                 }
                 else
                 {
-                    help.MouseHover += new EventHandler(help_MouseHover);
+                    //sleepClick.MouseHover += new EventHandler(null);
                 }
             }
 
