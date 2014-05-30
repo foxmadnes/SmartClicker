@@ -4,7 +4,7 @@ Welcome to SmartClicker!
 
 Smart Clicker is a virtual mouse software for people with alternative computer inputs, such as Head Tracking Mouse hardware.
 
-Unfortunately, it is Windows specific.
+Unfortunately, it is Windows 7 specific.
 
 Similar software out there includes:
 
@@ -14,5 +14,4 @@ Dwell Clicker 2: http://www.sensorysoftware.com/dwellclicker.html
 
 We hope you like it!
 
-Once the software reaches a more polished state, this readme will likely expand to explain features. Until then, we apologize.
-
+The software is hosted under an MIT license, as specified by the license.txt .
